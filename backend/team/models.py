@@ -5,5 +5,5 @@ from github_user.models import UserProxy, GitHubUser
 
 
 class Team(models.Model):
-    user_proxy = models.OneToOneField(UserProxy, related_name='profile', on_delete=models.PROTECT)
+    #user_proxyy = models.OneToOneField(UserProxy, related_name='profile', on_delete=models.PROTECT)
     git_users = models.ManyToManyField(GitHubUser)

@@ -1,13 +1,13 @@
 from django.db import models
 
 # Create your models here.
-from gitlab_user.models import GitLabUser
+from github_user.models import GitHubUser
 from project.models import Project
 
 #fali nam branch, issue, repository
 
 class Commit(models.Model):
     date = models.DateTimeField('date')
-    project = models.ForeignKey(Project)
-    user=models.ForeignKey(GitLabUser, verbose_name='user')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    user=models.ForeignKey(GitHubUser, verbose_name='user', on_delete=models.CASCADE)
     #many to many user details - izmeniti da pripada jesnom useru
