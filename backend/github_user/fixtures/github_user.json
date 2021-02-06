@@ -1,0 +1,18 @@
+
+[
+  {
+    "fields": {
+      "user_id": 2,
+      "photo": "photo of user",
+      "github_profile_url": "http://githubofuser.com",
+      "organization": "Some organisation",
+      "member_since": "2020-12-01 00:00",
+      "skype": "http://skypeofuser.com",
+      "twitter": "http://twitterofuser.com",
+      "linkedin": "http://linkedinofuser.com"
+
+    },
+    "model": "github_user.githubuser",
+    "pk": 1
+  }
+]

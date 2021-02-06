@@ -14,8 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+from backend.jwt import RichTokenObtainPairView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/projects/', include('project.urls', namespace='project')),
+    path('api/token/', RichTokenObtainPairView.as_view(), name='token_obtain_pair')
 ]
