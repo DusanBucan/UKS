@@ -17,12 +17,8 @@ class UserProxy(User):
 
 class GitHubUser(models.Model):
     user = models.OneToOneField(UserProxy, related_name='profile', on_delete=models.PROTECT)
-    username=models.CharField('username', max_length=500)
-    name = models.CharField('name', max_length=500)
-    last_name=models.CharField('last name', max_length=500)
-    email = models.EmailField('email', max_length=500)
     photo = models.CharField('photo', max_length=500)
-    gitlab_profile_url = models.CharField('gitlab profile url', max_length=500)
+    github_profile_url = models.CharField('github profile url', max_length=500)
     organization = models.TextField('organisation', max_length=500)
     member_since = models.DateTimeField('member since', default=timezone.now)
     skype = models.TextField('skype', max_length=500)
