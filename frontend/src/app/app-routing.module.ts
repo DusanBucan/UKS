@@ -7,6 +7,7 @@ import { LoginComponent } from "./login/login.component";
 import { RegistrationComponent } from "./registration/registration.component";
 import { NavBarComponent } from "./nav-bar/nav-bar.component";
 import { LabelComponent } from "./label/label.component";
+import { CommitComponent } from "./commit/commit.component";
 
 const routes: Routes = [
   {
@@ -32,6 +33,7 @@ const routes: Routes = [
         children: [
           { path: "issues", component: IssuesComponent },
           { path: "labels", component: LabelComponent },
+          { path: "pull-requests", component: CommitComponent },
         ],
       },
     ],
