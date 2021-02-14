@@ -1,14 +1,13 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { DashboardComponent } from "./dashboard/dashboard.component";
+import { GithubUserComponent } from "./github-user/github-user.component";
+import { HeaderComponent } from "./header/header.component";
+import { IssuesComponent } from "./issues/issues.component";
 import { LoginComponent } from "./login/login.component";
 import { RegistrationComponent } from "./registration/registration.component";
+import { NavBarComponent } from "./nav-bar/nav-bar.component";
 
 const routes: Routes = [
-  {
-    path: "dashboard",
-    component: DashboardComponent,
-  },
   {
     path: "login",
     component: LoginComponent,
@@ -17,7 +16,23 @@ const routes: Routes = [
     path: "registration",
     component: RegistrationComponent,
   },
-  { path: "**", redirectTo: "dashboard" },
+  {
+    path: "dashboard",
+    component: HeaderComponent,
+
+    children: [
+      {
+        path: "profile",
+        component: GithubUserComponent,
+      },
+      {
+        path: "home",
+        component: NavBarComponent,
+        children: [{ path: "issues", component: IssuesComponent }],
+      },
+    ],
+  },
+  { path: "**", redirectTo: "dashboard/home/issues" },
 ];
 
 @NgModule({
