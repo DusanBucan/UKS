@@ -8,6 +8,7 @@ import { RegistrationComponent } from "./registration/registration.component";
 import { NavBarComponent } from "./nav-bar/nav-bar.component";
 import { LabelComponent } from "./label/label.component";
 import { CommitComponent } from "./commit/commit.component";
+import { MilestoneComponent } from "./milestone/milestone.component";
 
 const routes: Routes = [
   {
@@ -34,6 +35,7 @@ const routes: Routes = [
           { path: "issues", component: IssuesComponent },
           { path: "labels", component: LabelComponent },
           { path: "pull-requests", component: CommitComponent },
+          { path: "milestones", component: MilestoneComponent },
         ],
       },
     ],
