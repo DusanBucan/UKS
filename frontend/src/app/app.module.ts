@@ -12,6 +12,7 @@ import { CommitComponent } from "./commit/commit.component";
 import { GithubUserComponent } from "./github-user/github-user.component";
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { LoginComponent } from './login/login.component';
     CommitComponent,
     GithubUserComponent,
     LoginComponent,
+    RegistrationComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
