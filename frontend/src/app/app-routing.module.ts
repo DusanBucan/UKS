@@ -6,6 +6,7 @@ import { IssuesComponent } from "./issues/issues.component";
 import { LoginComponent } from "./login/login.component";
 import { RegistrationComponent } from "./registration/registration.component";
 import { NavBarComponent } from "./nav-bar/nav-bar.component";
+import { LabelComponent } from "./label/label.component";
 
 const routes: Routes = [
   {
@@ -28,7 +29,10 @@ const routes: Routes = [
       {
         path: "home",
         component: NavBarComponent,
-        children: [{ path: "issues", component: IssuesComponent }],
+        children: [
+          { path: "issues", component: IssuesComponent },
+          { path: "labels", component: LabelComponent },
+        ],
       },
     ],
   },

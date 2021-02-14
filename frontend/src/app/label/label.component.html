@@ -1,0 +1,119 @@
+<div class="main-container">
+  <div class="invisible-container">
+    <div class="invisible-container-left"></div>
+    <div class="invisible-container-right">
+      <button class="button green" (click)="showNewLabelForm()">
+        New label
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="newLabelForm === true" class="new-label-container">
+    <div class="label-col">
+      <div class="label-row">
+        <div class="label-container" style="margin-left: 20px; width: 50%">
+          <div class="label" style="background-color: rgb(229, 255, 0)">
+            Label preview
+          </div>
+        </div>
+      </div>
+
+      <div class="label-row">
+        <div class="invisible-col">
+          Label name
+          <input type="text" placeholder="Label name" />
+        </div>
+        <div class="invisible-col">
+          Description
+          <input type="text" placeholder="Description (Optional)" />
+        </div>
+        <div class="invisible-col">
+          Color
+          <input type="text" placeholder="Label color" />
+        </div>
+        <div
+          class="invisible-col"
+          style="
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            justify-content: flex-end;
+          "
+        >
+          <button
+            class="button gray"
+            style="margin-right: 20px"
+            (click)="closeNewLabelForm()"
+          >
+            Cancel
+          </button>
+          <button class="button green" style="margin-right: 20px">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="issues-container">
+    <div class="issues-header">
+      <div class="issues-left-header">
+        <div class="issues-left-header-info">
+          <a href="#" class="issues-header-item active">12 labels</a>
+        </div>
+      </div>
+      <div class="issues-right-header"></div>
+    </div>
+
+    <div class="label-col">
+      <div class="label-row">
+        <div class="label-container" style="margin-left: 20px; width: 50%">
+          <div class="label" style="background-color: rgb(229, 255, 0)">
+            enhancement
+          </div>
+        </div>
+        <div class="label-row-right">
+          <a href="#" class="link">Edit</a>
+          <a href="#" class="link">Delete</a>
+        </div>
+      </div>
+
+      <div class="label-row">
+        <div class="invisible-col">
+          Label name
+          <input type="text" placeholder="Label name" />
+        </div>
+        <div class="invisible-col">
+          Description
+          <input type="text" placeholder="Description (Optional)" />
+        </div>
+        <div class="invisible-col">
+          Color
+          <input type="text" placeholder="Label color" />
+        </div>
+        <div
+          class="invisible-col"
+          style="
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            justify-content: flex-end;
+          "
+        >
+          <button class="button gray" style="margin-right: 20px">Cancel</button>
+          <button class="button green" style="margin-right: 20px">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="label-col">
+      <div class="label-row">
+        <div class="label-container" style="margin-left: 20px; width: 50%">
+          <div class="label" style="background-color: aqua">backend</div>
+        </div>
+        <div class="label-row-right">
+          <a href="#" class="link">Edit</a>
+          <a href="#" class="link">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
