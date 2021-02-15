@@ -25,6 +25,7 @@ class GitHubUser(models.Model):
     twitter = models.TextField('twitter', max_length=500)
     linkedin = models.TextField('linkedin', max_length=500)
 
+
     def __str__(self):
         return self.username
 
