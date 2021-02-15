@@ -1,16 +1,20 @@
 from rest_framework import permissions, status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 from project.models import Project
 from label.serializers import *
+
+
 
 def get_queryset_projects(request):
     return Label.objects.all()
 
 class LabelList(APIView):
-    #permission_classes=[permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
+
 
     def get(self, request, format=None):
         labels = get_queryset_projects(request)
@@ -28,9 +32,10 @@ class LabelList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE', 'GET', 'PUT'])
+@permission_classes([IsAuthenticated])
 def api_label_detail(request, pk):
     try:
-        label=Label.objects.get(id=pk)
+        label = Label.objects.get(id=pk)
         # if request.user.is_staff:
         #     project = Project.objects.get(id=pk, obrisan=False)
         # else:
@@ -56,3 +61,6 @@ def api_label_detail(request, pk):
                         content_type="application/json")
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, content_type="application/json")
+
+
+
