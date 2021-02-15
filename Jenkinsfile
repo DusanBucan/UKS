@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
-                pwsh(script: 'docker ps -a')
+                docker ps -a
             }
         }
     }
