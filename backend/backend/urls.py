@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/projects/', include('project.urls', namespace='project')),
     path('api/labels/', include('label.urls', namespace='label')),
+    path('api/milestones/', include('milestone.urls', namespace='milestone')),
     path('api/token/', RichTokenObtainPairView.as_view(), name='token_obtain_pair')
 ]
