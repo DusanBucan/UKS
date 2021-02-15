@@ -10,6 +10,7 @@ import { LabelComponent } from "./label/label.component";
 import { CommitComponent } from "./commit/commit.component";
 import { MilestoneComponent } from "./milestone/milestone.component";
 import { ProjectComponent } from "./project/project.component";
+import { NewMilestoneComponent } from "./milestone/new-milestone/new-milestone.component";
 
 const routes: Routes = [
   {
@@ -37,6 +38,7 @@ const routes: Routes = [
           { path: "labels", component: LabelComponent },
           { path: "pull-requests", component: CommitComponent },
           { path: "milestones", component: MilestoneComponent },
+          { path: "milestones-new", component: NewMilestoneComponent },
           { path: "projects", component: ProjectComponent },
         ],
       },

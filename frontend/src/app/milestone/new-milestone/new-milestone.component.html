@@ -1,0 +1,24 @@
+<div class="main-container">
+  <div class="invisible-container">
+    <div class="invisible-container-left" style="width: 50%">
+      <h3>New Milestone</h3>
+      <small>Create a new milestone to help organize your issues.</small>
+    </div>
+  </div>
+  <div class="new-milestone-container">
+    <div class="form-style-milestone">
+      <div class="form-label">Title</div>
+      <input type="text" class="form-input" />
+      <div class="form-label">Due date</div>
+      <input type="date" class="form-input" />
+      <div class="form-label">Description</div>
+      <textarea type="textarea" class="form-input"></textarea>
+    </div>
+  </div>
+  <div class="invisible-container">
+    <div class="invisible-container-left"></div>
+    <div class="invisible-container-right">
+      <button class="button green" (click)="create()">Create milestone</button>
+    </div>
+  </div>
+</div>

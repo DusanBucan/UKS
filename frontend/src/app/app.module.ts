@@ -15,6 +15,8 @@ import { RegistrationComponent } from "./registration/registration.component";
 import { IssuesComponent } from "./issues/issues.component";
 import { NavBarComponent } from "./nav-bar/nav-bar.component";
 import { HeaderComponent } from "./header/header.component";
+import { NewMilestoneComponent } from "./milestone/new-milestone/new-milestone.component";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -32,8 +34,9 @@ import { HeaderComponent } from "./header/header.component";
     IssuesComponent,
     NavBarComponent,
     HeaderComponent,
+    NewMilestoneComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })
