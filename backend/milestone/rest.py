@@ -1,27 +1,27 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import JsonResponse
 
 from milestone.serializers import *
 
 
-@api_view(['GET'])
-def api_milestone_by_project(request, pk):
-    milestones = Milestone.objects.filter(project_id=pk)
-    serializer = MilestoneSerializer(milestones, many=True)
-    return Response(serializer.data)
-
-
 @api_view(['POST'])
-def api_milestone_add(request):
-    print("cao")
+def api_milestone_new(request):
     serializer = CreateMilestoneSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response("Milestone successfully added.", status=status.HTTP_201_CREATED)
+        return Response('Milestone successfully added.', status=status.HTTP_201_CREATED)
+    print(serializer.errors)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, content_type="application/json")
 
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def api_milestone_by_project(request, pk):
+    milestones = Milestone.objects.filter(project_id=pk, deleted=False)
+    serializer = MilestoneSerializer(milestones, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['DELETE', 'GET', 'PUT'])

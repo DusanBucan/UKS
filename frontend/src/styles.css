@@ -681,3 +681,15 @@ textarea {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.details-link {
+  color: black;
+  font-size: 18px;
+  font-weight: 700;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
+}
