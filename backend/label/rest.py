@@ -13,10 +13,10 @@ def get_queryset_projects(request):
     return Label.objects.all()
 
 class LabelList(APIView):
-    permission_classes = [permissions.IsAuthenticated]
 
 
     def get(self, request, format=None):
+        #print(request.user.id)
         labels = get_queryset_projects(request)
         serializer=LabelSerializer(labels, many=True)
         return Response(serializer.data)
@@ -32,7 +32,6 @@ class LabelList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE', 'GET', 'PUT'])
-@permission_classes([IsAuthenticated])
 def api_label_detail(request, pk):
     try:
         label = Label.objects.get(id=pk)
@@ -54,7 +53,6 @@ def api_label_detail(request, pk):
 
     serializer = CreateLabelSerializer(label, data=request.data)
     if serializer.is_valid():
-
         label = serializer.save()
         label.save()
         return Response({'success': 'label successfully edited'}, status=status.HTTP_200_OK,
