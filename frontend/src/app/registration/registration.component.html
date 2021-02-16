@@ -4,12 +4,27 @@
   </div>
   <h2>Create your account</h2>
   <div class="form-style">
+    <div class="form-label">First name *</div>
+    <input type="text" class="form-input" [(ngModel)]="user.first_name" />
+    <div class="form-label">Last name*</div>
+    <input type="text" class="form-input" [(ngModel)]="user.last_name"/>
+    <div class="form-label">Email *</div>
+    <input type="text" class="form-input" [(ngModel)]="user.email"/>
     <div class="form-label">Username *</div>
-    <input type="text" class="form-input" />
-    <div class="form-label">Email address *</div>
-    <input type="text" class="form-input" />
+    <input type="text" class="form-input" [(ngModel)]="user.username"/>
     <div class="form-label">Password *</div>
-    <input type="password" class="form-input" />
+    <input type="password" class="form-input" [(ngModel)]="user.password"/>
+    <div class="form-label">Photo *</div>
+    <input type="text" class="form-input" [(ngModel)]="githubUser.photo"/>
+    <div class="form-label">Organization *</div>
+    <input type="text" class="form-input" [(ngModel)]="githubUser.organization"/>
+    <div class="form-label">Skype *</div>
+    <input type="text" class="form-input" [(ngModel)]="githubUser.skype"/>
+    <div class="form-label">Twitter *</div>
+    <input type="text" class="form-input" [(ngModel)]="githubUser.twitter"/>
+    <div class="form-label">Linkedin *</div>
+    <input type="text" class="form-input" [(ngModel)]="githubUser.linkedin"/>
+
   </div>
-  <button class="button blue">Register</button>
+  <button class="button blue" (click)="register()">Register</button>
 </div>

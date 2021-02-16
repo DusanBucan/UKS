@@ -24,8 +24,9 @@ export class LoginComponent implements OnInit {
       (response) => {
       if (response !== null) {
         localStorage.setItem('currentUser', JSON.stringify({
-          token: response.access
+          token: response['access']
         }));
+        this.router.navigate(['/dashboard/home/issues']);
         }
       }
     ,

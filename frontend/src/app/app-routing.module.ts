@@ -12,6 +12,7 @@ import { MilestoneComponent } from './milestone/milestone.component';
 import { ProjectComponent } from './project/project.component';
 import { NewMilestoneComponent } from './milestone/new-milestone/new-milestone.component';
 import { DetailsMilestoneComponent } from './milestone/details-milestone/details-milestone.component';
+import { UserAuthGuard } from './user-auth.guard';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: HeaderComponent,
+    canActivate: [UserAuthGuard],
 
     children: [
       {
@@ -47,7 +49,7 @@ const routes: Routes = [
       },
     ],
   },
-  { path: '**', redirectTo: 'dashboard/home/issues' },
+  { path: '**', redirectTo: 'login' },
 ];
 
 @NgModule({
