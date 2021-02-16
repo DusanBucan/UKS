@@ -15,6 +15,9 @@ import { RegistrationComponent } from "./registration/registration.component";
 import { IssuesComponent } from "./issues/issues.component";
 import { NavBarComponent } from "./nav-bar/nav-bar.component";
 import { HeaderComponent } from "./header/header.component";
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TokenInterceptorService } from 'src/app/services/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -33,8 +36,14 @@ import { HeaderComponent } from "./header/header.component";
     NavBarComponent,
     HeaderComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
-  providers: [],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  providers: [
+  //   {
+  //   provide: HTTP_INTERCEPTORS,
+  //   useClass: TokenInterceptorService,
+  //   multi: true,
+  // },
+],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

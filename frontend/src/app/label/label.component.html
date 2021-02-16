@@ -21,15 +21,15 @@
       <div class="label-row">
         <div class="invisible-col">
           Label name
-          <input type="text" placeholder="Label name" />
+          <input type="text" placeholder="Label name"  [(ngModel)]="labelForAdd.title" />
         </div>
         <div class="invisible-col">
           Description
-          <input type="text" placeholder="Description (Optional)" />
+          <input type="text" placeholder="Description (Optional)"  [(ngModel)]="labelForAdd.description"/>
         </div>
         <div class="invisible-col">
           Color
-          <input type="text" placeholder="Label color" />
+          <input type="text" placeholder="Label color"  [(ngModel)]="labelForAdd.color" (change)="validateColor()" />
         </div>
         <div
           class="invisible-col"
@@ -47,7 +47,7 @@
           >
             Cancel
           </button>
-          <button class="button green" style="margin-right: 20px">Save</button>
+          <button class="button green" style="margin-right: 20px" (click)="save()">Save</button>
         </div>
       </div>
     </div>
@@ -57,37 +57,37 @@
     <div class="issues-header">
       <div class="issues-left-header">
         <div class="issues-left-header-info">
-          <a href="#" class="issues-header-item active">12 labels</a>
+          <a href="#" class="issues-header-item active">{{labels.length}} labels</a>
         </div>
       </div>
       <div class="issues-right-header"></div>
     </div>
 
-    <div class="label-col">
+    <div class="label-col" *ngFor="let label of labelsEdit; let i = index">
       <div class="label-row">
         <div class="label-container" style="margin-left: 20px; width: 50%">
-          <div class="label" style="background-color: rgb(229, 255, 0)">
-            enhancement
+          <div class="label" style= "background-color: aqua" >
+            {{label.title}}
           </div>
         </div>
         <div class="label-row-right">
-          <a href="#" class="link">Edit</a>
-          <a href="#" class="link">Delete</a>
+          <a class="link" (click)="edit(label)">Edit</a>
+          <a class="link" (click)="delete(label)">Delete</a>
         </div>
       </div>
 
-      <div class="label-row">
+      <div class="label-row" *ngIf="label.forEdit">
         <div class="invisible-col">
           Label name
-          <input type="text" placeholder="Label name" />
+          <input type="text" placeholder="Label name" [(ngModel)]="label.title"/>
         </div>
         <div class="invisible-col">
           Description
-          <input type="text" placeholder="Description (Optional)" />
+          <input type="text" placeholder="Description (Optional)" [(ngModel)]="label.description"/>
         </div>
         <div class="invisible-col">
           Color
-          <input type="text" placeholder="Label color" />
+          <input type="text" placeholder="Label color" [(ngModel)]="label.color"/>
         </div>
         <div
           class="invisible-col"
@@ -98,20 +98,8 @@
             justify-content: flex-end;
           "
         >
-          <button class="button gray" style="margin-right: 20px">Cancel</button>
-          <button class="button green" style="margin-right: 20px">Save</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="label-col">
-      <div class="label-row">
-        <div class="label-container" style="margin-left: 20px; width: 50%">
-          <div class="label" style="background-color: aqua">backend</div>
-        </div>
-        <div class="label-row-right">
-          <a href="#" class="link">Edit</a>
-          <a href="#" class="link">Delete</a>
+          <button class="button gray" style="margin-right: 20px" (click)="cancel(i)">Cancel</button>
+          <button class="button green" style="margin-right: 20px" (click)="saveEdit(i)">Save</button>
         </div>
       </div>
     </div>

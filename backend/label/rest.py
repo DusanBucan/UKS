@@ -49,7 +49,6 @@ def api_label_detail(request, pk):
 
     serializer = CreateLabelSerializer(label, data=request.data)
     if serializer.is_valid():
-
         label = serializer.save()
         label.save()
         return Response({'success': 'label successfully edited'}, status=status.HTTP_200_OK,
