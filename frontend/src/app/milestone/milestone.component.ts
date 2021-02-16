@@ -1,16 +1,59 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Milestone } from '../model/milestone';
+import { MilestoneService } from '../services/milestone.service';
 
 @Component({
-  selector: "app-milestone",
-  templateUrl: "./milestone.component.html",
-  styleUrls: ["./milestone.component.css"],
+  selector: 'app-milestone',
+  templateUrl: './milestone.component.html',
+  styleUrls: ['./milestone.component.css'],
 })
 export class MilestoneComponent implements OnInit {
-  constructor() {}
+  milestones: Milestone[] = [];
+  constructor(
+    private router: Router,
+    private milestoneService: MilestoneService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getMilestones();
+  }
 
-  edit() {}
+  getMilestones() {
+    this.milestoneService
+    .getMilestonesByProjectId('1')
+    .subscribe((data: Milestone[]) => {
+      this.milestones = data;
+    });
+  }
 
-  delete() {}
+  new() {
+    this.router.navigate(['/dashboard/home/milestone-new']);
+  }
+
+  details(id: string) {
+    this.router.navigate(['/dashboard/home/milestone-details/' + id]);
+  }
+
+  edit(id: string) {
+    this.router.navigate(['/dashboard/home/milestone-new/' + id]);
+  }
+
+  delete(id: string) {
+    this.milestoneService
+    .delete(id)
+    .subscribe(() => {
+      this.getMilestones();
+    });
+  }
+
+  openedNum(milestone: Milestone) {
+    let count = 0;
+    for (const task of milestone.tasks) {
+        if (task.opened) {
+            count++;
+        }
+    }
+    return count;
+  }
 }

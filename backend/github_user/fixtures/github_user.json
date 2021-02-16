@@ -6,7 +6,7 @@
       "photo": "photo of user",
       "github_profile_url": "http://githubofuser.com",
       "organization": "Some organisation",
-      "member_since": "2020-12-01 00:00",
+      "member_since": "2020-12-01 00:00Z",
       "skype": "http://skypeofuser.com",
       "twitter": "http://twitterofuser.com",
       "linkedin": "http://linkedinofuser.com"

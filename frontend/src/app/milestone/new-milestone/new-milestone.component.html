@@ -1,0 +1,26 @@
+<div class="main-container">
+  <div class="invisible-container">
+    <div class="invisible-container-left" style="width: 50%">
+      <h3>New Milestone</h3>
+      <small>Create a new milestone to help organize your issues.</small>
+    </div>
+  </div>
+  <div class="new-milestone-container">
+    <div class="form-style-milestone">
+      <div class="form-label">Title</div>
+      <input type="text" class="form-input" [(ngModel)]="milestone.title"/>
+      <div class="form-label">Due date</div>
+      <input type="date" class="form-input" [(ngModel)]="milestone.due_date"/>
+      <div class="form-label">Description</div>
+      <textarea type="textarea" class="form-input" [(ngModel)]="milestone.description"></textarea>
+    </div>
+  </div>
+  <div class="invisible-container">
+    <div class="invisible-container-left"></div>
+    <div class="invisible-container-right">
+      <button *ngIf="id === undefined" class="button green" (click)="create()">Create milestone</button>
+      <button *ngIf="id !== undefined" class="button gray" (click)="cancle()">Cancle</button>
+      <button *ngIf="id !== undefined" class="button green" (click)="edit()">Save changes</button>
+    </div>
+  </div>
+</div>

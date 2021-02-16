@@ -1,50 +1,55 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { GithubUserComponent } from "./github-user/github-user.component";
-import { HeaderComponent } from "./header/header.component";
-import { IssuesComponent } from "./issues/issues.component";
-import { LoginComponent } from "./login/login.component";
-import { RegistrationComponent } from "./registration/registration.component";
-import { NavBarComponent } from "./nav-bar/nav-bar.component";
-import { LabelComponent } from "./label/label.component";
-import { CommitComponent } from "./commit/commit.component";
-import { MilestoneComponent } from "./milestone/milestone.component";
-import { ProjectComponent } from "./project/project.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { GithubUserComponent } from './github-user/github-user.component';
+import { HeaderComponent } from './header/header.component';
+import { IssuesComponent } from './issues/issues.component';
+import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { LabelComponent } from './label/label.component';
+import { CommitComponent } from './commit/commit.component';
+import { MilestoneComponent } from './milestone/milestone.component';
+import { ProjectComponent } from './project/project.component';
+import { NewMilestoneComponent } from './milestone/new-milestone/new-milestone.component';
+import { DetailsMilestoneComponent } from './milestone/details-milestone/details-milestone.component';
 import { UserAuthGuard } from './user-auth.guard';
 
 const routes: Routes = [
   {
-    path: "login",
+    path: 'login',
     component: LoginComponent,
   },
   {
-    path: "registration",
+    path: 'registration',
     component: RegistrationComponent,
   },
   {
-    path: "dashboard",
+    path: 'dashboard',
     component: HeaderComponent,
-    canActivate:[UserAuthGuard],
+    canActivate: [UserAuthGuard],
 
     children: [
       {
-        path: "profile",
+        path: 'profile',
         component: GithubUserComponent,
       },
       {
-        path: "home",
+        path: 'home',
         component: NavBarComponent,
         children: [
-          { path: "issues", component: IssuesComponent },
-          { path: "labels", component: LabelComponent },
-          { path: "pull-requests", component: CommitComponent },
-          { path: "milestones", component: MilestoneComponent },
-          { path: "projects", component: ProjectComponent },
+          { path: 'issues', component: IssuesComponent },
+          { path: 'labels', component: LabelComponent },
+          { path: 'pull-requests', component: CommitComponent },
+          { path: 'milestones', component: MilestoneComponent },
+          { path: 'milestone-details/:id', component: DetailsMilestoneComponent },
+          { path: 'milestone-new/:id', pathMatch: 'full', component: NewMilestoneComponent },
+          { path: 'milestone-new', component: NewMilestoneComponent },
+          { path: 'projects', component: ProjectComponent },
         ],
       },
     ],
   },
-  { path: "**", redirectTo: "login" },
+  { path: '**', redirectTo: 'login' },
 ];
 
 @NgModule({
