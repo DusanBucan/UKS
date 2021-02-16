@@ -10,6 +10,7 @@ import { LabelComponent } from "./label/label.component";
 import { CommitComponent } from "./commit/commit.component";
 import { MilestoneComponent } from "./milestone/milestone.component";
 import { ProjectComponent } from "./project/project.component";
+import { UserAuthGuard } from './user-auth.guard';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
   {
     path: "dashboard",
     component: HeaderComponent,
+    canActivate:[UserAuthGuard],
 
     children: [
       {
@@ -42,7 +44,7 @@ const routes: Routes = [
       },
     ],
   },
-  { path: "**", redirectTo: "dashboard/home/issues" },
+  { path: "**", redirectTo: "login" },
 ];
 
 @NgModule({

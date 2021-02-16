@@ -2,7 +2,7 @@ from rest_framework import permissions, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from github_user.models import GitHubUser
 from github_user.serializers import *
@@ -11,8 +11,7 @@ def get_queryset_projects(request):
     return GitHubUser.objects.all()
 
 class GithubUserList(APIView):
-    #permission_classes = [permissions.IsAuthenticated]
-
+    permission_classes = [permissions.AllowAny]
 
     def get(self, request, format=None):
         github_users = get_queryset_projects(request)
