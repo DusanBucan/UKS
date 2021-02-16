@@ -1,0 +1,38 @@
+version: '3.1'
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5433:5432
+    volumes:
+      - ./volumes/Postgres/init:/docker-entrypoint-initdb.d
+      - ./volumes/Postgres/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+# Django application
+  web:
+    container_name: myapp_web
+    labels:
+      com.example.service: "web"
+      com.example.description: "Use for the main web process"
+    build: .
+    command: ["./wait_for_postgres.sh"]
+    expose:
+      - 8000
+    volumes:
+      - ./static:/code/app/static #must be same as nginx!
+    logging:
+      driver: "json-file"
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
