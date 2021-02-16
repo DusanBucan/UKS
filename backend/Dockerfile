@@ -11,6 +11,7 @@ RUN pip install --upgrade wheel
 RUN pip install --upgrade setuptools
 RUN pip install -r requirementsDjango.txt
 
+
 COPY . /code/
 
 RUN ["chmod", "+x", "wait_for_postgres.sh"]
