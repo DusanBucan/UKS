@@ -1,0 +1,101 @@
+<div class="main-container">
+  <div class="form-container">
+    <div class="left-form">
+      <div class="left-form-content">
+        <h2>Add new Issue</h2>
+        <div class="label-st">Title</div>
+        <input
+          type="text"
+          placeholder="Title..."
+          style="width: 100%"
+          [(ngModel)]="newTask.title"
+        />
+        <div class="label-st">Description</div>
+        <input
+          type="text"
+          placeholder="Description..."
+          style="width: 100%"
+          [(ngModel)]="newTask.description"
+        />
+        <div class="label-st">Due by</div>
+        <input type="date" style="width: 100%" [(ngModel)]="newTask.due_date" />
+      </div>
+    </div>
+    <div class="right-form">
+      <div class="left-form-content">
+        <div class="label-st" style="margin-bottom: 10px">Assignee</div>
+        <div
+          *ngFor="let user of users"
+          class="dropdown-item"
+          (click)="handleAssigneeClick(user.id)"
+        >
+          <div class="dropdown-content">
+            {{ user.user.username }}
+          </div>
+          <div
+            *ngIf="isAssigneeSelected(user.id)"
+            style="
+              width: 100%;
+              display: flex;
+              margin-right: 10px;
+              justify-content: flex-end;
+            "
+          >
+            <img src="../../assets/checked.svg" height="20" />
+          </div>
+        </div>
+
+        <div class="label-st" style="margin-bottom: 10px">Author</div>
+        <div
+          *ngFor="let user of users"
+          class="dropdown-item"
+          (click)="handleAuthorClick(user.id)"
+        >
+          <div class="dropdown-content">
+            {{ user.user.username }}
+          </div>
+          <div
+            *ngIf="isAuthorSelected(user.id)"
+            style="
+              width: 100%;
+              display: flex;
+              margin-right: 10px;
+              justify-content: flex-end;
+            "
+          >
+            <img src="../../assets/checked.svg" height="20" />
+          </div>
+        </div>
+
+        <div class="label-st" style="margin-top: 20px">Labels</div>
+        <div
+          class="dropdown-item"
+          *ngFor="let label of labels"
+          (click)="handleLabelClick(label.id)"
+        >
+          <div class="dropdown-content">
+            <div
+              class="circle-small-label"
+              [style.background-color]="label.color"
+            ></div>
+            {{ label.title }}
+          </div>
+          <div
+            *ngIf="isLabelAdded(label.id)"
+            style="
+              width: 100%;
+              display: flex;
+              margin-right: 10px;
+              justify-content: flex-end;
+            "
+          >
+            <img src="../../assets/checked.svg" height="20" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="button blue" style="margin-top: 20px" (click)="createIssue()">
+    Add Issue
+  </button>
+</div>

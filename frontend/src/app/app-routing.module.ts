@@ -10,6 +10,8 @@ import { LabelComponent } from "./label/label.component";
 import { CommitComponent } from "./commit/commit.component";
 import { MilestoneComponent } from "./milestone/milestone.component";
 import { ProjectComponent } from "./project/project.component";
+import { IssueCreateComponent } from "./issue-create/issue-create.component";
+import { IssueEditComponent } from "./issue-edit/issue-edit.component";
 
 const routes: Routes = [
   {
@@ -34,6 +36,8 @@ const routes: Routes = [
         component: NavBarComponent,
         children: [
           { path: "issues", component: IssuesComponent },
+          { path: "issue-create", component: IssueCreateComponent },
+          { path: "issue-edit", component: IssueEditComponent },
           { path: "labels", component: LabelComponent },
           { path: "pull-requests", component: CommitComponent },
           { path: "milestones", component: MilestoneComponent },

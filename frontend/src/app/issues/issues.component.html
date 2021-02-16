@@ -15,23 +15,32 @@
               X
             </button>
           </div>
-          <div class="dropdown-item">
+          <div class="dropdown-item" (click)="filterIssues('all')">
             <div class="dropdown-content">All</div>
           </div>
-          <div class="dropdown-item">
-            <div class="dropdown-content">In Progress</div>
+          <div class="dropdown-item" (click)="filterIssues('open')">
+            <div class="dropdown-content">Created</div>
           </div>
           <div class="dropdown-item">
-            <div class="dropdown-content">In Review</div>
+            <div class="dropdown-content" (click)="filterIssues('in progress')">
+              In Progress
+            </div>
           </div>
           <div class="dropdown-item">
-            <div class="dropdown-content">Done</div>
+            <div class="dropdown-content" (click)="filterIssues('in review')">
+              In Review
+            </div>
+          </div>
+          <div class="dropdown-item">
+            <div class="dropdown-content" (click)="filterIssues('closed')">
+              Done
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="invisible-container-right">
-      <button class="button green">New Issue</button>
+      <button class="button green" (click)="newIssue()">New Issue</button>
     </div>
   </div>
   <div class="issues-container">
@@ -39,11 +48,21 @@
       <div class="issues-left-header">
         <div class="issues-left-header-info">
           <img src="../../assets/opened-black.svg" height="20" />
-          <a href="#" class="issues-header-item active">16 Open</a>
+          <button
+            class="issues-header-item active"
+            (click)="selectOpenedIssues()"
+          >
+            {{ openedIssues() }} Open
+          </button>
         </div>
         <div class="issues-left-header-info">
           <img src="../../assets/closed-black.svg" height="20" />
-          <a href="#" class="issues-header-item">0 Closed</a>
+          <button
+            class="issues-header-item active"
+            (click)="selectClosedIssues()"
+          >
+            {{ closedIssues() }} Closed
+          </button>
         </div>
       </div>
       <div class="issues-right-header">
@@ -70,17 +89,12 @@
                   X
                 </button>
               </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">sonjajos</div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">DusanBucan</div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">LeonaNedeljkovic</div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">Marina Vojnovic</div>
+              <div
+                *ngFor="let user of users"
+                class="dropdown-item"
+                (click)="filterAuthor(user.user.username)"
+              >
+                <div class="dropdown-content">{{ user.user.username }}</div>
               </div>
             </div>
           </div>
@@ -109,86 +123,17 @@
                   X
                 </button>
               </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">
+              <div class="dropdown-item" *ngFor="let label of labels">
+                <div
+                  class="dropdown-content"
+                  (click)="filterLabel(label.title)"
+                >
                   <div
                     class="circle-small-label"
-                    style="background-color: aqua"
+                    [style.background-color]="label.color"
                   ></div>
-                  frontend
+                  {{ label.title }}
                 </div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">
-                  <div
-                    class="circle-small-label"
-                    style="background-color: rgb(229, 255, 0)"
-                  ></div>
-                  enhancement
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <button
-            class="issues-header-item"
-            (click)="selectDropdown(dropdownType.project)"
-          >
-            <div
-              style="display: flex; align-items: center; flex-direction: row"
-            >
-              Project
-              <div class="arrow-down"></div>
-            </div>
-          </button>
-          <div *ngIf="dropdownSelected === dropdownType.project">
-            <div class="dropdown projects">
-              <div class="dropdown-header">
-                <div class="dropdown-content-header">Filter by project</div>
-                <button
-                  class="x"
-                  (click)="selectDropdown(dropdownType.unselected)"
-                >
-                  X
-                </button>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">UKS</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <button
-            class="issues-header-item"
-            (click)="selectDropdown(dropdownType.milestone)"
-          >
-            <div
-              style="display: flex; align-items: center; flex-direction: row"
-            >
-              Milestones
-              <div class="arrow-down"></div>
-            </div>
-          </button>
-          <div *ngIf="dropdownSelected === dropdownType.milestone">
-            <div class="dropdown milestones">
-              <div class="dropdown-header">
-                <div class="dropdown-content-header">Filter by milestone</div>
-                <button
-                  class="x"
-                  (click)="selectDropdown(dropdownType.unselected)"
-                >
-                  X
-                </button>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">Issues with no milestones</div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">CRUD for models</div>
               </div>
             </div>
           </div>
@@ -217,96 +162,46 @@
                   X
                 </button>
               </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">sonjajos</div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">DusanBucan</div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">LeonaNedeljkovic</div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">Marina Vojnovic</div>
+              <div
+                *ngFor="let user of users"
+                class="dropdown-item"
+                (click)="filterAssignee(user.user.username)"
+              >
+                <div class="dropdown-content">{{ user.user.username }}</div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
 
-        <div>
-          <button
-            class="issues-header-item"
-            (click)="selectDropdown(dropdownType.sort)"
+    <div *ngFor="let task of issues" class="issue">
+      <div class="issue-heading-container">
+        <img
+          *ngIf="task.opened"
+          src="../../assets/opened-issue.svg"
+          height="20"
+        />
+        <img
+          *ngIf="!task.opened"
+          src="../../assets/closed-issue.svg"
+          height="20"
+        />
+        <div class="issue-heading" (click)="editIssue(task)">
+          {{ task.title }}
+        </div>
+        <div class="label-container">
+          <div
+            [style.background-color]="label.color"
+            *ngFor="let label of task.labels"
+            class="label"
           >
-            <div
-              style="display: flex; align-items: center; flex-direction: row"
-            >
-              Sort
-              <div class="arrow-down"></div>
-            </div>
-          </button>
-          <div *ngIf="dropdownSelected === dropdownType.sort">
-            <div class="dropdown sort">
-              <div class="dropdown-header">
-                <div class="dropdown-content-header">Sort by</div>
-                <button
-                  class="x"
-                  (click)="selectDropdown(dropdownType.unselected)"
-                >
-                  X
-                </button>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">Newest</div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">Oldest</div>
-              </div>
-            </div>
+            {{ label.title }}
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="issue">
-      <div class="issue-heading-container">
-        <img src="../../assets/opened-issue.svg" height="20" />
-        <a href="#" class="issue-heading">Initializing frontend</a>
-        <div class="label-container">
-          <div class="label" style="background-color: aqua">frontend</div>
-        </div>
-      </div>
       <div class="issue-desc">
-        #19 Opened by Leona Nedeljkovic 12.03.2021. at 19:02
-      </div>
-    </div>
-
-    <div class="issue">
-      <div class="issue-heading-container">
-        <img src="../../assets/opened-issue.svg" height="20" />
-        <a href="#" class="issue-heading"
-          >Configuration of PostgreSQL database.</a
-        >
-        <div class="label-container">
-          <div class="label" style="background-color: rgb(229, 255, 0)">
-            enhancement
-          </div>
-          <div class="label" style="background-color: aqua">frontend</div>
-        </div>
-      </div>
-      <div class="issue-desc">
-        #16 Opened by Marina Vojnovic 11.03.2021. at 19:02
-      </div>
-    </div>
-
-    <div class="issue">
-      <div class="issue-heading-container">
-        <img src="../../assets/opened-issue.svg" height="20" />
-        <a href="#" class="issue-heading">CRUD for team.</a>
-        <div class="label-container"></div>
-      </div>
-      <div class="issue-desc">
-        #16 Opened by Dusan Bucan 03.03.2021. at 19:02
+        #{{ task.id }} Opened by {{ task.author.user.username }}
       </div>
     </div>
   </div>
