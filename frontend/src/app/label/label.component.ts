@@ -1,6 +1,8 @@
 import { Component, OnInit, ɵɵcontainerRefreshEnd } from "@angular/core";
 import {LabelService} from '../services/label.service';
+import {GithubUserService} from '../services/github-user.service';
 import { Label } from '../model/label';
+import { GithubUser } from '../model/github_user';
 
 
 @Component({
@@ -20,7 +22,7 @@ export class LabelComponent implements OnInit {
 
   public forChange: Number;
 
-  constructor(private labelService:LabelService) {}
+  constructor(private labelService:LabelService, private githubService: GithubUserService) {}
 
   ngOnInit():void {
     this.getLabels();

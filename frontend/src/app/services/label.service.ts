@@ -18,7 +18,6 @@ export class LabelService {
   }
 
   deleteLabel(id:Number):Observable<Object> {
-    alert(`${this.urlBase}`+id+'/');
     return this.http.delete(`${this.urlBase}`+id+'/');
   }
 
