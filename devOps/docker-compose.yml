@@ -4,12 +4,12 @@ services:
     image: postgres
     restart: always
     ports:
-      - 5433:5432
+      - 5432:5432
     volumes:
       - ./volumes/Postgres/init:/docker-entrypoint-initdb.d
       - ./volumes/Postgres/data:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: gihub_uks
 
   adminer:
     image: adminer
@@ -18,8 +18,8 @@ services:
       - 8080:8080
 
 # Django application
-  web:
-    container_name: myapp_web
+  backEnd:
+    container_name: myapp_web_backend
     labels:
       com.example.service: "web"
       com.example.description: "Use for the main web process"
@@ -37,4 +37,19 @@ services:
     environment:
       - POSTGRES_PASSWORD=gihub_uks
       - POSTGRES_USER=gihub_uks
-      - POSTGRES_DATABASE=gihub_uks
+      - POSTGRES_DB=gihub_uks
+
+# Angular app
+  frontEnd:
+    container_name: myapp_web_frontebd
+    image: myapp_web_frontend:latest
+    volumes:
+      - ./static:/code/app/static #must be same as nginx!
+    logging:
+      driver: "json-file"
+    depends_on:
+      - backEnd
+    ports:
+      - 4200:4200
+
+  
