@@ -23,7 +23,8 @@ services:
     labels:
       com.example.service: "web"
       com.example.description: "Use for the main web process"
-    build: .
+    image: myapp_web:latest
+      # build: .
     command: ["./wait_for_postgres.sh"]
     expose:
       - 8000
@@ -34,5 +35,6 @@ services:
     depends_on:
       - db
     environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=gihub_uks
+      - POSTGRES_USER=gihub_uks
+      - POSTGRES_DATABASE=gihub_uks
