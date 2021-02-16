@@ -10,7 +10,8 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('label', '0001_initial'),
-        ('project', '0001_initial'),
+        ('label', '0001_initial'),
+        ('github_user', '0001_initial'),
     ]
 
     operations = [
@@ -22,8 +23,14 @@ class Migration(migrations.Migration):
                 ('description', models.CharField(max_length=1000, verbose_name='description')),
                 ('due_date', models.DateTimeField(verbose_name='due date')),
                 ('task_state', models.CharField(choices=[('open', 'open'), ('in progress', 'in progress'), ('closed', 'closed')], max_length=300, verbose_name='task state')),
+                ('opened', models.BooleanField(default=True)),
                 ('labels', models.ManyToManyField(to='label.Label')),
-                ('project', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='project.project', verbose_name='project')),
+                ('project', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='project.project',
+                                              verbose_name='project')),
+                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='github_user.githubuser',
+                                             verbose_name='author', related_name='author')),
+                ('assignee', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='github_user.githubuser',
+                                               verbose_name='assignee', related_name='assignee'))
             ],
         ),
     ]

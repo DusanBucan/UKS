@@ -5,9 +5,11 @@
   <h2>Sign in to GiHub</h2>
   <div class="form-style">
     <div class="form-label">Username</div>
-    <input type="text" class="form-input" />
+    <input type="text" class="form-input" [(ngModel)]="user.username"/>
     <div class="form-label">Password</div>
-    <input type="password" class="form-input" />
+    <input type="password" class="form-input" [(ngModel)]="user.password" />
+    
   </div>
-  <p>Don't have an account? <a href="#" (click)="register()">Sign up</a></p>
+  <p><a (click)="login()">Log in</a></p>
+  <p>Don't have an account? <a (click)="register()">Sign up</a></p>
 </div>
