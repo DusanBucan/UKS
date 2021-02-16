@@ -14,3 +14,4 @@ class Milestone(models.Model):
     project = models.ForeignKey(Project, verbose_name='project', on_delete=models.CASCADE)
     tasks = models.ManyToManyField(Task)
     labels = models.ManyToManyField(Label)
+    deleted = models.BooleanField(default=False)
