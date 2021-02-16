@@ -23,11 +23,11 @@ services:
     labels:
       com.example.service: "web"
       com.example.description: "Use for the main web process"
-    image: myapp_web:latest
+    image: myapp_web_backend:latest
       # build: .
     command: ["./wait_for_postgres.sh"]
-    expose:
-      - 8000
+    ports:
+      - 8000:8000
     volumes:
       - ./static:/code/app/static #must be same as nginx!
     logging:
