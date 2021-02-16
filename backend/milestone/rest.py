@@ -13,7 +13,6 @@ def api_milestone_new(request):
     if serializer.is_valid():
         serializer.save()
         return Response('Milestone successfully added.', status=status.HTTP_201_CREATED)
-    print(serializer.errors)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, content_type="application/json")
 
 
