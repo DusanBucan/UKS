@@ -1,4 +1,7 @@
+import {User} from "./user";
+
 export interface GithubUser{
+    user: User;
     photo: string;
     github_profile_url: string;
     organization: string;
