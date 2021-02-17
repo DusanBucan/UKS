@@ -2,7 +2,7 @@ from rest_framework import permissions, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from project.models import Project
 from label.serializers import *
@@ -21,6 +21,7 @@ class LabelList(APIView):
         serializer=LabelSerializer(labels, many=True)
         return Response(serializer.data)
 
+    @permission_classes([AllowAny])
     def post(self, request, format=None):
         serializer = CreateLabelSerializer(data=request.data)
         if serializer.is_valid():

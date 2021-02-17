@@ -1,0 +1,55 @@
+version: '3.1'
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./volumes/Postgres/init:/docker-entrypoint-initdb.d
+      - ./volumes/Postgres/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: gihub_uks
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+# Django application
+  backEnd:
+    container_name: myapp_web_backend
+    labels:
+      com.example.service: "web"
+      com.example.description: "Use for the main web process"
+    image: myapp_web_backend:latest
+      # build: .
+    command: ["./wait_for_postgres.sh"]
+    ports:
+      - 8000:8000
+    volumes:
+      - ./static:/code/app/static #must be same as nginx!
+    logging:
+      driver: "json-file"
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_PASSWORD=gihub_uks
+      - POSTGRES_USER=gihub_uks
+      - POSTGRES_DB=gihub_uks
+
+# Angular app
+  frontEnd:
+    container_name: myapp_web_frontebd
+    image: myapp_web_frontend:latest
+    volumes:
+      - ./static:/code/app/static #must be same as nginx!
+    logging:
+      driver: "json-file"
+    depends_on:
+      - backEnd
+    ports:
+      - 4200:4200
+
+  
