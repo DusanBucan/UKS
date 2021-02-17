@@ -1,1 +1,27 @@
-<p>github-user works!</p>
+<div class="main-container">
+    <div class="invisible-container">
+      <div class="invisible-container-left"></div>
+      <div class="invisible-container-right">
+        <button class="button green">New Project</button>
+      </div>
+    </div>
+    <div class="issues-container">
+      <div class="issues-header">
+        <div class="issues-left-header">
+          <div class="issues-left-header-info">
+            <img src="../../assets/milestone.svg" height="20" />
+            <a href="#" class="issues-header-item active">Projects</a>
+          </div>
+        </div>
+      </div>
+  
+      <div class="milestone" *ngFor="let project of projects">
+        <div class="milestone-left">
+          <div href="#" class="milestone-heading">
+            <button class="details-link">{{ project.name }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
