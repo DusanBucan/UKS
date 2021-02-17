@@ -1,13 +1,16 @@
-import { Project } from './project';
-import { Label } from './label';
+import { Project } from "./project";
+import { Label } from "./label";
+import { GithubUser } from "./github_user";
 
 export interface Task {
-    title: string;
-    description: string;
-    due_date: string;
-    task_states_choice: string;
-    task_state: string;
-    project: Project;
-    labels: Array<Label>;
-    opened: boolean;
+  id: number;
+  title: string;
+  description: string;
+  due_date: string;
+  task_state: "open" | "in review" | "in progress" | "done";
+  project: Project;
+  labels: Array<Label>;
+  assignee: GithubUser;
+  author: GithubUser;
+  opened: boolean;
 }

@@ -1,0 +1,194 @@
+<div class="main-container">
+  <div class="form-container">
+    <div class="left-form">
+      <div class="left-form-content">
+        <div class="label-st">Title</div>
+        <input
+          type="text"
+          placeholder="Title..."
+          style="width: 100%"
+          [(ngModel)]="editTask.title"
+        />
+        <div class="label-st">Description</div>
+        <input
+          type="text"
+          placeholder="Description..."
+          style="width: 100%"
+          [(ngModel)]="editTask.description"
+        />
+        <div class="label-st">Due by</div>
+        <input
+          type="date"
+          style="width: 100%"
+          [(ngModel)]="editTask.due_date"
+        />
+        <div class="label-st" style="margin-top: 30px">State</div>
+        <div class="dropdown-item" (click)="markCreated()" style="width: 70%">
+          <div class="dropdown-content">Created</div>
+          <div
+            *ngIf="editTask.task_state === 'open'"
+            style="
+              width: 100%;
+              display: flex;
+              margin-right: 10px;
+              justify-content: flex-end;
+            "
+          >
+            <img src="../../assets/checked.svg" height="20" />
+          </div>
+        </div>
+        <div
+          class="dropdown-item"
+          (click)="markInProgress()"
+          style="width: 70%"
+        >
+          <div class="dropdown-content">In Progress</div>
+          <div
+            *ngIf="editTask.task_state === 'in progress'"
+            style="
+              width: 100%;
+              display: flex;
+              margin-right: 10px;
+              justify-content: flex-end;
+            "
+          >
+            <img src="../../assets/checked.svg" height="20" />
+          </div>
+        </div>
+        <div class="dropdown-item" (click)="markInReview()" style="width: 70%">
+          <div class="dropdown-content">In Review</div>
+          <div
+            *ngIf="editTask.task_state === 'in review'"
+            style="
+              width: 100%;
+              display: flex;
+              margin-right: 10px;
+              justify-content: flex-end;
+            "
+          >
+            <img src="../../assets/checked.svg" height="20" />
+          </div>
+        </div>
+        <div class="dropdown-item" (click)="markDone()" style="width: 70%">
+          <div class="dropdown-content">Done</div>
+          <div
+            *ngIf="editTask.task_state === 'done'"
+            style="
+              width: 100%;
+              display: flex;
+              margin-right: 10px;
+              justify-content: flex-end;
+            "
+          >
+            <img src="../../assets/checked.svg" height="20" />
+          </div>
+        </div>
+        <div class="label-st" style="margin-top: 30px">Opened</div>
+        <div class="dropdown-item" (click)="openIssue()" style="width: 70%">
+          <div class="dropdown-content">Opened</div>
+          <div
+            *ngIf="editTask.opened"
+            style="
+              width: 100%;
+              display: flex;
+              margin-right: 10px;
+              justify-content: flex-end;
+            "
+          >
+            <img src="../../assets/checked.svg" height="20" />
+          </div>
+        </div>
+        <div class="dropdown-item" (click)="closeIssue()" style="width: 70%">
+          <div class="dropdown-content">Closed</div>
+          <div
+            *ngIf="!editTask.opened"
+            style="
+              width: 100%;
+              display: flex;
+              margin-right: 10px;
+              justify-content: flex-end;
+            "
+          >
+            <img src="../../assets/checked.svg" height="20" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right-form">
+      <div class="left-form-content">
+        <div class="label-st" style="margin-bottom: 10px">Assignee</div>
+        <div
+          *ngFor="let user of users"
+          class="dropdown-item"
+          (click)="handleAssigneeClick(user.id)"
+        >
+          <div class="dropdown-content">
+            {{ user.user.username }}
+          </div>
+          <div
+            *ngIf="isAssigneeSelected(user.id)"
+            style="
+              width: 100%;
+              display: flex;
+              margin-right: 10px;
+              justify-content: flex-end;
+            "
+          >
+            <img src="../../assets/checked.svg" height="20" />
+          </div>
+        </div>
+
+        <div class="label-st" style="margin-bottom: 10px">Author</div>
+        <div
+          *ngFor="let user of users"
+          class="dropdown-item"
+          (click)="handleAuthorClick(user.id)"
+        >
+          <div class="dropdown-content">
+            {{ user.user.username }}
+          </div>
+          <div
+            *ngIf="isAuthorSelected(user.id)"
+            style="
+              width: 100%;
+              display: flex;
+              margin-right: 10px;
+              justify-content: flex-end;
+            "
+          >
+            <img src="../../assets/checked.svg" height="20" />
+          </div>
+        </div>
+
+        <div class="label-st" style="margin-top: 20px">Labels</div>
+        <div
+          class="dropdown-item"
+          *ngFor="let label of labels"
+          (click)="handleLabelClick(label.id)"
+        >
+          <div class="dropdown-content">
+            <div
+              class="circle-small-label"
+              [style.background-color]="label.color"
+            ></div>
+            {{ label.title }}
+          </div>
+          <div
+            *ngIf="isLabelAdded(label.id)"
+            style="
+              width: 100%;
+              display: flex;
+              margin-right: 10px;
+              justify-content: flex-end;
+            "
+          >
+            <img src="../../assets/checked.svg" height="20" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="button blue" style="margin-top: 20px" (click)="editIssue()">
+    Update Issue
+  </button>
+</div>

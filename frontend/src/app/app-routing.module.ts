@@ -13,6 +13,8 @@ import { ProjectComponent } from './project/project.component';
 import { NewMilestoneComponent } from './milestone/new-milestone/new-milestone.component';
 import { DetailsMilestoneComponent } from './milestone/details-milestone/details-milestone.component';
 import { UserAuthGuard } from './user-auth.guard';
+import { IssueCreateComponent } from "./issue-create/issue-create.component";
+import { IssueEditComponent } from "./issue-edit/issue-edit.component";
 
 const routes: Routes = [
   {
@@ -38,6 +40,8 @@ const routes: Routes = [
         component: NavBarComponent,
         children: [
           { path: 'issues', component: IssuesComponent },
+          { path: "issue-create", component: IssueCreateComponent },
+          { path: "issue-edit", component: IssueEditComponent },
           { path: 'labels', component: LabelComponent },
           { path: 'pull-requests', component: CommitComponent },
           { path: 'milestones', component: MilestoneComponent },

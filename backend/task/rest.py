@@ -24,7 +24,7 @@ class TaskList(APIView):
         if serializer.is_valid():
             print('serializer valid')
             task = serializer.save()
-            return Response(task, status=status.HTTP_201_CREATED)
+            return Response('SUCCESS', status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -46,7 +46,7 @@ def api_task_detail(request, pk):
     if serializer.is_valid():
         task = serializer.save()
         task.save()
-        return Response(task, status=status.HTTP_200_OK,
+        return Response('SUCCESS', status=status.HTTP_200_OK,
                         content_type="application/json")
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, content_type="application/json")

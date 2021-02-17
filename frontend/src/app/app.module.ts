@@ -20,6 +20,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TokenInterceptorService } from 'src/app/services/token-interceptor.service';
 import { DetailsMilestoneComponent } from './milestone/details-milestone/details-milestone.component';
+import { IssueEditComponent } from "./issue-edit/issue-edit.component";
+import { IssueCreateComponent } from "./issue-create/issue-create.component";
+
 
 @NgModule({
   declarations: [
@@ -37,6 +40,8 @@ import { DetailsMilestoneComponent } from './milestone/details-milestone/details
     IssuesComponent,
     NavBarComponent,
     HeaderComponent,
+    IssueEditComponent,
+    IssueCreateComponent,
     NewMilestoneComponent,
     DetailsMilestoneComponent,
   ],
