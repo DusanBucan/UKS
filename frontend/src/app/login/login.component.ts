@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   login(){
     this.authenticationService.login(this.user).subscribe(
       (response) => {
-      if (response !== null) {
+        if (response !== null) {
         localStorage.setItem('currentUser', JSON.stringify({
           token: response['access']
           

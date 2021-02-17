@@ -98,7 +98,7 @@ DATABASES = {
 
         'PASSWORD': 'gihub_uks',
 
-        'HOST': 'db',
+        'HOST': 'localhost',
 
         'PORT': '5432',
 
@@ -167,7 +167,11 @@ CORS_ORIGIN_ALLOW_ALL = True # If this is used then `CORS_ORIGIN_WHITELIST` will
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:4200',
+    'http://192.168.49.2:30007'
 ] # If this is used, then not need to use `CORS_ORIGIN_ALLOW_ALL = True`
 CORS_ORIGIN_REGEX_WHITELIST = [
     'http://localhost:4200',
+    'http://192.168.49.2:30007'
 ]
+
+ALLOWED_HOSTS = ['192.168.49.2', 'localhost']

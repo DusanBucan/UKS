@@ -8,7 +8,8 @@ import { GithubUser } from '../model/github_user';
 })
 export class GithubUserService {
 
-  private readonly urlBase = 'http://localhost:8000/api/github_users/';
+  private readonly urlBase = 'http://10.106.13.7:8000/api/github_users/';
+  // private readonly urlBase = 'http://localhost:8000/api/github_users/';
 
   constructor(private http: HttpClient) { }
 
