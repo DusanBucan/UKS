@@ -15,7 +15,7 @@ spec:
       containers:
       - name: back-service
         image:  dusanbucan/myapp_web_backend:latest
-        # imagePullPolicy: always
+        imagePullPolicy: Always
         command: ["./wait_for_postgres.sh"]
         volumeMounts:
           - mountPath: /code/app/static
