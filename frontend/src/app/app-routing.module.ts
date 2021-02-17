@@ -15,6 +15,8 @@ import { DetailsMilestoneComponent } from './milestone/details-milestone/details
 import { UserAuthGuard } from './user-auth.guard';
 import { IssueCreateComponent } from "./issue-create/issue-create.component";
 import { IssueEditComponent } from "./issue-edit/issue-edit.component";
+import { WikiComponent } from './wiki/wiki.component';
+import { NgxEditorModule } from 'ngx-editor';
 
 const routes: Routes = [
   {
@@ -49,6 +51,7 @@ const routes: Routes = [
           { path: 'milestone-new/:id', pathMatch: 'full', component: NewMilestoneComponent },
           { path: 'milestone-new', component: NewMilestoneComponent },
           { path: 'projects', component: ProjectComponent },
+          { path: 'wiki', component: WikiComponent },
         ],
       },
     ],
