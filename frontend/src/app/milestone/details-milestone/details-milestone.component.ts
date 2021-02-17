@@ -59,6 +59,6 @@ export class DetailsMilestoneComponent implements OnInit {
 
   editIssue(task: Task) {
     this.taskEditService.setTask(task);
-    this.router.navigate(["dashboard/home/issue-edit"]);
+    this.router.navigate(['dashboard/home/issue-edit']);
   }
 }

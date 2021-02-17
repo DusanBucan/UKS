@@ -17,7 +17,7 @@ def api_commit_new(request):
 
 @api_view(['GET'])
 def api_commit_by_project(request, pk):
-    commits = Commit.objects.filter(project_id=pk)
+    commits = Commit.objects.filter(project_id=pk).order_by('date')
     serializer = CommitSerializer(commits, many=True)
     return Response(serializer.data)
 

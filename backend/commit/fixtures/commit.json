@@ -1,0 +1,14 @@
+[
+  {
+    "fields": {
+      "title": "Backend",
+
+      "description": "",
+      "date": "2021-02-10 12:00Z",
+      "project": 1,
+      "user": 1
+    },
+    "model": "milestone.milestone",
+    "pk": 1
+  }
+]
