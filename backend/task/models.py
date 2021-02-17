@@ -4,6 +4,7 @@ from django.db import models
 from label.models import Label
 from github_user.models import GitHubUser
 from project.models import Project
+from milestone.models import Milestone
 
 task_states_choice = \
         (('open', 'open'), ('in progress', 'in progress'), ('in review', 'in review'), ('closed', 'closed'))
@@ -20,3 +21,4 @@ class Task(models.Model):
     assignee = models.ForeignKey(GitHubUser, verbose_name='assignee', on_delete=models.CASCADE, related_name='assignee')
     author = models.ForeignKey(GitHubUser, verbose_name='author', on_delete=models.CASCADE, related_name='author')
     labels = models.ManyToManyField(Label)
+    milestones = models.ManyToManyField(Milestone)

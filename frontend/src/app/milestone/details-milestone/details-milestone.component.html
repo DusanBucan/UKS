@@ -6,7 +6,7 @@
     </div>
     <div class="invisible-container-right">
       <button class="button gray" (click)="edit()">Edit milestone</button>
-      <button class="button green">New Issue</button>
+      <button class="button green" (click)="newIssue()">New Issue</button>
     </div>
   </div>
   <div class="issues-container">
@@ -18,17 +18,19 @@
         </div>
         <div class="issues-left-header-info">
           <img src="../../assets/closed-black.svg" height="20" />
-          <a href="#" class="issues-header-item">{{milestone.tasks.length - openedNum()}} Closed</a>
+          <a href="#" class="issues-header-item">{{tasks.length - openedNum()}} Closed</a>
         </div>
       </div>
       <div class="issues-right-header">
       </div>
     </div>
 
-    <div *ngFor="let task of milestone.tasks" class="issue">
+    <div *ngFor="let task of tasks" class="issue">
       <div class="issue-heading-container">
         <img src="../../assets/opened-issue.svg" height="20" />
-        <a href="#" class="issue-heading">{{task.title}}</a>
+        <div class="issue-heading" (click)="editIssue(task)">
+          {{ task.title }}
+        </div>
         <div *ngFor="let label of task.labels" class="label-container">
           <div class="label" [style.background]="label.color">{{label.title}}</div>
         </div>

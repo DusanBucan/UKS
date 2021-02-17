@@ -4,6 +4,7 @@ from project.serializers import *
 from task.models import Task
 from project.models import Project
 from github_user.models import GitHubUser
+from milestone.serializers import *
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -11,11 +12,12 @@ class TaskSerializer(serializers.ModelSerializer):
     author = GitHubUserSerializer(read_only=True, many=False)
     project = ProjectSerializer(read_only=True, many=False)
     labels = LabelSerializer(read_only=True, many=True)
+    milestones = MilestoneSerializer(read_only=True, many=True)
 
     class Meta:
         model = Task
         fields = ('id', 'title', 'description', 'due_date', 'assignee', 'author', 'labels', 'project', 'opened',
-                  'task_state')
+                  'task_state', 'milestones')
 
 
 class CreateTaskSerializer(serializers.Serializer):

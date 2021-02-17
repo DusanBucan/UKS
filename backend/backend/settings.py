@@ -97,7 +97,7 @@ DATABASES = {
 
         'PASSWORD': 'gihub_uks',
 
-        'HOST': 'db',
+        # 'HOST': 'db',
 
         'PORT': '5433',
 

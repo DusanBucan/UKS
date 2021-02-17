@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class NewMilestoneComponent implements OnInit {
 
-  public milestone: Milestone = { title: '', description: '', due_date: '', start_date: '', project: 1 , tasks: []};
+  public milestone: Milestone = { title: '', description: '', due_date: '', start_date: '', project: 1};
   public id: string;
 
   constructor(private route: ActivatedRoute,
