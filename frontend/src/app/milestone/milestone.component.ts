@@ -46,14 +46,4 @@ export class MilestoneComponent implements OnInit {
       this.getMilestones();
     });
   }
-
-  openedNum(milestone: Milestone) {
-    let count = 0;
-    for (const task of milestone.tasks) {
-        if (task.opened) {
-            count++;
-        }
-    }
-    return count;
-  }
 }

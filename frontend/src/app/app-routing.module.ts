@@ -13,8 +13,10 @@ import { ProjectComponent } from './project/project.component';
 import { NewMilestoneComponent } from './milestone/new-milestone/new-milestone.component';
 import { DetailsMilestoneComponent } from './milestone/details-milestone/details-milestone.component';
 import { UserAuthGuard } from './user-auth.guard';
-import { IssueCreateComponent } from "./issue-create/issue-create.component";
-import { IssueEditComponent } from "./issue-edit/issue-edit.component";
+import { IssueCreateComponent } from './issue-create/issue-create.component';
+import { IssueEditComponent } from './issue-edit/issue-edit.component';
+import { NewCommitComponent } from './commit/new-commit/new-commit.component';
+import { DetailsCommitComponent } from './commit/details-commit/details-commit.component';
 import { WikiComponent } from './wiki/wiki.component';
 import { NgxEditorModule } from 'ngx-editor';
 
@@ -42,10 +44,12 @@ const routes: Routes = [
         component: NavBarComponent,
         children: [
           { path: 'issues', component: IssuesComponent },
-          { path: "issue-create", component: IssueCreateComponent },
-          { path: "issue-edit", component: IssueEditComponent },
+          { path: 'issue-create', component: IssueCreateComponent },
+          { path: 'issue-edit', component: IssueEditComponent },
           { path: 'labels', component: LabelComponent },
-          { path: 'pull-requests', component: CommitComponent },
+          { path: 'commits', component: CommitComponent },
+          { path: 'commit-details/:id', component: DetailsCommitComponent },
+          { path: 'commit-new', component: NewCommitComponent },
           { path: 'milestones', component: MilestoneComponent },
           { path: 'milestone-details/:id', component: DetailsMilestoneComponent },
           { path: 'milestone-new/:id', pathMatch: 'full', component: NewMilestoneComponent },

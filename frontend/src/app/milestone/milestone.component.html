@@ -17,8 +17,10 @@
 
     <div class="milestone" *ngFor="let milestone of milestones">
       <div class="milestone-left">
-        <div href="#" class="milestone-heading">
-          <button class="details-link" (click)="details(milestone.id)">{{ milestone.title }}</button>
+        <div class="milestone-heading">
+          <div class="issue-heading" (click)="details(milestone.id)">
+            {{ milestone.title }}
+          </div>
         </div>
         <div class="milestone-desc">
           <img src="../../assets/calendar.svg" height="15" />
@@ -34,10 +36,6 @@
       <div class="milestone-right">
         <div class="milestone-right-row">
           <div class="milestone-stats">
-            <div class="stats-num">{{openedNum(milestone)}}</div>
-            <div class="stats-status">Opened</div>
-            <div class="stats-num">{{milestone.tasks.length - openedNum(milestone)}}</div>
-            <div class="stats-status">Closed</div>
           </div>
         </div>
         <div class="milestone-right-row">
