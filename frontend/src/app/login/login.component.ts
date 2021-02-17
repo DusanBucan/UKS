@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
           token: response['access']
           
         }));
+        console.log("aaaaaa radi automatski deploymentttt")
         this.router.navigate(["/dashboard/home/issues"]);
         }
       }

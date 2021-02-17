@@ -15,5 +15,6 @@ spec:
       containers:
       - name: front-service
         image: dusanbucan/myapp_web_frontend:latest
+        # imagePullPolicy: always
         ports:
         - containerPort: 4200
