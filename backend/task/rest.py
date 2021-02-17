@@ -50,3 +50,10 @@ def api_task_detail(request, pk):
                         content_type="application/json")
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, content_type="application/json")
+
+
+@api_view(['GET'])
+def api_tasks_by_milestone(request, pk):
+    tasks = Task.objects.filter(milestones__in=[pk])
+    serializer = TaskSerializer(tasks, many=True)
+    return Response(serializer.data)

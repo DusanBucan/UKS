@@ -1,49 +1,16 @@
 <div class="main-container">
   <div class="invisible-container">
     <div class="invisible-container-left">
-      <!-- <button class="filters" (click)="selectDropdown(dropdownType.filter)">
-        <div class="filters-content">
-          Filters
-          <div class="arrow-down"></div>
-        </div>
-      </button> -->
-      <!-- <div *ngIf="dropdownSelected === dropdownType.filter">
-        <div class="dropdown filter">
-          <div class="dropdown-header">
-            <div class="dropdown-content-header">Filter pull requests</div>
-            <button class="x" (click)="selectDropdown(dropdownType.unselected)">
-              X
-            </button>
-          </div>
-          <div class="dropdown-item">
-            <div class="dropdown-content">All</div>
-          </div>
-          <div class="dropdown-item">
-            <div class="dropdown-content">In Progress</div>
-          </div>
-          <div class="dropdown-item">
-            <div class="dropdown-content">In Review</div>
-          </div>
-          <div class="dropdown-item">
-            <div class="dropdown-content">Done</div>
-          </div>
-        </div>
-      </div> -->
     </div>
     <div class="invisible-container-right">
-      <button class="button green">New Pull request</button>
+      <button class="button green" (click)="new()">New commit</button>
     </div>
   </div>
   <div class="issues-container">
     <div class="issues-header">
       <div class="issues-left-header">
         <div class="issues-left-header-info">
-          <img src="../../assets/merged-pr.svg" height="20" />
-          <a href="#" class="issues-header-item active">16 Merged</a>
-        </div>
-        <div class="issues-left-header-info">
-          <img src="../../assets/closed-pr.svg" height="20" />
-          <a href="#" class="issues-header-item">4 Closed</a>
+          <img src="../../assets/merged-pr.svg" height="20" />{{commits.length}} Commits
         </div>
       </div>
       <div class="issues-right-header">
@@ -268,45 +235,21 @@
       </div>
     </div>
 
-    <div class="issue">
-      <div class="issue-heading-container">
-        <img src="../../assets/merged-pr.svg" height="20" />
-        <a href="#" class="issue-heading">Initializing frontend</a>
-        <div class="label-container">
-          <div class="label" style="background-color: aqua">frontend</div>
-        </div>
-      </div>
-      <div class="issue-desc">
-        #19 Opened by Leona Nedeljkovic 12.03.2021. at 19:02
-      </div>
-    </div>
-
-    <div class="issue">
-      <div class="issue-heading-container">
-        <img src="../../assets/merged-pr.svg" height="20" />
-        <a href="#" class="issue-heading"
-          >Configuration of PostgreSQL database.</a
-        >
-        <div class="label-container">
-          <div class="label" style="background-color: rgb(229, 255, 0)">
-            enhancement
+    <div class="milestone" *ngFor="let commit of commits">
+      <div class="milestone-left">
+        <div class="milestone-heading">
+          <div class="issue-heading" (click)="details(commit.id)">
+            {{commit.summary}}
           </div>
-          <div class="label" style="background-color: aqua">frontend</div>
+        </div>
+        <div class="issue-desc">
+          {{commit.hash}}
         </div>
       </div>
-      <div class="issue-desc">
-        #16 Opened by Marina Vojnovic 11.03.2021. at 19:02
-      </div>
-    </div>
-
-    <div class="issue">
-      <div class="issue-heading-container">
-        <img src="../../assets/merged-pr.svg" height="20" />
-        <a href="#" class="issue-heading">CRUD for team.</a>
-        <div class="label-container"></div>
-      </div>
-      <div class="issue-desc">
-        #16 Opened by Dusan Bucan 03.03.2021. at 19:02
+      <div class="milestone-right">
+        <div class="milestone-right-row">
+          {{commit.user.user.username}}
+        </div>
       </div>
     </div>
   </div>

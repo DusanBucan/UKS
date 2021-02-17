@@ -2,15 +2,13 @@ from rest_framework import serializers
 
 from milestone.models import Milestone
 
-from task.serializer import *
+from project.models import Project
 
 
 class MilestoneSerializer(serializers.ModelSerializer):
-    tasks = TaskSerializer(read_only=True, many=True)
-
     class Meta:
         model = Milestone
-        fields = ('id', 'title', 'description', 'start_date', 'due_date', 'project', 'tasks')
+        fields = ('id', 'title', 'description', 'start_date', 'due_date', 'project')
 
 
 class CreateMilestoneSerializer(serializers.Serializer):
@@ -28,8 +26,6 @@ class CreateMilestoneSerializer(serializers.Serializer):
                                              start_date=validated_data['start_date'],
                                              due_date=validated_data['due_date'],
                                              project=Project.objects.get(id=project_id))
-
-        set_tasks(milestone, validated_data)
         return milestone
 
     def update(self, instance, validated_data):
@@ -40,8 +36,3 @@ class CreateMilestoneSerializer(serializers.Serializer):
         instance.project = Project.objects.get(id=validated_data.get('project', instance.project))
         return instance
 
-
-def set_tasks(milestone, validated_data):
-    tasks_ = validated_data['tasks']
-    the_tasks = [Task.objects.get(id=task_id) for task_id in tasks_]
-    milestone.tasks.set(the_tasks)

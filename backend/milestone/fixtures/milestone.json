@@ -5,8 +5,7 @@
       "description": "Milestone for backend",
       "start_date": "2021-02-10",
       "due_date": "2021-02-20",
-      "project": 1,
-      "tasks": []
+      "project": 1
     },
     "model": "milestone.milestone",
     "pk": 1
