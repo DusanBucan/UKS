@@ -1,0 +1,30 @@
+[
+  {
+    "fields": {
+      "title": "enhancement",
+      "description": "New feature or request",
+      "color": "#34ebc3"
+    },
+    "model": "label.label",
+    "pk": 1
+  },
+
+  {
+    "fields": {
+      "title": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "#3474eb"
+    },
+    "model": "label.label",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "title": "bug",
+      "description": "Something isn't working",
+      "color": "#eb3734"
+    },
+    "model": "label.label",
+    "pk": 3
+  }
+]
