@@ -201,7 +201,7 @@ export class InsightsComponent implements OnInit {
   }
 
   isUsersTask(task: Task, username: string): boolean {
-    return task.assignee.user.username === username;
+    return task.assignee ? task.assignee.user.username === username : false;
   }
 
   createdByUse(username: string): number {

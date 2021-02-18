@@ -18,7 +18,8 @@ class Task(models.Model):
     opened = models.BooleanField('opened')
     task_state = models.CharField('task state', max_length=300, choices=task_states_choice)
     project = models.ForeignKey(Project, verbose_name='project', on_delete=models.CASCADE)
-    assignee = models.ForeignKey(GitHubUser, verbose_name='assignee', on_delete=models.CASCADE, related_name='assignee')
+    assignee = models.ForeignKey(GitHubUser, verbose_name='assignee', on_delete=models.CASCADE, related_name='assignee',
+                                 null=True)
     author = models.ForeignKey(GitHubUser, verbose_name='author', on_delete=models.CASCADE, related_name='author')
     labels = models.ManyToManyField(Label)
     milestones = models.ManyToManyField(Milestone)
