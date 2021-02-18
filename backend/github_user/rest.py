@@ -36,11 +36,6 @@ class GithubUserList(APIView):
 def api_githubUser_detail(request, pk):
     try:
         githubUser = GitHubUser.objects.get(id=pk)
-        # if request.user.is_staff:
-        #     project = Project.objects.get(id=pk, obrisan=False)
-        # else:
-        #     radnik = request.user.profile
-        #     tender = Tender.objects.get(odg_lice=radnik, id=pk, obrisan=False)
     except (KeyError, GithubUserList.DoesNotExist) as ex:
         return Response({'error': 'invalid or missing object id'}, status=status.HTTP_404_NOT_FOUND,
                         content_type="application/json")
