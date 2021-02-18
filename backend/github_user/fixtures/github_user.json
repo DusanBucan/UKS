@@ -14,5 +14,21 @@
     },
     "model": "github_user.githubuser",
     "pk": 1
+  },
+
+  {
+    "fields": {
+      "user_id": 1,
+      "photo": "photo of user 1",
+      "github_profile_url": "http://githubofuser1.com",
+      "organization": "Some organisation",
+      "member_since": "2020-12-02 00:00Z",
+      "skype": "http://skypeofuser1.com",
+      "twitter": "http://twitterofuser1.com",
+      "linkedin": "http://linkedinofuser1.com"
+
+    },
+    "model": "github_user.githubuser",
+    "pk": 2
   }
 ]

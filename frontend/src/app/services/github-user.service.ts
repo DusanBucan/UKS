@@ -41,4 +41,8 @@ export class GithubUserService {
   getUsersTeams(): Observable<Array<Team>> {
     return this.http.get<Array<Team>>(`${this.urlBase}` + 'teams/');
   }
+
+  searchUser(firstName : string, lastName : string) : Observable<any> {
+    return this.http.get<any>(`${this.urlBase}` + `get-github-user-by-name/${firstName}/${lastName}/`);
+  }
 }

@@ -25,13 +25,6 @@ class GithubUserList(APIView):
         serializer = GitHubUserSerializer(github_users, many=True)
         return Response(serializer.data)
 
-    def post(self, request, format=None):
-        github_serializer = GitHubUserSerializer()
-        serializer = github_serializer.create(validated_data=request.data)
-        github_user = serializer.save()
-        return Response("Label successfully added.", status=status.HTTP_201_CREATED)
-
-
 #        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE', 'GET', 'PUT'])
@@ -62,5 +55,13 @@ def api_github_user_detail(request, pk):
 @permission_classes([IsAuthenticated])
 def api_github_user_logged_in(request):
     github_user = GitHubUser.objects.get(id=request.user.id)
+    return Response(GitHubUserSerializer(github_user).data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def api_get_github_user_by_name(request, first_name, last_name):
+    user = User.objects.get(first_name=first_name, last_name=last_name)
+    github_user = GitHubUser.objects.get(user=user.id)
     return Response(GitHubUserSerializer(github_user).data)
 

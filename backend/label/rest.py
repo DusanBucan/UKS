@@ -4,6 +4,18 @@ from rest_framework.response import Response
 
 from project.models import Project
 from label.serializers import *
+from rest_framework.views import APIView
+
+def get_queryset_labels(request):
+    return Label.objects.all()
+
+class LabelList(APIView):
+    # permission_classes=[permissions.IsAuthenticated]
+
+    def get(self, request, format=None):
+        labels = get_queryset_labels(request)
+        serializer = LabelSerializer(labels, many=True)
+        return Response(serializer.data)
 
 
 @api_view(['DELETE', 'GET', 'PUT'])

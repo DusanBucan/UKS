@@ -9,7 +9,7 @@ import { ProjectService } from '../services/project.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-  public project: Project = { name: ''};
+  public project: Project = { name: '', labels: [], users: []};
   public id: string;
   constructor(private projectService: ProjectService,
               private router: Router,
