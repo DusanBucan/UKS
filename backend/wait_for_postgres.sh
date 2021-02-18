@@ -6,7 +6,7 @@ function postgres_ready() {
 import sys
 import psycopg2
 try:
-    conn = psycopg2.connect(dbname="gihub_uks", user="gihub_uks", password="gihub_uks", host="db")
+    conn = psycopg2.connect(dbname="gihub_uks", user="gihub_uks", password="gihub_uks", host="localhost")
 except psycopg2.OperationalError:
     sys.exit(-1)
 sys.exit(0)
