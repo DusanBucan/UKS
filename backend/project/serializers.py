@@ -26,7 +26,7 @@ class CreateProjectSerializer(serializers.Serializer):
             the_labels.append(label)
         project.labels.set(the_labels)
         for user_id in users2:
-            user = User.objects.get(id=user_id)
+            user = GitHubUser.objects.get(id=user_id)
             the_users.append(user)
         project.users.set(the_users)
         return project

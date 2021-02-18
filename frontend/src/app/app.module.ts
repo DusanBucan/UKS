@@ -27,6 +27,7 @@ import { WikiComponent } from './wiki/wiki.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { InsightsComponent } from './insights/insights.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { AddProjectComponent } from './add-project/add-project.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     DetailsCommitComponent,
     WikiComponent,
     InsightsComponent,
+    AddProjectComponent,
   ],
   imports: [
     BrowserModule,
