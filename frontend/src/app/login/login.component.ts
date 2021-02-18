@@ -25,10 +25,6 @@ export class LoginComponent implements OnInit {
       if (response !== null) {
         // tslint:disable-next-line:no-string-literal
         const token = response['access'];
-        // const jwtData = token.split('.')[1];
-        // const decodedJwtJsonData = window.atob(jwtData);
-        // const decodedJwtData = JSON.parse(decodedJwtJsonData);
-        // const id = decodedJwtData.user_id;
         localStorage.setItem('currentUser', JSON.stringify({token}));
         this.router.navigate(['/dashboard/profile']);
       }

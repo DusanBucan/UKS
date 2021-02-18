@@ -56,6 +56,6 @@ export class DetailsMilestoneComponent implements OnInit {
   }
 
   editIssue(task: Task) {
-    this.router.navigate(['dashboard/home/issue-edit'+task.id]);
+    this.router.navigate(['dashboard/home/issue-edit' + task.id]);
   }
 }
