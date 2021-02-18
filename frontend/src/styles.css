@@ -233,6 +233,11 @@ body {
   color: black;
 }
 
+.red {
+  background-color: rgba(255, 0, 0, 0.637);
+  color: black;
+}
+
 .issues-container {
   width: 80vw;
   background-color: white;
