@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
           token: response['access']
           
         }));
-        console.log("radi automatski deployment preko jenkinsa")
+        console.log("radi automatski deployment preko jenkinsa 222")
         this.router.navigate(["/dashboard/home/issues"]);
         }
       }
