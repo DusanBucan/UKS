@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Milestone } from 'src/app/model/milestone';
 import { Task } from 'src/app/model/task';
-import { IssueEditService } from 'src/app/services/issue-edit.service';
 import { MilestoneService } from 'src/app/services/milestone.service';
 import { TaskService } from 'src/app/services/task.service';
 
@@ -19,8 +18,7 @@ export class DetailsMilestoneComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private milestoneService: MilestoneService,
-              private taskService: TaskService,
-              private taskEditService: IssueEditService) { }
+              private taskService: TaskService) { }
 
   ngOnInit() {
     const id = this.route.snapshot.params.id;
@@ -58,7 +56,6 @@ export class DetailsMilestoneComponent implements OnInit {
   }
 
   editIssue(task: Task) {
-    this.taskEditService.setTask(task);
-    this.router.navigate(['dashboard/home/issue-edit']);
+    this.router.navigate(['dashboard/home/issue-edit'+task.id]);
   }
 }

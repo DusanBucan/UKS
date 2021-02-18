@@ -1,79 +1,83 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { GithubUser } from "../model/github_user";
-import { Label } from "../model/label";
-import { TaskRequest } from "../request/task";
-import { GithubUserService } from "../services/github-user.service";
-import { IssueEditService } from "../services/issue-edit.service";
-import { LabelService } from "../services/label.service";
-import { TaskService } from "../services/task.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GithubUser } from '../model/github_user';
+import { Label } from '../model/label';
+import { Task } from '../model/task';
+import { TaskRequest } from '../request/task';
+import { ProjectService } from '../services/project.service';
+import { TaskService } from '../services/task.service';
 
 @Component({
-  selector: "app-issue-edit",
-  templateUrl: "./issue-edit.component.html",
-  styleUrls: ["./issue-edit.component.css"],
+  selector: 'app-issue-edit',
+  templateUrl: './issue-edit.component.html',
+  styleUrls: ['./issue-edit.component.css'],
 })
 export class IssueEditComponent implements OnInit {
+  public projectId: string;
+  public id: string;
   private users: GithubUser[] = [];
   private labels: Label[] = [];
   private editTask: TaskRequest = {
-    title: "",
-    description: "",
-    due_date: "",
+    title: '',
+    description: '',
+    due_date: '',
     opened: true,
-    task_state: "open",
+    task_state: 'open',
     project: 1,
     labels: [],
     assignee: 0,
-    author: 0,
   };
+
   constructor(
-    private userService: GithubUserService,
-    private labelService: LabelService,
-    private taskEditService: IssueEditService,
+    private projectService: ProjectService,
     private taskService: TaskService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.projectId = this.route.snapshot.params.projectId;
+    this.id = this.route.snapshot.params.id;
     this.loadUsers();
     this.loadLabels();
-    const task = this.taskEditService.getTask();
-    this.editTask = {
-      ...this.editTask,
-      title: task.title,
-      description: task.description,
-      due_date: task.due_date.substr(0, 10),
-      opened: task.opened,
-      task_state: task.task_state,
-      labels: task.labels.map((l) => l.id),
-      assignee: task.assignee.id,
-      author: task.author.id,
-    };
+    this.taskService.getTask(this.id).subscribe(
+      (task: Task) => {
+        this.editTask = {
+          ...this.editTask,
+          title: task.title,
+          description: task.description,
+          due_date: new Date(task.due_date).toISOString().slice(0, 16),
+          opened: task.opened,
+          task_state: task.task_state,
+          labels: task.labels.map((l) => l.id),
+          assignee: task.assignee.id
+        };
+      }
+    );
   }
 
   loadUsers() {
-    this.userService.getUsers().subscribe(
-      (response) => {
+    this.projectService.getUsersByProject(this.projectId).subscribe(
+      (response: GithubUser[]) => {
         if (response !== null) {
           this.users = response;
         }
       },
       (error) => {
-        alert("ERROR" + error);
+        alert('ERROR' + error);
       }
     );
   }
 
   loadLabels() {
-    this.labelService.getLabels().subscribe(
-      (response) => {
+    this.projectService.getLabelsByProject(this.projectId).subscribe(
+      (response: Label[]) => {
         if (response !== null) {
           this.labels = response;
         }
       },
       (error) => {
-        alert("ERROR" + error);
+        alert('ERROR' + error);
       }
     );
   }
@@ -87,19 +91,19 @@ export class IssueEditComponent implements OnInit {
   }
 
   markCreated() {
-    this.editTask.task_state = "open";
+    this.editTask.task_state = 'open';
   }
 
   markInProgress() {
-    this.editTask.task_state = "in progress";
+    this.editTask.task_state = 'in progress';
   }
 
   markInReview() {
-    this.editTask.task_state = "in review";
+    this.editTask.task_state = 'in review';
   }
 
   markDone() {
-    this.editTask.task_state = "done";
+    this.editTask.task_state = 'done';
   }
 
   handleLabelClick(id: number) {
@@ -114,24 +118,12 @@ export class IssueEditComponent implements OnInit {
     return !!this.editTask.labels.find((n) => n === id);
   }
 
-  handleAuthorClick(id: number) {
-    if (this.editTask.author === id) {
-      this.editTask.author = 0;
-    } else {
-      this.editTask.author = id;
-    }
-  }
-
   handleAssigneeClick(id: number) {
     if (this.editTask.assignee === id) {
       this.editTask.assignee = 0;
     } else {
       this.editTask.assignee = id;
     }
-  }
-
-  isAuthorSelected(id: number): boolean {
-    return this.editTask.author === id;
   }
 
   isAssigneeSelected(id: number): boolean {
@@ -141,26 +133,24 @@ export class IssueEditComponent implements OnInit {
   editIssue() {
     if (
       this.editTask.assignee > 0 &&
-      this.editTask.author > 0 &&
       this.editTask.title.length &&
       this.editTask.due_date
     ) {
-      this.editTask.due_date = `${this.editTask.due_date} 00:00`;
       this.taskService
-        .editTask(this.editTask, this.taskEditService.getTask().id)
+        .editTask(this.editTask, this.id)
         .subscribe(
           (response) => {
             if (response !== null) {
-              alert("Issue Successfuly edited!");
-              this.router.navigate(["dashboard/home/issues"]);
+              alert('Issue Successfuly edited!');
+              this.router.navigate(['dashboard/home/' + this.projectId + '/' + this.projectId + '/issues']);
             }
           },
           (error) => {
-            alert("ERROR" + error);
+            alert('ERROR' + error);
           }
         );
     } else {
-      alert("Please fill the form properly before editing issue");
+      alert('Please fill the form properly before editing issue');
     }
   }
 }

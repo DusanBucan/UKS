@@ -23,12 +23,16 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.user).subscribe(
       (response) => {
       if (response !== null) {
-        localStorage.setItem('currentUser', JSON.stringify({
-          token: response['access']
-        }));
+        // tslint:disable-next-line:no-string-literal
+        const token = response['access'];
+        // const jwtData = token.split('.')[1];
+        // const decodedJwtJsonData = window.atob(jwtData);
+        // const decodedJwtData = JSON.parse(decodedJwtJsonData);
+        // const id = decodedJwtData.user_id;
+        localStorage.setItem('currentUser', JSON.stringify({token}));
         this.router.navigate(['/dashboard/profile']);
-        }
       }
+    }
     ,
     (error) => {
       alert('ERROR');

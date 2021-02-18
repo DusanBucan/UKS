@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 import { ProjectComponent } from './project/project.component';
 import { LabelComponent } from './label/label.component';
 import { MilestoneComponent } from './milestone/milestone.component';
-import { TaskComponent } from './task/task.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TeamComponent } from './team/team.component';
 import { CommitComponent } from './commit/commit.component';
@@ -26,8 +25,8 @@ import { NewMilestoneComponent } from './milestone/new-milestone/new-milestone.c
 import { DetailsCommitComponent } from './commit/details-commit/details-commit.component';
 import { WikiComponent } from './wiki/wiki.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-import { InsightsComponent } from "./insights/insights.component";
-import { NgApexchartsModule } from "ng-apexcharts";
+import { InsightsComponent } from './insights/insights.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -35,7 +34,6 @@ import { NgApexchartsModule } from "ng-apexcharts";
     ProjectComponent,
     LabelComponent,
     MilestoneComponent,
-    TaskComponent,
     DashboardComponent,
     TeamComponent,
     CommitComponent,
