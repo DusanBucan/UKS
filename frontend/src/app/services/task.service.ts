@@ -18,7 +18,7 @@ export class TaskService {
   }
 
   getTask(id: string): Observable<Task> {
-    return this.http.get<Task>(`${this.urlBase}/${id}`);
+    return this.http.get<Task>(`${this.urlBase}${id}/`);
   }
 
   createTask(task: TaskRequest): Observable<object> {

@@ -1,15 +1,9 @@
-from rest_framework import permissions, status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework import status
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from project.models import Project
 from label.serializers import *
-
-
-def get_queryset_projects(request):
-    return Label.objects.all()
 
 
 @api_view(['DELETE', 'GET', 'PUT'])

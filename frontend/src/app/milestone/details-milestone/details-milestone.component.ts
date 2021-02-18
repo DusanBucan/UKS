@@ -15,6 +15,7 @@ export class DetailsMilestoneComponent implements OnInit {
   public milestone: Milestone = { title: '', description: '', due_date: '', start_date: '', project: 0};
   public tasks: Task[] = [];
   public id: string;
+  public projectId: string;
   constructor(private route: ActivatedRoute,
               private router: Router,
               private milestoneService: MilestoneService,
@@ -23,6 +24,7 @@ export class DetailsMilestoneComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.params.id;
     this.id = id;
+    this.projectId = this.route.snapshot.params.projectId;
     this.milestoneService.get(id).subscribe(
       (data: Milestone) => {
         this.milestone = data;
@@ -48,14 +50,14 @@ export class DetailsMilestoneComponent implements OnInit {
   }
 
   edit() {
-    this.router.navigate(['/dashboard/home/milestone-new/' + this.id]);
+    this.router.navigate(['/dashboard/home/' + this.projectId + '/' + this.projectId + '/milestone-new/' + this.id]);
   }
 
   newIssue() {
-    this.router.navigate(['dashboard/home/issue-create']);
+    this.router.navigate(['dashboard/home/' + this.projectId + '/' + this.projectId + '/issue-create']);
   }
 
   editIssue(task: Task) {
-    this.router.navigate(['dashboard/home/issue-edit' + task.id]);
+    this.router.navigate(['dashboard/home/' + this.projectId + '/' + this.projectId + '/issue-edit/' + task.id]);
   }
 }
