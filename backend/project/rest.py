@@ -1,5 +1,6 @@
 from rest_framework import permissions, status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -20,14 +21,13 @@ class ProjectList(APIView):
         serializer=ProjectSerializer(projects, many=True)
         return Response(serializer.data)
 
+    @permission_classes([AllowAny])
     def post(self, request, format=None):
         serializer = CreateProjectSerializer(data=request.data)
         if serializer.is_valid():
-            print('serializer valid')
             project = serializer.save()
             #project.users.add(request.user.profile)
             return Response("Project successfully added.", status=status.HTTP_201_CREATED)
-
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE', 'GET', 'PUT'])

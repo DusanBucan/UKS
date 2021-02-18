@@ -10,7 +10,8 @@
       "project": 1,
       "assignee": 1,
       "author": 1,
-      "labels": [1]
+      "labels": [1],
+      "milestones": []
     },
     "model": "task.task",
     "pk": 1
@@ -26,7 +27,8 @@
       "project": 1,
       "assignee": 1,
       "author": 1,
-      "labels": [1, 2]
+      "labels": [1, 2],
+      "milestones": []
     },
     "model": "task.task",
     "pk": 2

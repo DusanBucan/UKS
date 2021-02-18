@@ -1,0 +1,26 @@
+<div class="main-container">
+  <div class="invisible-container">
+    <div class="invisible-container-left" style="width: 50%">
+      <h3>New Commit</h3>
+    </div>
+  </div>
+  <div class="new-milestone-container">
+    <div class="form-style-milestone">
+      <div class="form-label">Summary</div>
+      <input type="text" class="form-input" [(ngModel)]="commit.summary"/>
+      <div class="form-label">Description</div>
+      <textarea type="textarea" class="form-input" [(ngModel)]="commit.description"></textarea>
+      <div class="form-label">Date</div>
+      <input type="datetime-local" class="form-input" [(ngModel)]="commit.date"/>
+      <div class="form-label">Hash</div>
+      <input type="text" class="form-input" [(ngModel)]="commit.hash"/>
+    </div>
+  </div>
+  <div class="invisible-container">
+    <div class="invisible-container-left"></div>
+    <div class="invisible-container-right">
+      <button class="button green" (click)="create()">Add commit</button>
+    </div>
+  </div>
+</div>
+

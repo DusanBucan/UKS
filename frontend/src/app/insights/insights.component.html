@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="menu-container">
+    <div class="menu-header">Issues Insights</div>
+    <div class="menu-item" (click)="chooseChoice(selectChoice.issuesGeneral)">
+      General State
+    </div>
+    <div class="menu-item" (click)="chooseChoice(selectChoice.issuesByUser)">
+      Display by contributors
+    </div>
+
+    <div class="menu-header">User Insights</div>
+    <div class="menu-item">Option 1</div>
+    <div class="menu-item">Option 2</div>
+
+    <div class="menu-header">Milestone Insights</div>
+    <div class="menu-item">Option 1</div>
+    <div class="menu-item">Option 2</div>
+  </div>
+  <div class="chart-container">
+    <div *ngIf="selectedChoice === selectChoice.issuesGeneral">
+      <div
+        *ngIf="taskOpenedChart.series?.length && taskOpenedChart.labels?.length"
+      >
+        <div id="chart">
+          <apx-chart
+            [series]="taskOpenedChart.series"
+            [chart]="taskOpenedChart.chart"
+            [responsive]="taskOpenedChart.responsive"
+            [labels]="taskOpenedChart.labels"
+          ></apx-chart>
+        </div>
+      </div>
+
+      <div
+        *ngIf="tasksStateChart.series?.length && tasksStateChart.labels?.length"
+      >
+        <div id="chart">
+          <apx-chart
+            [series]="tasksStateChart.series"
+            [chart]="tasksStateChart.chart"
+            [responsive]="tasksStateChart.responsive"
+            [labels]="tasksStateChart.labels"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="selectedChoice === selectChoice.issuesByUser">
+      <div *ngFor="let insight of usersStateInsights; index as i">
+        <h2>{{ users[i].user.username }}'s Issues</h2>
+        <div
+          *ngIf="
+            usersOpenedInsights[0].series?.length &&
+            usersOpenedInsights[0].labels?.length
+          "
+        >
+          <div id="chart">
+            <apx-chart
+              [series]="usersOpenedInsights[0].series"
+              [chart]="usersOpenedInsights[0].chart"
+              [responsive]="usersOpenedInsights[0].responsive"
+              [labels]="usersOpenedInsights[0].labels"
+            ></apx-chart>
+          </div>
+        </div>
+
+        <div *ngIf="insight.series?.length && insight.labels?.length">
+          <div id="chart">
+            <apx-chart
+              [series]="insight.series"
+              [chart]="insight.chart"
+              [responsive]="insight.responsive"
+              [labels]="insight.labels"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
