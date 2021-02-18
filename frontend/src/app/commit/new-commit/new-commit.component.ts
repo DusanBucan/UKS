@@ -11,7 +11,7 @@ import { CommitService } from 'src/app/services/commit.service';
 export class NewCommitComponent implements OnInit {
 
   public id: string;
-  public commit: CommitRequest = {date: '', hash: '', summary: '', description: '', project: 1, user: 1 };
+  public commit: CommitRequest = {date: '', hash: '', summary: '', description: '', project: 0, user: 1 };
   constructor(private commitService: CommitService,
               private router: Router,
               private route: ActivatedRoute) { }
@@ -21,6 +21,7 @@ export class NewCommitComponent implements OnInit {
   }
 
   create() {
+    this.commit.project = Number(this.id);
     this.commitService.create(this.commit).subscribe(
       () => {
         this.router.navigate(['dashboard/home/' + this.id + '/' + this.id + '/commits']);
