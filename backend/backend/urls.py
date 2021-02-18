@@ -26,4 +26,5 @@ urlpatterns = [
     path('api/github_users/', include('github_user.urls', namespace='github_user')),
     path('api/token/', RichTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/tasks/', include('task.urls', namespace='task')),
+    path('api/wiki/', include('wiki.urls',namespace='wiki')),
 ]

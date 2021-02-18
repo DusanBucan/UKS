@@ -12,8 +12,8 @@ export class UserAuthGuard implements CanActivate{
 
     canActivate() {
         var loggedUser = JSON.parse(localStorage.getItem("currentUser") || '{}');
-        if (loggedUser !== '{}') {
-                return true;
+        if (loggedUser !== '{}' && loggedUser["token"]!==undefined) {
+            return true;
         }
         return false;
     }

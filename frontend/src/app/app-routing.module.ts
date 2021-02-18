@@ -41,9 +41,9 @@ const routes: Routes = [
         path: 'home',
         component: NavBarComponent,
         children: [
-          { path: 'issues', component: IssuesComponent },
-          { path: "issue-create", component: IssueCreateComponent },
-          { path: "issue-edit", component: IssueEditComponent },
+          { path: 'issues', component: IssuesComponent},
+          { path: "issue-create", component: IssueCreateComponent},
+          { path: "issue-edit", component: IssueEditComponent},
           { path: 'labels', component: LabelComponent },
           { path: 'pull-requests', component: CommitComponent },
           { path: 'milestones', component: MilestoneComponent },

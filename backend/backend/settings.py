@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'project',
     'task',
     'team',
+    'wiki',
     'rest_framework'
 ]
 
