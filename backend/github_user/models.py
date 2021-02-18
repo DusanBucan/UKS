@@ -16,6 +16,7 @@ class UserProxy(User):
 
 
 class GitHubUser(models.Model):
+    id: models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     user = models.OneToOneField(UserProxy, related_name='profile', on_delete=models.PROTECT)
     photo = models.CharField('photo', max_length=500)
     github_profile_url = models.CharField('github profile url', max_length=500)

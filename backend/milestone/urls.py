@@ -5,6 +5,7 @@ from .rest import *
 app_name = 'milestone'
 
 urlpatterns = [
-    path('', MilestoneList.as_view()),
-    path('<int:pk>/', api_milestone_detail)
+    path('', api_milestone_new),
+    path('<int:pk>/', api_milestone_detail),
+    path('project/<int:pk>/', api_milestone_by_project)
 ]

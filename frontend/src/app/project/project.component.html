@@ -2,28 +2,37 @@
   <div class="board-contaner">
     <div class="board">
       <div class="board-info">
-        <div class="tasks-num">1</div>
+        <div class="tasks-num">{{ createdNum() }}</div>
         Created
       </div>
-      <div class="task">
-        <img
-          src="../../assets/three-dots.svg"
-          height="15"
-          class="task-edit-icon"
-        />
+      <div *ngFor="let task of filterCreated()" class="task">
         <div class="task-content">
           <div class="task-title-wrapper">
-            <img src="../../assets/opened-issue.svg" height="15" />
-            <div class="task-title">Some task</div>
+            <img
+              *ngIf="task.opened"
+              src="../../assets/opened-issue.svg"
+              height="15"
+            />
+            <img
+              *ngIf="!task.opened"
+              src="../../assets/closed-issue.svg"
+              height="15"
+            />
+            <div class="task-title">{{ task.title }}</div>
           </div>
-          <div class="task-desc">#19 Opened by Leona Nedeljkovic</div>
+          <div class="task-desc">
+            #{{ task.id }} Opened by {{ task.author.user.username }}
+          </div>
           <div
             class="label-container"
             style="margin-left: 20px; margin-top: 5px"
           >
-            <div class="label" style="background-color: aqua">frontend</div>
-            <div class="label" style="background-color: rgb(204, 0, 255)">
-              frontend
+            <div
+              *ngFor="let label of task.labels"
+              class="label"
+              [style.background-color]="label.color"
+            >
+              {{ label.title }}
             </div>
           </div>
           <div class="task-desc">
@@ -36,22 +45,130 @@
 
     <div class="board">
       <div class="board-info">
-        <div class="tasks-num">0</div>
+        <div class="tasks-num">{{ inProgressNum() }}</div>
         In Progress
       </div>
-    </div>
-
-    <div class="board">
-      <div class="board-info">
-        <div class="tasks-num">0</div>
-        In Review
+      <div *ngFor="let task of filterInProgress()" class="task">
+        <div class="task-content">
+          <div class="task-title-wrapper">
+            <img
+              *ngIf="task.opened"
+              src="../../assets/opened-issue.svg"
+              height="15"
+            />
+            <img
+              *ngIf="!task.opened"
+              src="../../assets/closed-issue.svg"
+              height="15"
+            />
+            <div class="task-title">{{ task.title }}</div>
+          </div>
+          <div class="task-desc">
+            #{{ task.id }} Opened by {{ task.author.user.username }}
+          </div>
+          <div
+            class="label-container"
+            style="margin-left: 20px; margin-top: 5px"
+          >
+            <div
+              *ngFor="let label of task.labels"
+              class="label"
+              [style.background-color]="label.color"
+            >
+              {{ label.title }}
+            </div>
+          </div>
+          <div class="task-desc">
+            <img src="../../assets/milestone.svg" height="15" />
+            Screens
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="board">
       <div class="board-info">
-        <div class="tasks-num">0</div>
+        <div class="tasks-num">{{ inReviewNum() }}</div>
+        In Review
+      </div>
+      <div *ngFor="let task of filterInReview()" class="task">
+        <div class="task-content">
+          <div class="task-title-wrapper">
+            <img
+              *ngIf="task.opened"
+              src="../../assets/opened-issue.svg"
+              height="15"
+            />
+            <img
+              *ngIf="!task.opened"
+              src="../../assets/closed-issue.svg"
+              height="15"
+            />
+            <div class="task-title">{{ task.title }}</div>
+          </div>
+          <div class="task-desc">
+            #{{ task.id }} Opened by {{ task.author.user.username }}
+          </div>
+          <div
+            class="label-container"
+            style="margin-left: 20px; margin-top: 5px"
+          >
+            <div
+              *ngFor="let label of task.labels"
+              class="label"
+              [style.background-color]="label.color"
+            >
+              {{ label.title }}
+            </div>
+          </div>
+          <div class="task-desc">
+            <img src="../../assets/milestone.svg" height="15" />
+            Screens
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="board">
+      <div class="board-info">
+        <div class="tasks-num">{{ doneNum() }}</div>
         Done
+      </div>
+      <div *ngFor="let task of filterDone()" class="task">
+        <div class="task-content">
+          <div class="task-title-wrapper">
+            <img
+              *ngIf="task.opened"
+              src="../../assets/opened-issue.svg"
+              height="15"
+            />
+            <img
+              *ngIf="!task.opened"
+              src="../../assets/closed-issue.svg"
+              height="15"
+            />
+            <div class="task-title">{{ task.title }}</div>
+          </div>
+          <div class="task-desc">
+            #{{ task.id }} Opened by {{ task.author.user.username }}
+          </div>
+          <div
+            class="label-container"
+            style="margin-left: 20px; margin-top: 5px"
+          >
+            <div
+              *ngFor="let label of task.labels"
+              class="label"
+              [style.background-color]="label.color"
+            >
+              {{ label.title }}
+            </div>
+          </div>
+          <div class="task-desc">
+            <img src="../../assets/milestone.svg" height="15" />
+            Screens
+          </div>
+        </div>
       </div>
     </div>
   </div>

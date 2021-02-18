@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders , HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Label } from '../model/label';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LabelService {
-  private readonly urlBase = 'http://localhost:8000/api/labels/';
-
-
+  private readonly urlBase = environment.url + 'api/labels/';
 
   constructor(private http: HttpClient) { }
 
@@ -17,16 +16,16 @@ export class LabelService {
     return this.http.get<Array<Label>>(`${this.urlBase}`);
   }
 
-  deleteLabel(id:Number):Observable<Object> {
-    return this.http.delete(`${this.urlBase}`+id+'/');
+  deleteLabel(id: number): Observable<object> {
+    return this.http.delete(`${this.urlBase}` + id + '/');
   }
 
-  createLabel(label: Label):Observable<Object>{
-    return this.http.post(`${this.urlBase}`,label);
+  createLabel(label: Label, id: string): Observable<object> {
+    return this.http.post(`${this.urlBase}add/${id}/`, label);
   }
 
-  editLabel(label:Label, id: Number): Observable<Object>{
-    return this.http.put(`${this.urlBase}`+id+'/',label);
+  editLabel(label: Label, id: number): Observable<object> {
+    return this.http.put(`${this.urlBase}` + id + '/', label);
   }
 
 

@@ -7,13 +7,13 @@ from django.contrib.auth.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProxy
-        fields = ('first_name', 'last_name', 'is_staff', 'is_superuser', 'is_active', 'email','username','password')
+        fields = ('id', 'first_name', 'last_name', 'is_staff', 'is_superuser', 'is_active', 'email','username','password')
 
 class GitHubUserSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     class Meta:
         model=GitHubUser
-        fields = ('user', 'photo', 'github_profile_url', 'organization', 'member_since', 'skype', 'twitter', 'linkedin')
+        fields = ('id', 'user', 'photo', 'github_profile_url', 'organization', 'member_since', 'skype', 'twitter', 'linkedin')
     def create(self, validated_data):
         user = User(
             first_name = validated_data['user']['first_name'],

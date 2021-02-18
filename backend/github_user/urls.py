@@ -3,9 +3,10 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 from .rest import *
 
-app_name='github_user'
+app_name = 'github_user'
 
-urlpatterns=[
+urlpatterns = [
     path('', GithubUserList.as_view()),
-    path('<int:pk>/', api_githubUser_detail)
+    path('<int:pk>/', api_github_user_detail),
+    path('loggedIn/', api_github_user_logged_in)
 ]

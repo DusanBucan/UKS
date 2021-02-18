@@ -1,0 +1,13 @@
+<div class="main-container" *ngIf="commit !== undefined">
+  <div class="invisible-container">
+    <div class="invisible-container-left" style="width: 50%">
+      <h3>Summary: {{commit.summary}}</h3>
+      Hash: {{commit.hash}}<br/><br/>
+      User: {{commit.user.user.username}} ({{commit.user.user.first_name}} {{commit.user.user.last_name}})<br/><br/>
+      Description: {{commit.description}}
+    </div>
+    <div class="invisible-container-right">
+      Created: {{ commit.date | date: "dd.MM.yyyy hh:mm" }}
+    </div>
+  </div>
+</div>
