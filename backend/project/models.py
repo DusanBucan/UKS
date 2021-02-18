@@ -12,7 +12,8 @@ class Project(models.Model):
     deleted = models.BooleanField(default=False)
 
     def set_labels(self, labels):
-        self.labels=labels
+        self.labels = labels
 
     def set_users(self, users):
-        self.users=users
+        self.users = users
+

@@ -20,13 +20,15 @@ class TaskList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = CreateTaskSerializer(data=request.data)
+        data = request.data
+        data['author'] = request.user.id
+        serializer = CreateTaskSerializer(data=data)
         if serializer.is_valid():
-            print('serializer valid')
             task = serializer.save()
             return Response('SUCCESS', status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['DELETE', 'GET', 'PUT'])
 def api_task_detail(request, pk):
@@ -42,6 +44,7 @@ def api_task_detail(request, pk):
         task.delete()
         return Response(True, status=status.HTTP_200_OK)
 
+    request.data['author'] = task.author.id
     serializer = CreateTaskSerializer(task, data=request.data)
     if serializer.is_valid():
         task = serializer.save()
@@ -55,5 +58,12 @@ def api_task_detail(request, pk):
 @api_view(['GET'])
 def api_tasks_by_milestone(request, pk):
     tasks = Task.objects.filter(milestones__in=[pk])
+    serializer = TaskSerializer(tasks, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def api_tasks_by_project(request, pk):
+    tasks = Task.objects.filter(project_id=pk)
     serializer = TaskSerializer(tasks, many=True)
     return Response(serializer.data)

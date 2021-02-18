@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from '@angular/router';
+import { Project } from '../model/project';
+import { ProjectService } from '../services/project.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,15 +9,24 @@ import { Router } from "@angular/router";
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-
-  constructor(private router: Router) { }
+  public project: Project = { name: ''};
+  public id: string;
+  constructor(private projectService: ProjectService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.id = this.route.snapshot.params.prId;
+    this.projectService.get(this.id).subscribe(
+      (data: Project) => {
+        this.project = data;
+      }
+    );
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('currentUser');
-    this.router.navigate(["/login"]);
+    this.router.navigate(['/login']);
   }
 
 }

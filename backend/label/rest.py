@@ -1,36 +1,10 @@
-from rest_framework import permissions, status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework import status
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from project.models import Project
 from label.serializers import *
 
-
-
-def get_queryset_projects(request):
-    return Label.objects.all()
-
-class LabelList(APIView):
-
-
-    def get(self, request, format=None):
-        #print(request.user.id)
-        labels = get_queryset_projects(request)
-        serializer=LabelSerializer(labels, many=True)
-        return Response(serializer.data)
-
-    @permission_classes([AllowAny])
-    def post(self, request, format=None):
-        serializer = CreateLabelSerializer(data=request.data)
-        if serializer.is_valid():
-            print('serializer valid')
-            label = serializer.save()
-            label.save()
-            return Response("Label successfully added.", status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE', 'GET', 'PUT'])
 def api_label_detail(request, pk):
@@ -57,4 +31,14 @@ def api_label_detail(request, pk):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, content_type="application/json")
 
 
+@api_view(['POST'])
+def api_label_add(request, pk):
+    serializer = CreateLabelSerializer(data=request.data)
+    if serializer.is_valid():
+        label = serializer.save()
+        label.save()
+        project = Project.objects.get(id=pk)
+        project.labels.add(label)
+        return Response("Label successfully added.", status=status.HTTP_201_CREATED)
 
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

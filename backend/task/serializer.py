@@ -59,7 +59,6 @@ class CreateTaskSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         _labels = []
         _assignee = GitHubUser.objects.get(id=validated_data['assignee'])
-        _author = GitHubUser.objects.get(id=validated_data['author'])
 
         for lab_id in validated_data['labels']:
             label = Label.objects.get(id=lab_id)
@@ -67,7 +66,6 @@ class CreateTaskSerializer(serializers.Serializer):
 
         instance.labels.set(_labels)
         instance.assignee = _assignee
-        instance.author = _author
         instance.title = validated_data['title']
         instance.due_date = validated_data['due_date']
         instance.description = validated_data['description']

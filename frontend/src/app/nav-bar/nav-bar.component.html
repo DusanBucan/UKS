@@ -1,22 +1,21 @@
 <div class="nav-bar">
-  <div class="nav-bar-heading">UKS</div>
+  <div class="nav-bar-heading">{{project.name}}</div>
   <div class="nav-bar-content">
-    <a class="nav-bar-item" [routerLink]="['/dashboard/home/issues']">Issues</a>
-    <a class="nav-bar-item" [routerLink]="['/dashboard/home/commits']"
+    <a class="nav-bar-item" [routerLink]="['/dashboard/home/'+id+'/'+id+'/issues/']">Issues</a>
+    <a class="nav-bar-item" [routerLink]="['/dashboard/home/'+id+'/'+id+'/commits']"
       >Commits</a
     >
-    <a class="nav-bar-item" [routerLink]="['/dashboard/home/labels']">Labels</a>
-    <a class="nav-bar-item" [routerLink]="['/dashboard/home/milestones']"
+    <a class="nav-bar-item" [routerLink]="['/dashboard/home/'+id+'/'+id+'/labels']">Labels</a>
+    <a class="nav-bar-item" [routerLink]="['/dashboard/home/'+id+'/'+id+'/milestones']"
       >Milestones</a
     >
-    <a class="nav-bar-item" [routerLink]="['/dashboard/home/projects']"
+    <a class="nav-bar-item" [routerLink]="['/dashboard/home/'+id+'/'+id+'/project']"
       >Projects</a
     >
-    <a class="nav-bar-item" [routerLink]="['/dashboard/home/wiki']">Wiki</a>
-    <a class="nav-bar-item" [routerLink]="['/dashboard/home/insights']"
+    <a class="nav-bar-item" [routerLink]="['/dashboard/home/'+id+'/'+id+'/wiki']">Wiki</a>
+    <a class="nav-bar-item" [routerLink]="['/dashboard/home/'+id+'/'+id+'/insights']"
       >Insights</a
     >
-    <a class="nav-bar-item" (click)="logout()">Logout</a>
   </div>
 </div>
 <router-outlet></router-outlet>

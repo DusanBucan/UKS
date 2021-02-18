@@ -3,6 +3,8 @@ import { GithubUser } from '../model/github_user';
 import { Team } from '../model/team';
 import { Project } from '../model/project';
 import { GithubUserService } from '../services/github-user.service';
+import { ProjectService } from '../services/project.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,20 +14,22 @@ import { GithubUserService } from '../services/github-user.service';
 })
 export class GithubUserComponent implements OnInit {
 
-  private loggedUser : GithubUser;
+  private loggedUser: GithubUser;
   private teams: Team[] = [];
   private projects: Project[] = [];
 
 
-  constructor(private githubUserService: GithubUserService) { }
+  constructor(private router: Router,
+              private githubUserService: GithubUserService,
+              private projectService: ProjectService) { }
 
   ngOnInit() {
     this.getLoggedIn();
     this.getProjects();
-    //this.getTeams();
+    // this.getTeams();
   }
 
-  getLoggedIn(){
+  getLoggedIn() {
     this.githubUserService.getLoggedIn().subscribe(
       (response) => {
         if (response !== null) {
@@ -33,26 +37,23 @@ export class GithubUserComponent implements OnInit {
         }
       },
       (error) => {
-        alert("ERROR");
+        alert('ERROR');
       }
     );
   }
 
-  getProjects(){
-    this.githubUserService.getUsersProjects().subscribe(
-      (response) => {
-        if (response !== null) {
-          this.projects = response;
-        }
+  getProjects() {
+    this.projectService.getProjectsByUser().subscribe(
+      (data: Project[]) => {
+        this.projects = data;
       },
-      (error) => {
-        alert("ERROR");
+      () => {
+        alert('ERROR');
       }
     );
-
   }
 
-  getTeams(){
+  getTeams() {
     this.githubUserService.getUsersTeams().subscribe(
       (response) => {
         if (response !== null) {
@@ -60,10 +61,12 @@ export class GithubUserComponent implements OnInit {
         }
       },
       (error) => {
-        alert("ERROR");
+        alert('ERROR');
       }
     );
-
   }
 
+  details(id: string) {
+    this.router.navigate(['/dashboard/home/' + id + '/' + id + '/issues']);
+  }
 }

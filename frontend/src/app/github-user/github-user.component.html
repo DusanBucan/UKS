@@ -18,7 +18,9 @@
       <div class="milestone" *ngFor="let project of projects">
         <div class="milestone-left">
           <div href="#" class="milestone-heading">
-            <button class="details-link">{{ project.name }}</button>
+            <div class="issue-heading" (click)="details(project.id)">
+              {{ project.name }}
+            </div>
           </div>
         </div>
       </div>

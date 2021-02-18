@@ -19,50 +19,50 @@ import { NewCommitComponent } from './commit/new-commit/new-commit.component';
 import { DetailsCommitComponent } from './commit/details-commit/details-commit.component';
 import { WikiComponent } from './wiki/wiki.component';
 import { NgxEditorModule } from 'ngx-editor';
-import { InsightsComponent } from "./insights/insights.component";
+import { InsightsComponent } from './insights/insights.component';
 
 const routes: Routes = [
   {
-    path: "login",
+    path: 'login',
     component: LoginComponent,
   },
   {
-    path: "registration",
+    path: 'registration',
     component: RegistrationComponent,
   },
   {
-    path: "dashboard",
+    path: 'dashboard',
     component: HeaderComponent,
     canActivate: [UserAuthGuard],
 
     children: [
       {
-        path: "profile",
+        path: 'profile',
         component: GithubUserComponent,
       },
       {
-        path: "home",
+        path: 'home/:prId',
         component: NavBarComponent,
         children: [
-          { path: 'issues', component: IssuesComponent },
-          { path: 'issue-create', component: IssueCreateComponent },
-          { path: 'issue-edit', component: IssueEditComponent },
-          { path: 'labels', component: LabelComponent },
-          { path: 'commits', component: CommitComponent },
-          { path: 'commit-details/:id', component: DetailsCommitComponent },
-          { path: 'commit-new', component: NewCommitComponent },
-          { path: 'milestones', component: MilestoneComponent },
-          { path: 'milestone-details/:id', component: DetailsMilestoneComponent },
-          { path: 'milestone-new/:id', pathMatch: 'full', component: NewMilestoneComponent },
-          { path: 'milestone-new', component: NewMilestoneComponent },
-          { path: 'projects', component: ProjectComponent },
-          { path: 'wiki', component: WikiComponent },
-          { path: "insights", component: InsightsComponent },
+          { path: ':projectId/issues', component: IssuesComponent },
+          { path: ':projectId/issue-create', component: IssueCreateComponent },
+          { path: ':projectId/issue-edit/:id', component: IssueEditComponent },
+          { path: ':projectId/labels', component: LabelComponent },
+          { path: ':projectId/commits', component: CommitComponent },
+          { path: ':projectId/commit-details/:id', component: DetailsCommitComponent },
+          { path: ':projectId/commit-new', component: NewCommitComponent },
+          { path: ':projectId/milestones', component: MilestoneComponent },
+          { path: ':projectId/milestone-details/:id', component: DetailsMilestoneComponent },
+          { path: ':projectId/milestone-new/:id', pathMatch: 'full', component: NewMilestoneComponent },
+          { path: ':projectId/milestone-new', component: NewMilestoneComponent },
+          { path: ':projectId/project', component: ProjectComponent },
+          { path: ':projectId/wiki', component: WikiComponent },
+          { path: ':projectId/insights', component: InsightsComponent },
         ],
       },
     ],
   },
-  { path: "**", redirectTo: "login" },
+  { path: '**', redirectTo: 'login' },
 ];
 
 @NgModule({

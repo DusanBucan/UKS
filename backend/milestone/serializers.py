@@ -17,7 +17,6 @@ class CreateMilestoneSerializer(serializers.Serializer):
     start_date = serializers.DateField()
     due_date = serializers.DateField()
     project = serializers.IntegerField()
-    tasks = serializers.ListField()
 
     def create(self, validated_data):
         project_id = validated_data['project']
@@ -35,4 +34,3 @@ class CreateMilestoneSerializer(serializers.Serializer):
         instance.due_date = validated_data.get('due_date', instance.due_date)
         instance.project = Project.objects.get(id=validated_data.get('project', instance.project))
         return instance
-

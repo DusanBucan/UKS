@@ -1,86 +1,88 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { GithubUser } from "../model/github_user";
-import { Label } from "../model/label";
-import { Task } from "../model/task";
-import { GithubUserService } from "../services/github-user.service";
-import { IssueEditService } from "../services/issue-edit.service";
-import { LabelService } from "../services/label.service";
-import { TaskService } from "../services/task.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GithubUser } from '../model/github_user';
+import { Label } from '../model/label';
+import { Task } from '../model/task';
+import { GithubUserService } from '../services/github-user.service';
+import { LabelService } from '../services/label.service';
+import { ProjectService } from '../services/project.service';
+import { TaskService } from '../services/task.service';
 
 @Component({
-  selector: "app-issues",
-  templateUrl: "./issues.component.html",
-  styleUrls: ["./issues.component.css"],
+  selector: 'app-issues',
+  templateUrl: './issues.component.html',
+  styleUrls: ['./issues.component.css'],
 })
 export class IssuesComponent implements OnInit {
+  public id: string;
   private dropdownType = {
-    unselected: "UNSELECTED",
-    filter: "FILTER",
-    author: "AUTHOR",
-    label: "LABEL",
-    project: "PROJECT",
-    milestone: "MILESTONE",
-    assignee: "ASSIGNEE",
-    sort: "SORT",
+    unselected: 'UNSELECTED',
+    filter: 'FILTER',
+    author: 'AUTHOR',
+    label: 'LABEL',
+    project: 'PROJECT',
+    milestone: 'MILESTONE',
+    assignee: 'ASSIGNEE',
+    sort: 'SORT',
   };
-  private dropdownSelected: string = "";
+  private dropdownSelected = '';
   private issues: Task[] = [];
   private users: GithubUser[] = [];
   private labels: Label[] = [];
-  private openedSelected: boolean = true;
+  private openedSelected = true;
   private storedIssues: Task[] = [];
 
   constructor(
     private taskService: TaskService,
-    private userService: GithubUserService,
+    private projectService: ProjectService,
     private labelService: LabelService,
     private router: Router,
-    private taskEditService: IssueEditService
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.id = this.route.snapshot.params.projectId;
     this.loadTasks();
     this.loadUsers();
     this.loadLabels();
   }
 
   loadTasks() {
-    this.taskService.getTasks().subscribe(
-      (response) => {
+    this.taskService.getTasksByProject(this.id).subscribe(
+      (response: Task[]) => {
         if (response !== null) {
           this.issues = response;
           this.storedIssues = response;
         }
       },
       (error) => {
-        alert("ERROR" + error);
+        alert('ERROR' + error);
       }
     );
   }
 
   loadUsers() {
-    this.userService.getUsers().subscribe(
-      (response) => {
+    this.projectService.getUsersByProject(this.id).subscribe(
+      (response: GithubUser[]) => {
         if (response !== null) {
           this.users = response;
         }
       },
       (error) => {
-        alert("ERROR" + error);
+        alert('ERROR' + error);
       }
     );
   }
 
   loadLabels() {
-    this.labelService.getLabels().subscribe(
-      (response) => {
+    this.projectService.getLabelsByProject(this.id).subscribe(
+      (response: Label[]) => {
         if (response !== null) {
           this.labels = response;
         }
       },
       (error) => {
-        alert("ERROR" + error);
+        alert('ERROR' + error);
       }
     );
   }
@@ -109,28 +111,28 @@ export class IssuesComponent implements OnInit {
   }
 
   filterIssues(
-    criteria: "open" | "in progress" | "in review" | "closed" | "all"
+    criteria: 'open' | 'in progress' | 'in review' | 'closed' | 'all'
   ): void {
-    if (criteria === "all") {
+    if (criteria === 'all') {
       this.issues = this.storedIssues;
     } else {
       this.issues = this.storedIssues.filter((i) => i.task_state === criteria);
     }
-    this.selectDropdown("");
+    this.selectDropdown('');
   }
 
   filterAssignee(username: string): void {
     this.issues = this.storedIssues.filter(
       (i) => i.assignee.user.username === username
     );
-    this.selectDropdown("");
+    this.selectDropdown('');
   }
 
   filterAuthor(username: string): void {
     this.issues = this.storedIssues.filter(
       (i) => i.author.user.username === username
     );
-    this.selectDropdown("");
+    this.selectDropdown('');
   }
 
   filterLabel(title: string): void {
@@ -140,11 +142,10 @@ export class IssuesComponent implements OnInit {
   }
 
   newIssue() {
-    this.router.navigate(["dashboard/home/issue-create"]);
+    this.router.navigate(['dashboard/home/' + this.id + '/' + this.id + '/issue-create']);
   }
 
   editIssue(task: Task) {
-    this.taskEditService.setTask(task);
-    this.router.navigate(["dashboard/home/issue-edit"]);
+    this.router.navigate(['dashboard/home/' + this.id + '/' + this.id + '/issue-edit/' + task.id]);
   }
 }

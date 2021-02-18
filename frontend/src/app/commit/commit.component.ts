@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Commit } from '../model/commit';
 import { CommitService } from '../services/commit.service';
 
@@ -9,7 +9,7 @@ import { CommitService } from '../services/commit.service';
   styleUrls: ['./commit.component.css'],
 })
 export class CommitComponent implements OnInit {
-
+  public id: string;
   public commits: Commit[] = [];
 
   private dropdownType = {
@@ -22,12 +22,15 @@ export class CommitComponent implements OnInit {
     assignee: 'ASSIGNEE',
     sort: 'SORT',
   };
+
   private dropdownSelected = '';
   constructor(private router: Router,
-              private commitService: CommitService) {}
+              private commitService: CommitService,
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.commitService.getCommitByProjectId('1').subscribe(
+    this.id = this.route.snapshot.params.projectId;
+    this.commitService.getCommitByProjectId(this.id).subscribe(
       (data: Commit[]) => {
         this.commits = data;
       }
@@ -40,10 +43,10 @@ export class CommitComponent implements OnInit {
   }
 
   new() {
-    this.router.navigate(['dashboard/home/commit-new']);
+    this.router.navigate(['dashboard/home/' + this.id + '/' + this.id + '/commit-new']);
   }
 
   details(id: string) {
-    this.router.navigate(['dashboard/home/commit-details/' + id]);
+    this.router.navigate(['dashboard/home/' + this.id + '/' + this.id + '/commit-details/' + id]);
   }
 }

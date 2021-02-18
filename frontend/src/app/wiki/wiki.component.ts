@@ -1,24 +1,25 @@
 import { Component, OnInit} from '@angular/core';
-import { FormBuilder,Validators} from '@angular/forms';
+import { FormBuilder, Validators} from '@angular/forms';
 import { WikiService } from '../services/wiki.service';
 import { Wiki } from '../model/wiki';
 import { ProjectService } from '../services/project.service';
 import { Project } from '../model/project';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-wiki',
   templateUrl: './wiki.component.html',
   styleUrls: ['./wiki.component.css']
 })
-export class WikiComponent implements OnInit{
+export class WikiComponent implements OnInit {
   formdata;
-  private exists:boolean=false;
-  private forEdit: boolean = false;
-  private text: string ="";
-  private wiki: Wiki = {id:0,project:null, text:''};
+  private exists = false;
+  private forEdit = false;
+  private text = '';
+  private wiki: Wiki = {id: 0, project: null, text: ''};
   private project: Project;
-  private projectId: number =1;
+  private projectId: string;
   config: AngularEditorConfig = {
     editable: true,
       spellcheck: true,
@@ -60,12 +61,17 @@ export class WikiComponent implements OnInit{
     sanitize: true,
     toolbarPosition: 'top',
     toolbarHiddenButtons: [
-      ['customClasses','insertImage']
+      ['customClasses', 'insertImage']
     ]
 };
-  constructor(private formBuilder: FormBuilder, private wikiService: WikiService, private projectService: ProjectService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private wikiService: WikiService,
+    private projectService: ProjectService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.projectId = this.route.snapshot.params.projectId;
     this.getProjectWiki();
     this.formdata = this.formBuilder.group({
       description: [this.text, [Validators.required,
@@ -73,13 +79,13 @@ export class WikiComponent implements OnInit{
   });
   }
 
-  getProjectWiki(){
+  getProjectWiki() {
     this.wikiService.getWiki(this.projectId).subscribe(
       (response) => {
         if (response !== null) {
-          this.exists=true;
-          this.text = response['text'];
-          this.wiki=response;
+          this.exists = true;
+          this.text = response.text;
+          this.wiki = response;
           this.formdata = this.formBuilder.group({
             description: [this.text, [Validators.required,
               Validators.maxLength(1000), Validators.minLength(1)]]
@@ -87,65 +93,65 @@ export class WikiComponent implements OnInit{
         }
       },
       (error) => {
-        
+
       }
     );
 
   }
 
-  delete(){
+  delete() {
     this.wikiService.deleteWiki(this.wiki.id).subscribe(
       (response) => {
         if (response !== null) {
-          alert("Successfully deleted")
+          alert('Successfully deleted');
           location.reload();
         }
       },
       (error) => {
-        alert("ERROR");
+        alert('ERROR');
       }
     );
   }
 
-  create(){
-      var newstr = this.formdata.get('description').value.replaceAll("&lt;", "<");
-      var newstr2 = newstr.replaceAll("&gt;", ">");
-      var newstr3 = newstr2.replaceAll("&lt;/","</");
+  create() {
+      const newstr = this.formdata.get('description').value.replaceAll('&lt;', '<');
+      const newstr2 = newstr.replaceAll('&gt;', '>');
+      const newstr3 = newstr2.replaceAll('&lt;/', '</');
       this.wikiService.createWiki({project: this.projectId , text: newstr3}).subscribe(
         (response) => {
           if (response !== null) {
-            alert("Successfully added")
+            alert('Successfully added');
             location.reload();
           }
         },
         (error) => {
-          alert("ERROR");
+          alert('ERROR');
         }
       );
   }
 
-  getData(){
-    if(this.formdata.get('description').value!=''){
+  getData() {
+    if (this.formdata.get('description').value !== '') {
       return this.formdata.get('description').value;
     }
-    return "";
+    return '';
   }
 
-  edit(){
+  edit() {
     this.forEdit = true;
   }
 
-  editDone(){
+  editDone() {
     this.wikiService.editWiki(this.wiki.id, {project: this.projectId , text: this.formdata.get('description').value}).subscribe(
       (response) => {
         if (response !== null) {
           this.forEdit = false;
-          alert("Successfully edited")
+          alert('Successfully edited');
           location.reload();
         }
       },
       (error) => {
-        alert("ERROR");
+        alert('ERROR');
       }
     );
   }

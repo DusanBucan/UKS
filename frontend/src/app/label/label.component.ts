@@ -1,48 +1,54 @@
-import { Component, OnInit, ɵɵcontainerRefreshEnd } from "@angular/core";
-import { LabelService } from "../services/label.service";
-import { GithubUserService } from "../services/github-user.service";
-import { Label } from "../model/label";
-import { GithubUser } from "../model/github_user";
+import { Component, OnInit, ɵɵcontainerRefreshEnd } from '@angular/core';
+import { LabelService } from '../services/label.service';
+import { GithubUserService } from '../services/github-user.service';
+import { Label } from '../model/label';
+import { GithubUser } from '../model/github_user';
+import { ProjectService } from '../services/project.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: "app-label",
-  templateUrl: "./label.component.html",
-  styleUrls: ["./label.component.css"],
+  selector: 'app-label',
+  templateUrl: './label.component.html',
+  styleUrls: ['./label.component.css'],
 })
 export class LabelComponent implements OnInit {
-  private newLabelForm: boolean = false;
+  public id: string;
+  private newLabelForm = false;
   private labels: Array<Label> = [];
-  private labelsEdit: Array<Object> = [];
+  private labelsEdit: Array<Label> = [];
   public labelForAdd: Label = {
-    title: "",
-    description: "",
-    color: "",
+    title: '',
+    description: '',
+    color: '',
   };
 
-  public forChange: Number;
+  public forChange: number;
 
   constructor(
     private labelService: LabelService,
-    private githubService: GithubUserService
+    private projectService: ProjectService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.params.projectId;
     this.getLabels();
   }
 
   getLabels() {
-    this.labelService.getLabels().subscribe(
-      (response) => {
+    this.projectService.getLabelsByProject(this.id).subscribe(
+      (response: Label[]) => {
         if (response !== null) {
           this.labels = response;
           this.labelsEdit = response;
-          for (let i = 0; i < this.labelsEdit.length; i++) {
-            this.labelsEdit[i]["forEdit"] = false;
+          for (const i of this.labelsEdit) {
+            // tslint:disable-next-line:no-string-literal
+            i['forEdit'] = false;
           }
         }
       },
       (error) => {
-        alert("ERROR");
+        alert('ERROR');
       }
     );
   }
@@ -56,13 +62,13 @@ export class LabelComponent implements OnInit {
         window.location.reload();
       },
       (error) => {
-        alert("ERROR");
+        alert('ERROR');
       }
     );
   }
 
   getLabelStyle(label) {
-    return "background-color:" + label.color;
+    return 'background-color:' + label.color;
   }
 
   showNewLabelForm() {
@@ -79,31 +85,31 @@ export class LabelComponent implements OnInit {
   }
 
   saveEdit(index) {
-    this.labels[index].color = this.labelsEdit[index]["color"];
-    this.labels[index].title = this.labelsEdit[index]["title"];
-    this.labels[index].description = this.labelsEdit[index]["description"];
+    this.labels[index].color = this.labelsEdit[index].color;
+    this.labels[index].title = this.labelsEdit[index].title;
+    this.labels[index].description = this.labelsEdit[index].description;
     this.labelService
-      .editLabel(this.labels[index], this.labelsEdit[index]["id"])
+      .editLabel(this.labels[index], this.labelsEdit[index].id)
       .subscribe(
         (response) => {
           window.location.reload();
         },
         (error) => {
-          alert("ERROR");
+          alert('ERROR');
         }
       );
   }
 
   save() {
     if (!/^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/.test(this.labelForAdd.color)) {
-      alert("COLOR MUST BE IN GOOD FORMAT");
+      alert('COLOR MUST BE IN GOOD FORMAT');
     } else {
-      this.labelService.createLabel(this.labelForAdd).subscribe(
+      this.labelService.createLabel(this.labelForAdd, this.id).subscribe(
         (response) => {
           window.location.reload();
         },
         (error) => {
-          alert("ERROR");
+          alert('ERROR');
         }
       );
     }

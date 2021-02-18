@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Milestone } from 'src/app/model/milestone';
 import { MilestoneService } from 'src/app/services/milestone.service';
 import { DatePipe } from '@angular/common';
-import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -13,8 +12,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class NewMilestoneComponent implements OnInit {
 
-  public milestone: Milestone = { title: '', description: '', due_date: '', start_date: '', project: 1};
+  public milestone: Milestone = { title: '', description: '', due_date: '', start_date: '', project: 0};
   public id: string;
+  public projectId: string;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -22,6 +22,7 @@ export class NewMilestoneComponent implements OnInit {
               private datePipe: DatePipe) {}
 
   ngOnInit() {
+    this.projectId = this.route.snapshot.params.projectId;
     const id = this.route.snapshot.params.id;
     if (id !== undefined) {
       this.id = id;
@@ -35,9 +36,10 @@ export class NewMilestoneComponent implements OnInit {
 
   create() {
     this.milestone.start_date = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    this.milestone.project = Number(this.projectId);
     this.milestoneService.create(this.milestone).subscribe(
       () => {
-        this.router.navigate(['/dashboard/home/milestones']);
+        this.router.navigate(['/dashboard/home/' + this.projectId + '/' + this.projectId + '/milestones']);
       },
       (error) => {
         console.log(error.error);
@@ -47,9 +49,10 @@ export class NewMilestoneComponent implements OnInit {
   }
 
   edit() {
+    this.milestone.project = Number(this.projectId);
     this.milestoneService.edit(this.id, this.milestone).subscribe(
       () => {
-        this.router.navigate(['/dashboard/home/milestones']);
+        this.router.navigate(['/dashboard/home/' + this.projectId + '/' + this.projectId + '/milestones']);
       },
       (error) => {
         console.log(error.error);
@@ -59,6 +62,6 @@ export class NewMilestoneComponent implements OnInit {
   }
 
   cancle() {
-    this.router.navigate(['/dashboard/home/milestones']);
+    this.router.navigate(['/dashboard/home/' + this.projectId + '/' + this.projectId + '/milestones']);
   }
 }

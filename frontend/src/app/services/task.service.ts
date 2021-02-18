@@ -8,6 +8,7 @@ import { TaskRequest } from '../request/task';
   providedIn: 'root',
 })
 export class TaskService {
+
   private readonly urlBase = 'http://localhost:8000/api/tasks/';
 
   constructor(private http: HttpClient) {}
@@ -16,15 +17,23 @@ export class TaskService {
     return this.http.get<Array<Task>>(`${this.urlBase}`);
   }
 
-  createTask(task: TaskRequest): Observable<Object> {
+  getTask(id: string): Observable<Task> {
+    return this.http.get<Task>(`${this.urlBase}${id}/`);
+  }
+
+  createTask(task: TaskRequest): Observable<object> {
     return this.http.post(`${this.urlBase}`, task);
   }
 
-  editTask(task: TaskRequest, id: number): Observable<Object> {
+  editTask(task: TaskRequest, id: string): Observable<object> {
     return this.http.put(`${this.urlBase}` + id + '/', task);
   }
 
-  getTasksByMilestone(id: string): Observable<Object> {
+  getTasksByMilestone(id: string): Observable<object> {
     return this.http.get(this.urlBase + 'milestone/' + id + '/');
+  }
+
+  getTasksByProject(id: string) {
+    return this.http.get(this.urlBase + 'project/' + id + '/');
   }
 }
