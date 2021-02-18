@@ -19,28 +19,29 @@ import { NewCommitComponent } from './commit/new-commit/new-commit.component';
 import { DetailsCommitComponent } from './commit/details-commit/details-commit.component';
 import { WikiComponent } from './wiki/wiki.component';
 import { NgxEditorModule } from 'ngx-editor';
+import { InsightsComponent } from "./insights/insights.component";
 
 const routes: Routes = [
   {
-    path: 'login',
+    path: "login",
     component: LoginComponent,
   },
   {
-    path: 'registration',
+    path: "registration",
     component: RegistrationComponent,
   },
   {
-    path: 'dashboard',
+    path: "dashboard",
     component: HeaderComponent,
     canActivate: [UserAuthGuard],
 
     children: [
       {
-        path: 'profile',
+        path: "profile",
         component: GithubUserComponent,
       },
       {
-        path: 'home',
+        path: "home",
         component: NavBarComponent,
         children: [
           { path: 'issues', component: IssuesComponent },
@@ -56,11 +57,12 @@ const routes: Routes = [
           { path: 'milestone-new', component: NewMilestoneComponent },
           { path: 'projects', component: ProjectComponent },
           { path: 'wiki', component: WikiComponent },
+          { path: "insights", component: InsightsComponent },
         ],
       },
     ],
   },
-  { path: '**', redirectTo: 'login' },
+  { path: "**", redirectTo: "login" },
 ];
 
 @NgModule({

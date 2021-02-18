@@ -26,6 +26,8 @@ import { NewMilestoneComponent } from './milestone/new-milestone/new-milestone.c
 import { DetailsCommitComponent } from './commit/details-commit/details-commit.component';
 import { WikiComponent } from './wiki/wiki.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { InsightsComponent } from "./insights/insights.component";
+import { NgApexchartsModule } from "ng-apexcharts";
 
 @NgModule({
   declarations: [
@@ -50,8 +52,17 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     NewCommitComponent,
     DetailsCommitComponent,
     WikiComponent,
+    InsightsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, AngularEditorModule,ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    AngularEditorModule,
+    ReactiveFormsModule,
+    NgApexchartsModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
