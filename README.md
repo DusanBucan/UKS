@@ -14,6 +14,7 @@ Potrebno je instalirati:
 - kubectl
 - jenkins
 Nakon instalacije i pokretanja klastera potrebno je resurse iz foldera devOps (servise i deploymente) staviti na klaster.<br>
+
 Za upotrebu jenkinsa potrebno je instalirati i podesiti verzije za plugine:
 - Docker build and push
 - Deploy to kubernetes
