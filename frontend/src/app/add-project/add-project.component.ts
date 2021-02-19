@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { GithubUser } from '../model/github_user';
 import { Label } from '../model/label';
 import { Project } from '../model/project';
+import { Team } from '../model/team';
 import { GithubUserService } from '../services/github-user.service';
 import { LabelService } from '../services/label.service';
 import { ProjectService } from '../services/project.service';
+import { TeamService } from '../services/team.service';
 
 @Component({
   selector: 'app-add-project',
@@ -17,16 +19,33 @@ export class AddProjectComponent implements OnInit {
 
   private labels: Label[] = [];
   private added_users : GithubUser[]=[];
+  private added_teams : Team[]=[];
 
   public first_name="";
   public last_name="";
+  public team_name="";
 
   public github_user : GithubUser;
+  private teams: Team[] = [];
   
-  constructor(private labelsService: LabelService, private projectService: ProjectService, private githubUserService : GithubUserService) { }
+  constructor(private labelsService: LabelService, private projectService: ProjectService, private githubUserService : GithubUserService, private teamService : TeamService) { }
 
   ngOnInit() {
     this.loadLabels();
+    this.getTeams();
+  }
+
+  getTeams() {
+    this.teamService.getTeams().subscribe(
+      (response) => {
+        if (response !== null) {
+          this.teams = response;
+        }
+      },
+      (error) => {
+        alert('ERROR');
+      }
+    );
   }
 
   loadLabels() {
@@ -55,13 +74,32 @@ export class AddProjectComponent implements OnInit {
   }
 
   create(){
-    this.projectService.createProject(this.project).subscribe(
+
+   
+    this.projectService.createProject(this.project, this.added_users, this.added_teams).subscribe(
       (response: any) => {
-        for (let github_user of this.added_users){
-          this.project.users.push(github_user.id);
-        }
+       
         alert('project successfuly added')
+
+        if (this.added_teams.length!=0){
   
+          for (let team of this.added_teams){
+            this.teamService.addProjectToTeam(this.project.name, team.id).subscribe(
+              (response: any) => {
+               
+               
+        
+        
+              },
+              (error) => {
+              
+              }
+            );
+          }
+        }
+        
+        
+
       },
       (error) => {
         alert('ERROR' + error);
@@ -88,8 +126,21 @@ export class AddProjectComponent implements OnInit {
       }
     );
   }
+
+  addTeam(team){
+    this.added_teams.push(team);
+    this.teams = this.teams.filter(item => item !== team)
+    
+  }
+
   remove(github_user){
     this.added_users = this.added_users.filter(item => item !== github_user)
+
+  }
+
+  removeTeam(team){
+    this.added_teams = this.added_teams.filter(item => item !== team)
+    this.teams.push(team);
 
   }
 }

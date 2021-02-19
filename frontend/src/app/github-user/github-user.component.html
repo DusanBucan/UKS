@@ -1,10 +1,12 @@
 <div class="main-container">
+
     <div class="invisible-container">
       <div class="invisible-container-left"></div>
       <div class="invisible-container-right">
         <button class="button green">New Project</button>
       </div>
     </div>
+
     <div class="issues-container">
       <div class="issues-header">
         <div class="issues-left-header">
@@ -20,10 +22,37 @@
           <div href="#" class="milestone-heading">
             <div class="issue-heading" (click)="details(project.id)">
               {{ project.name }}
+              <button class="button gray" (click)="deleteProject(project)">Delete</button>
             </div>
           </div>
         </div>
       </div>
+
+
+
+    <div class="issues-container">
+      <div class="issues-header">
+        <div class="issues-left-header">
+          <div class="issues-left-header-info">
+            <img src="../../assets/milestone.svg" height="20" />
+            <a href="#" class="issues-header-item active">Teams</a>
+          </div>
+        </div>
+      </div>
+  
+      <div class="milestone" *ngFor="let team of teams">
+        <div class="milestone-left">
+          <div class="milestone-heading">
+            <div class="issue-heading">
+              {{ team.name }}
+              <button class="button gray" (click)="deleteTeam(team)">Delete</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
     </div>
   </div>
   

@@ -61,6 +61,7 @@ def api_github_user_logged_in(request):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def api_get_github_user_by_name(request, first_name, last_name):
+    print("get github user by name called")
     user = User.objects.get(first_name=first_name, last_name=last_name)
     github_user = GitHubUser.objects.get(user=user.id)
     return Response(GitHubUserSerializer(github_user).data)

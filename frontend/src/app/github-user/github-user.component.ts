@@ -5,6 +5,7 @@ import { Project } from '../model/project';
 import { GithubUserService } from '../services/github-user.service';
 import { ProjectService } from '../services/project.service';
 import { Router } from '@angular/router';
+import { TeamService } from '../services/team.service';
 
 
 @Component({
@@ -21,12 +22,12 @@ export class GithubUserComponent implements OnInit {
 
   constructor(private router: Router,
               private githubUserService: GithubUserService,
-              private projectService: ProjectService) { }
+              private projectService: ProjectService, private teamService : TeamService) { }
 
   ngOnInit() {
     this.getLoggedIn();
     this.getProjects();
-    // this.getTeams();
+    this.getTeams();
   }
 
   getLoggedIn() {
@@ -54,7 +55,7 @@ export class GithubUserComponent implements OnInit {
   }
 
   getTeams() {
-    this.githubUserService.getUsersTeams().subscribe(
+    this.teamService.getTeams().subscribe(
       (response) => {
         if (response !== null) {
           this.teams = response;
@@ -69,4 +70,31 @@ export class GithubUserComponent implements OnInit {
   details(id: string) {
     this.router.navigate(['/dashboard/home/' + id + '/' + id + '/issues']);
   }
+  deleteTeam(team){
+    console.log(team);
+    this.teamService.deleteTeam(team.id).subscribe(
+      (response) => {
+        if (response !== null) {
+         alert('Successfully deleted');
+        }
+      },
+      (error) => {
+        alert('ERROR');
+      }
+    );
+  }
+
+  deleteProject(project){
+    this.projectService.deleteProject(project.id).subscribe(
+      (response) => {
+        if (response !== null) {
+         alert('Successfully deleted');
+        }
+      },
+      (error) => {
+        alert('ERROR');
+      }
+    );
+  }
+
 }

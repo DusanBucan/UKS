@@ -29,10 +29,24 @@ export class ProjectService {
     return this.http.get(this.projectUrl + id + '/labels/');
   }
 
-  createProject(project: Project): Observable<object> {
+  createProject(project: Project, added_users : Array<any>, added_teams : Array<any>): Observable<object> {
+
+    for (let github_user of added_users){
+      project.users.push(github_user.id);
+    }
+    for (let team of added_teams){
+      for (let user of team.git_users){
+        let exists = false;
+        project.users.push(user);
+      }
+    }
     return this.http.post(`${this.projectUrl}`, project);
   }
 
+  deleteProject(id: number): Observable<object> {
+    
+    return this.http.delete(`${this.projectUrl}` + id + '/');
+  }
 
   // create(milestone: Milestone) {
   //   return this.http.post(this.milestoneUrl, milestone);
