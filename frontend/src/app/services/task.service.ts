@@ -3,13 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Task } from '../model/task';
 import { TaskRequest } from '../request/task';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
 
-  private readonly urlBase = 'http://localhost:8000/api/tasks/';
+  private readonly urlBase = environment.url + 'api/tasks/';
 
   constructor(private http: HttpClient) {}
 

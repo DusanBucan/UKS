@@ -1,0 +1,83 @@
+
+<div class="main-container">
+    <div class="invisible-container">
+      <div class="invisible-container-left" style="width: 50%">
+        <h3>New Project</h3>
+      </div>
+    </div>
+    <div class="new-milestone-container">
+      <div class="form-style-milestone">
+
+        <div class="form-label">Name</div>
+        <input type="text" class="form-input" [(ngModel)]="project.name"/> 
+
+    
+        <div class="label-st" style="margin-top: 20px">Labels</div>
+        <div
+          class="dropdown-item"
+          *ngFor="let label of labels"
+          (click)="handleLabelClick(label.id)"
+        >
+          <div class="dropdown-content">
+            <div
+              class="circle-small-label"
+              [style.background-color]="label.color"
+            ></div>
+            {{ label.title }}
+          </div>
+          <div
+            *ngIf="isLabelAdded(label.id)"
+            style="
+              width: 100%;
+              display: flex;
+              margin-right: 10px;
+              justify-content: flex-end;
+            "
+          >
+            <img src="../../assets/checked.svg" height="20" />
+          </div>
+        </div>
+
+        <div class="form-label">Users</div>
+        <p>Enter first name</p>
+        <input type="string" class="form-input" [(ngModel)]="first_name"/> 
+        <p>Enter last name</p>
+        <input type="string" class="form-input" [(ngModel)]="last_name"/>
+
+       
+
+        <div class="invisible-container">
+            <div class="invisible-container-left"></div>
+            <div class="invisible-container-left">
+              <button class="button gray" (click)="search()">Search</button>
+            </div>
+          </div>
+
+          <div class="label-st" style="margin-top: 20px">Added Users</div>
+          <div
+            class="dropdown-item"
+            *ngFor="let github_user of this.added_users"
+            (click)="removeUser(user.id)"
+          >
+              <p>heeh</p>
+            <div class="dropdown-content">
+            
+              {{ github_user.user.first_name }} {{ github_user.user.last_name }}   <button class="button gray" (click)="remove(github_user)">Remove</button>
+            </div>
+           
+          </div>
+        </div>
+
+        <br>
+       
+
+        
+    </div>
+    <div class="invisible-container">
+      <div class="invisible-container-left"></div>
+      <div class="invisible-container-right">
+        <button class="button green" (click)="create()">Add project</button>
+      </div>
+    </div>
+  </div>
+  

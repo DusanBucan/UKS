@@ -31,9 +31,6 @@ class GithubUserList(APIView):
         github_user = serializer.save()
         return Response("github user successfully added.", status=status.HTTP_201_CREATED)
 
-
-#        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 @api_view(['DELETE', 'GET', 'PUT'])
 # @permission_classes([IsAuthenticated])
 def api_github_user_detail(request, pk):
@@ -63,5 +60,13 @@ def api_github_user_detail(request, pk):
 def api_github_user_logged_in(request):
     print("USER "+str(request.user.id))
     github_user = GitHubUser.objects.get(user_id=request.user.id)
+    return Response(GitHubUserSerializer(github_user).data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def api_get_github_user_by_name(request, first_name, last_name):
+    user = User.objects.get(first_name=first_name, last_name=last_name)
+    github_user = GitHubUser.objects.get(user=user.id)
     return Response(GitHubUserSerializer(github_user).data)
 

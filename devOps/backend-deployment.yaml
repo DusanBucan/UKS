@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-service
+spec:
+  selector:
+    matchLabels:
+      app: back-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: back-service
+    spec:
+      containers:
+      - name: back-service
+        image:  dusanbucan/myapp_web_backend
+        imagePullPolicy: Always
+        command: ["./wait_for_postgres.sh"]
+        volumeMounts:
+          - mountPath: /code/app/static
+            name: back-service-volume
+        # volumes:
+        #   - ./static:/code/app/static
+        ports:
+        - containerPort: 8000
+
+      - name: db
+        image: postgres
+        volumeMounts:
+          - mountPath: /docker-entrypoint-initdb.d
+            name: database-volume-one
+          - mountPath: /var/lib/postgresql/data
+            name: database-volume-two
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_PASSWORD
+          value: gihub_uks
+        - name: POSTGRES_USER
+          value: gihub_uks
+        - name: POSTGRES_DB
+          value: gihub_uks
+    
+      # - name: adiner
+      #   image: adminer
+      #   ports:
+      #   - containerPort: 8080
+      
+      volumes:
+      - name: back-service-volume
+    # This AWS EBS volume must already exist.
+        hostPath:
+        # directory location on host
+          path: /static
+        # this field is optional
+      - name: database-volume-one
+        hostPath:
+        # directory location on host
+          path: /volumes/Postgres/init
+        # this field is optional
+          # type: Directory
+      - name: database-volume-two
+        hostPath:
+        # directory location on host
+          path: /volumes/Postgres/data
+        # this field is optional
+          type: Directory
+    
