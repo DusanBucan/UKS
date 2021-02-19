@@ -1,5 +1,6 @@
 version: '3.1'
 services:
+# Postgresql
   db:
     image: postgres
     restart: always
@@ -10,7 +11,7 @@ services:
       - ./volumes/Postgres/data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: gihub_uks
-
+# Adminer 
   adminer:
     image: adminer
     restart: always
@@ -24,12 +25,9 @@ services:
       com.example.service: "web"
       com.example.description: "Use for the main web process"
     image: myapp_web_backend:latest
-      # build: .
     command: ["./wait_for_postgres.sh"]
     ports:
       - 8000:8000
-    volumes:
-      - ./static:/code/app/static #must be same as nginx!
     logging:
       driver: "json-file"
     depends_on:
