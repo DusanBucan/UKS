@@ -32,4 +32,8 @@ export class MilestoneService {
   delete(id: string) {
     return this.http.delete(this.milestoneUrl + id + '/');
   }
+
+  getStatistic(id: string) {
+    return this.http.get(this.milestoneUrl + 'statistic/' + id + '/');
+  }
 }

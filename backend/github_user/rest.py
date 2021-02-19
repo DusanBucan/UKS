@@ -2,14 +2,8 @@ from rest_framework import permissions, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from project.models import Project
-from team.models import Team
-from django.db import connection
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from project.serializers import ProjectSerializer
-# from team.serializers import TeamSerializer
 
-from github_user.models import GitHubUser
 from github_user.serializers import *
 
 
@@ -58,7 +52,6 @@ def api_github_user_detail(request, pk):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def api_github_user_logged_in(request):
-    print("USER "+str(request.user.id))
     github_user = GitHubUser.objects.get(user_id=request.user.id)
     return Response(GitHubUserSerializer(github_user).data)
 

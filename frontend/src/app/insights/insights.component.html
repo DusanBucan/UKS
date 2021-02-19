@@ -12,8 +12,7 @@
     <div class="menu-item" (click)="chooseChoice(selectChoice.commits)">Pulse</div>
 
     <div class="menu-header">Milestone Insights</div>
-    <div class="menu-item">Option 1</div>
-    <div class="menu-item">Option 2</div>
+    <div class="menu-item" (click)="chooseChoice(selectChoice.milestone)">Tasks in milestones</div>
   </div>
   <div class="chart-container">
     <div *ngIf="selectedChoice === selectChoice.issuesGeneral">
@@ -86,6 +85,21 @@
           [legend]="commitsUsers.legend"
           [colors]="commitsUsers.colors"
           [grid]="commitsUsers.grid"
+        ></apx-chart>
+      </div>
+    </div>
+    <div *ngIf="selectedChoice === selectChoice.milestone && milestonesTasks.chart !== undefined">
+      <div id="chart">
+          <apx-chart
+          [series]="milestonesTasks.series"
+          [chart]="milestonesTasks.chart"
+          [dataLabels]="milestonesTasks.dataLabels"
+          [plotOptions]="milestonesTasks.plotOptions"
+          [yaxis]="milestonesTasks.yaxis"
+          [xaxis]="milestonesTasks.xaxis"
+          [legend]="milestonesTasks.legend"
+          [colors]="milestonesTasks.colors"
+          [grid]="milestonesTasks.grid"
         ></apx-chart>
       </div>
     </div>
