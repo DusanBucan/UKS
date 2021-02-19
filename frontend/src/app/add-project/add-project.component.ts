@@ -101,6 +101,8 @@ export class AddProjectComponent implements OnInit {
               }
             );
           }
+        } else {
+          this.router.navigate(["/dashboard/profile"])
         }
         
         

@@ -70,6 +70,7 @@ const routes: Routes = [
           { path: ':projectId/insights', component: InsightsComponent },
         ],
       },
+      { path: '**', redirectTo: 'profile' }
     ],
   },
   { path: '**', redirectTo: 'login' },
