@@ -1,0 +1,15 @@
+<div class="central-container">
+  <div class="logo-wrapper login-logo">
+    <img src="../../assets/dog-seating.svg" />
+  </div>
+  <h2>Sign in to GiHub</h2>
+  <div class="form-style">
+    <div class="form-label">Username</div>
+    <input type="text" class="form-input" [(ngModel)]="user.username"/>
+    <div class="form-label">Password</div>
+    <input type="password" class="form-input" [(ngModel)]="user.password" />
+    
+  </div>
+  <p><button class="button gray" (click)="login()">Log in</button></p>
+  <p>Don't have an account? <button  class="button gray" (click)="register()">Sign up</button></p>
+</div>

@@ -1,1 +1,51 @@
-<p>milestone works!</p>
+<div class="main-container">
+  <div class="invisible-container">
+    <div class="invisible-container-left"></div>
+    <div class="invisible-container-right">
+      <button class="button green" (click)="new()">New Milestone</button>
+    </div>
+  </div>
+  <div class="issues-container">
+    <div class="issues-header">
+      <div class="issues-left-header">
+        <div class="issues-left-header-info">
+          <img src="../../assets/milestone.svg" height="20" />
+          <a href="#" class="issues-header-item active"
+            >{{ milestones.length }} Milestones</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="milestone" *ngFor="let milestone of milestones">
+      <div class="milestone-left">
+        <div class="milestone-heading">
+          <div class="milestone-title" (click)="details(milestone.id)">
+            {{ milestone.title }}
+          </div>
+        </div>
+        <div class="milestone-desc">
+          <img src="../../assets/calendar.svg" height="15" />
+          <div class="milestone-date-info">
+            Due by: {{ milestone.due_date | date: "dd.MM.yyyy" }}
+          </div>
+          <img src="../../assets/clock.svg" height="15" />
+          <div class="milestone-date-info">
+            Created: {{ milestone.start_date | date: "dd.MM.yyyy" }}
+          </div>
+        </div>
+      </div>
+      <div class="milestone-right">
+        <div class="milestone-right-row">
+          <div class="milestone-stats"></div>
+        </div>
+        <div class="milestone-right-row">
+          <button class="edit-link" (click)="edit(milestone.id)">Edit</button>
+          <button class="delete-link" (click)="delete(milestone.id)">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

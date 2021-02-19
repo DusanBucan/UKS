@@ -2,11 +2,11 @@
 [
   {
     "fields": {
-      "user_id": 2,
+      "user_id": 1,
       "photo": "photo of user",
       "github_profile_url": "http://githubofuser.com",
       "organization": "Some organisation",
-      "member_since": "2020-12-01 00:00",
+      "member_since": "2020-12-01 00:00Z",
       "skype": "http://skypeofuser.com",
       "twitter": "http://twitterofuser.com",
       "linkedin": "http://linkedinofuser.com"
@@ -14,5 +14,82 @@
     },
     "model": "github_user.githubuser",
     "pk": 1
+  },
+
+  {
+    "fields": {
+      "user_id": 2,
+      "photo": "photo of user 1",
+      "github_profile_url": "http://githubofuser1.com",
+      "organization": "Some organisation",
+      "member_since": "2020-12-02 00:00Z",
+      "skype": "http://skypeofuser1.com",
+      "twitter": "http://twitterofuser1.com",
+      "linkedin": "http://linkedinofuser1.com"
+
+    },
+    "model": "github_user.githubuser",
+    "pk": 2
+  },
+    {
+    "fields": {
+      "user_id": 3,
+      "photo": "photo of user 3",
+      "github_profile_url": "http://githubofuser1.com",
+      "organization": "Some organisation",
+      "member_since": "2020-12-02 00:00Z",
+      "skype": "http://skypeofuser1.com",
+      "twitter": "http://twitterofuser1.com",
+      "linkedin": "http://linkedinofuser1.com"
+
+    },
+    "model": "github_user.githubuser",
+    "pk": 3
+  },
+      {
+    "fields": {
+      "user_id": 4,
+      "photo": "photo of user 4",
+      "github_profile_url": "http://githubofuser1.com",
+      "organization": "Some organisation",
+      "member_since": "2020-12-02 00:00Z",
+      "skype": "http://skypeofuser1.com",
+      "twitter": "http://twitterofuser1.com",
+      "linkedin": "http://linkedinofuser1.com"
+
+    },
+    "model": "github_user.githubuser",
+    "pk": 4
+  },
+      {
+    "fields": {
+      "user_id": 5,
+      "photo": "photo of user 5",
+      "github_profile_url": "http://githubofuser1.com",
+      "organization": "Some organisation",
+      "member_since": "2020-12-02 00:00Z",
+      "skype": "http://skypeofuser1.com",
+      "twitter": "http://twitterofuser1.com",
+      "linkedin": "http://linkedinofuser1.com"
+
+    },
+    "model": "github_user.githubuser",
+    "pk": 5
+  },
+        {
+    "fields": {
+      "user_id": 6,
+      "photo": "photo of user 6",
+      "github_profile_url": "http://githubofuser1.com",
+      "organization": "Some organisation",
+      "member_since": "2020-12-02 00:00Z",
+      "skype": "http://skypeofuser1.com",
+      "twitter": "http://twitterofuser1.com",
+      "linkedin": "http://linkedinofuser1.com"
+
+    },
+    "model": "github_user.githubuser",
+    "pk": 6
   }
+
 ]

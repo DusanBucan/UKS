@@ -1,0 +1,20 @@
+[
+  {
+    "fields": {
+      "date_joined": "2021-01-02T08:43:57.419Z",
+      "email": "marina@gmail.com",
+      "first_name": "Marina",
+      "groups": [],
+      "is_active": true,
+      "is_staff": true,
+      "is_superuser": true,
+      "last_login": "2021-01-02T08:44:31.008Z",
+      "last_name": "Vojnovic",
+      "password": "pbkdf2_sha256$216000$1yZJoabL7pZy$X7MKF+aAUhDIyU1/DKD4Tmnig42IAz/C72ej5KkZ35I=",
+      "user_permissions": [],
+      "username": "maki"
+    },
+    "model": "auth.user",
+    "pk": 1
+  }
+]

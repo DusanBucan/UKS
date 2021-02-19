@@ -1,0 +1,38 @@
+[
+  {
+    "fields": {
+      "title": "Backend",
+      "description": "Milestone for backend",
+      "start_date": "2021-02-10",
+      "due_date": "2021-02-20",
+      "project": 1,
+      "deleted": false
+    },
+    "model": "milestone.milestone",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "title": "Frontend",
+      "description": "Milestone for frontend",
+      "start_date": "2021-02-10",
+      "due_date": "2021-02-20",
+      "project": 1,
+      "deleted": false
+    },
+    "model": "milestone.milestone",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "title": "Test",
+      "description": "Milestone for test",
+      "start_date": "2021-02-10",
+      "due_date": "2021-02-20",
+      "project": 1,
+      "deleted": false
+    },
+    "model": "milestone.milestone",
+    "pk": 3
+  }
+]

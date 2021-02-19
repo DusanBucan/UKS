@@ -1,0 +1,208 @@
+<div class="main-container">
+  <div class="invisible-container">
+    <div class="invisible-container-left">
+      <button class="filters" (click)="selectDropdown(dropdownType.filter)">
+        <div class="filters-content">
+          Filters
+          <div class="arrow-down"></div>
+        </div>
+      </button>
+      <div *ngIf="dropdownSelected === dropdownType.filter">
+        <div class="dropdown filter">
+          <div class="dropdown-header">
+            <div class="dropdown-content-header">Filter Issues</div>
+            <button class="x" (click)="selectDropdown(dropdownType.unselected)">
+              X
+            </button>
+          </div>
+          <div class="dropdown-item" (click)="filterIssues('all')">
+            <div class="dropdown-content">All</div>
+          </div>
+          <div class="dropdown-item" (click)="filterIssues('open')">
+            <div class="dropdown-content">Created</div>
+          </div>
+          <div class="dropdown-item">
+            <div class="dropdown-content" (click)="filterIssues('in progress')">
+              In Progress
+            </div>
+          </div>
+          <div class="dropdown-item">
+            <div class="dropdown-content" (click)="filterIssues('in review')">
+              In Review
+            </div>
+          </div>
+          <div class="dropdown-item">
+            <div class="dropdown-content" (click)="filterIssues('closed')">
+              Done
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="invisible-container-right">
+      <button class="button green" (click)="newIssue()">New Issue</button>
+    </div>
+  </div>
+  <div class="issues-container">
+    <div class="issues-header">
+      <div class="issues-left-header">
+        <div class="issues-left-header-info">
+          <img src="../../assets/opened-black.svg" height="20" />
+          <button
+            class="issues-header-item active"
+            (click)="selectOpenedIssues()"
+          >
+            {{ openedIssues() }} Open
+          </button>
+        </div>
+        <div class="issues-left-header-info">
+          <img src="../../assets/closed-black.svg" height="20" />
+          <button
+            class="issues-header-item active"
+            (click)="selectClosedIssues()"
+          >
+            {{ closedIssues() }} Closed
+          </button>
+        </div>
+      </div>
+      <div class="issues-right-header">
+        <div>
+          <button
+            class="issues-header-item"
+            (click)="selectDropdown(dropdownType.author)"
+          >
+            <div
+              style="display: flex; align-items: center; flex-direction: row"
+            >
+              Author
+              <div class="arrow-down"></div>
+            </div>
+          </button>
+          <div *ngIf="dropdownSelected === dropdownType.author">
+            <div class="dropdown author">
+              <div class="dropdown-header">
+                <div class="dropdown-content-header">Filter by author</div>
+                <button
+                  class="x"
+                  (click)="selectDropdown(dropdownType.unselected)"
+                >
+                  X
+                </button>
+              </div>
+              <div
+                *ngFor="let user of users"
+                class="dropdown-item"
+                (click)="filterAuthor(user.user.username)"
+              >
+                <div class="dropdown-content">{{ user.user.username }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button
+            class="issues-header-item"
+            (click)="selectDropdown(dropdownType.label)"
+          >
+            <div
+              style="display: flex; align-items: center; flex-direction: row"
+            >
+              Label
+              <div class="arrow-down"></div>
+            </div>
+          </button>
+          <div *ngIf="dropdownSelected === dropdownType.label">
+            <div class="dropdown labels">
+              <div class="dropdown-header">
+                <div class="dropdown-content-header">Filter by label</div>
+                <button
+                  class="x"
+                  (click)="selectDropdown(dropdownType.unselected)"
+                >
+                  X
+                </button>
+              </div>
+              <div class="dropdown-item" *ngFor="let label of labels">
+                <div
+                  class="dropdown-content"
+                  (click)="filterLabel(label.title)"
+                >
+                  <div
+                    class="circle-small-label"
+                    [style.background-color]="label.color"
+                  ></div>
+                  {{ label.title }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button
+            class="issues-header-item"
+            (click)="selectDropdown(dropdownType.assignee)"
+          >
+            <div
+              style="display: flex; align-items: center; flex-direction: row"
+            >
+              Assignee
+              <div class="arrow-down"></div>
+            </div>
+          </button>
+          <div *ngIf="dropdownSelected === dropdownType.assignee">
+            <div class="dropdown assignees">
+              <div class="dropdown-header">
+                <div class="dropdown-content-header">Filter by assignee</div>
+                <button
+                  class="x"
+                  (click)="selectDropdown(dropdownType.unselected)"
+                >
+                  X
+                </button>
+              </div>
+              <div
+                *ngFor="let user of users"
+                class="dropdown-item"
+                (click)="filterAssignee(user.user.username)"
+              >
+                <div class="dropdown-content">{{ user.user.username }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngFor="let task of issues" class="issue">
+      <div class="issue-heading-container">
+        <img
+          *ngIf="task.opened"
+          src="../../assets/opened-issue.svg"
+          height="20"
+        />
+        <img
+          *ngIf="!task.opened"
+          src="../../assets/closed-issue.svg"
+          height="20"
+        />
+        <div class="issue-heading" (click)="editIssue(task)">
+          {{ task.title }}
+        </div>
+        <div class="label-container">
+          <div
+            [style.background-color]="label.color"
+            *ngFor="let label of task.labels"
+            class="label"
+          >
+            {{ label.title }}
+          </div>
+        </div>
+      </div>
+      <div class="issue-desc">
+        #{{ task.id }} Opened by {{ task.author.user.username }}
+      </div>
+    </div>
+  </div>
+</div>

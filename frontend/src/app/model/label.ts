@@ -1,5 +1,6 @@
-export interface Label{
-    title: string;
-    description: string;
-    color: string;
+export interface Label {
+  id?: number;
+  title: string;
+  description: string;
+  color: string;
 }

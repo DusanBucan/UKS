@@ -1,0 +1,13 @@
+[
+  {
+    "fields": {
+      "git_users": [1],
+      "projects": [1],
+      "name": "Team One",
+      "deleted": false
+    },
+    "model": "team.team",
+    "pk": 1
+  }
+
+  ]

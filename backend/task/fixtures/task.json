@@ -1,0 +1,36 @@
+[
+  {
+    "fields": {
+      "id": 1,
+      "title": "Task 1",
+      "description": "Description of Task 1",
+      "due_date": "2021-03-03 17:00Z",
+      "opened": true,
+      "task_state": "created",
+      "project": 1,
+      "assignee": 1,
+      "author": 1,
+      "labels": [1],
+      "milestones": [2]
+    },
+    "model": "task.task",
+    "pk": 1
+  },
+    {
+    "fields": {
+      "id": 2,
+      "title": "Task 2",
+      "description": "Description of Task 2",
+      "due_date": "2021-03-03 17:00Z",
+      "opened": true,
+      "task_state": "in progress",
+      "project": 1,
+      "assignee": 1,
+      "author": 1,
+      "labels": [1, 2],
+      "milestones": [1]
+    },
+    "model": "task.task",
+    "pk": 2
+  }
+]

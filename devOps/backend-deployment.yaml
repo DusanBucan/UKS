@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-service
+spec:
+  selector:
+    matchLabels:
+      app: back-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: back-service
+    spec:
+      containers:
+      - name: back-service
+        image:  dusanbucan/myapp_web_backend
+        imagePullPolicy: Always
+        command: ["./wait_for_postgres.sh"]
+        ports:
+        - containerPort: 8000
+
+      - name: db
+        image: postgres
+        volumeMounts:
+          - mountPath: /docker-entrypoint-initdb.d
+            name: database-volume-one
+          - mountPath: /var/lib/postgresql/data
+            name: database-volume-two
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_PASSWORD
+          value: gihub_uks
+        - name: POSTGRES_USER
+          value: gihub_uks
+        - name: POSTGRES_DB
+          value: gihub_uks
+    
+      volumes:
+      - name: database-volume-one
+        hostPath:
+          path: /volumes/Postgres/init
+          type: Directory
+      - name: database-volume-two
+        hostPath:
+          path: /volumes/Postgres/data
+          type: Directory
+    

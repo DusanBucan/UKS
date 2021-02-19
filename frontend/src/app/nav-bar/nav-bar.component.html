@@ -1,0 +1,41 @@
+<div class="nav-bar">
+  <div class="nav-bar-heading">{{ project.name }}</div>
+  <div class="nav-bar-content">
+    <a
+      class="nav-bar-item"
+      [routerLink]="['/dashboard/home/' + id + '/' + id + '/issues/']"
+      >Issues</a
+    >
+    <a
+      class="nav-bar-item"
+      [routerLink]="['/dashboard/home/' + id + '/' + id + '/commits']"
+      >Commits</a
+    >
+    <a
+      class="nav-bar-item"
+      [routerLink]="['/dashboard/home/' + id + '/' + id + '/labels']"
+      >Labels</a
+    >
+    <a
+      class="nav-bar-item"
+      [routerLink]="['/dashboard/home/' + id + '/' + id + '/milestones']"
+      >Milestones</a
+    >
+    <a
+      class="nav-bar-item"
+      [routerLink]="['/dashboard/home/' + id + '/' + id + '/project']"
+      >Board</a
+    >
+    <a
+      class="nav-bar-item"
+      [routerLink]="['/dashboard/home/' + id + '/' + id + '/wiki']"
+      >Wiki</a
+    >
+    <a
+      class="nav-bar-item"
+      [routerLink]="['/dashboard/home/' + id + '/' + id + '/insights']"
+      >Insights</a
+    >
+  </div>
+</div>
+<router-outlet></router-outlet>
