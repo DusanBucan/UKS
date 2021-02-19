@@ -68,4 +68,8 @@ export class GithubUserComponent implements OnInit {
   details(id: string) {
     this.router.navigate(['/dashboard/home/' + id + '/' + id + '/issues']);
   }
+
+  addProject(){
+    this.router.navigate(["/add-project"]);
+  }
 }
