@@ -67,6 +67,7 @@ def api_project_detail(request, pk):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def api_projects_by_user(request):
+    print("USER ",request.user.id)
     projects = Project.objects.filter(users__in=[request.user.id])
     return Response(ProjectSerializer(projects, many=True).data)
 

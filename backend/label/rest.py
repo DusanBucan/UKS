@@ -22,7 +22,7 @@ class LabelList(APIView):
 def api_label_detail(request, pk):
     try:
         label = Label.objects.get(id=pk)
-    except (KeyError, Project.DoesNotExist) as ex:
+    except (KeyError, Label.DoesNotExist) as ex:
         return Response({'error': 'invalid or missing object id'}, status=status.HTTP_404_NOT_FOUND,
                         content_type="application/json")
     if request.method == 'GET':
