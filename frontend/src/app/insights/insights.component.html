@@ -9,10 +9,14 @@
     </div>
 
     <div class="menu-header">User Insights</div>
-    <div class="menu-item" (click)="chooseChoice(selectChoice.commits)">Pulse</div>
+    <div class="menu-item" (click)="chooseChoice(selectChoice.commits)">
+      Pulse
+    </div>
 
     <div class="menu-header">Milestone Insights</div>
-    <div class="menu-item" (click)="chooseChoice(selectChoice.milestone)">Tasks in milestones</div>
+    <div class="menu-item" (click)="chooseChoice(selectChoice.milestone)">
+      Tasks in milestones
+    </div>
   </div>
   <div class="chart-container">
     <div *ngIf="selectedChoice === selectChoice.issuesGeneral">
@@ -47,16 +51,16 @@
         <h2>{{ users[i].user.username }}'s Issues</h2>
         <div
           *ngIf="
-            usersOpenedInsights[0].series?.length &&
-            usersOpenedInsights[0].labels?.length
+            usersOpenedInsights[i].series?.length &&
+            usersOpenedInsights[i].labels?.length
           "
         >
           <div id="chart">
             <apx-chart
-              [series]="usersOpenedInsights[0].series"
-              [chart]="usersOpenedInsights[0].chart"
-              [responsive]="usersOpenedInsights[0].responsive"
-              [labels]="usersOpenedInsights[0].labels"
+              [series]="usersOpenedInsights[i].series"
+              [chart]="usersOpenedInsights[i].chart"
+              [responsive]="usersOpenedInsights[i].responsive"
+              [labels]="usersOpenedInsights[i].labels"
             ></apx-chart>
           </div>
         </div>
@@ -75,7 +79,7 @@
     </div>
     <div *ngIf="selectedChoice === selectChoice.commits">
       <div id="chart">
-          <apx-chart
+        <apx-chart
           [series]="commitsUsers.series"
           [chart]="commitsUsers.chart"
           [dataLabels]="commitsUsers.dataLabels"
@@ -88,9 +92,14 @@
         ></apx-chart>
       </div>
     </div>
-    <div *ngIf="selectedChoice === selectChoice.milestone && milestonesTasks.chart !== undefined">
+    <div
+      *ngIf="
+        selectedChoice === selectChoice.milestone &&
+        milestonesTasks.chart !== undefined
+      "
+    >
       <div id="chart">
-          <apx-chart
+        <apx-chart
           [series]="milestonesTasks.series"
           [chart]="milestonesTasks.chart"
           [dataLabels]="milestonesTasks.dataLabels"
@@ -103,6 +112,5 @@
         ></apx-chart>
       </div>
     </div>
-
   </div>
 </div>
