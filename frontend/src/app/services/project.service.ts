@@ -32,17 +32,4 @@ export class ProjectService {
   createProject(project: Project): Observable<object> {
     return this.http.post(`${this.projectUrl}`, project);
   }
-
-
-  // create(milestone: Milestone) {
-  //   return this.http.post(this.milestoneUrl, milestone);
-  // }
-
-  // edit(id: string, milestone: Milestone) {
-  //   return this.http.put(this.milestoneUrl + id + '/', milestone);
-  // }
-
-  // delete(id: string) {
-  //   return this.http.delete(this.milestoneUrl + id + '/');
-  // }
 }

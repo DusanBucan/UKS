@@ -37,169 +37,17 @@
                   X
                 </button>
               </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">sonjajos</div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">DusanBucan</div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">LeonaNedeljkovic</div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">Marina Vojnovic</div>
+              <div
+                *ngFor="let user of users"
+                class="dropdown-item"
+                (click)="filterAuthor(user.id)"
+              >
+                <div class="dropdown-content">{{ user.user.username }}</div>
               </div>
             </div>
           </div>
         </div>
-
-        <div>
-          <button
-            class="issues-header-item"
-            (click)="selectDropdown(dropdownType.label)"
-          >
-            <div
-              style="display: flex; align-items: center; flex-direction: row"
-            >
-              Label
-              <div class="arrow-down"></div>
-            </div>
-          </button>
-          <div *ngIf="dropdownSelected === dropdownType.label">
-            <div class="dropdown labels">
-              <div class="dropdown-header">
-                <div class="dropdown-content-header">Filter by label</div>
-                <button
-                  class="x"
-                  (click)="selectDropdown(dropdownType.unselected)"
-                >
-                  X
-                </button>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">
-                  <div
-                    class="circle-small-label"
-                    style="background-color: aqua"
-                  ></div>
-                  frontend
-                </div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">
-                  <div
-                    class="circle-small-label"
-                    style="background-color: rgb(229, 255, 0)"
-                  ></div>
-                  enhancement
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <button
-            class="issues-header-item"
-            (click)="selectDropdown(dropdownType.project)"
-          >
-            <div
-              style="display: flex; align-items: center; flex-direction: row"
-            >
-              Project
-              <div class="arrow-down"></div>
-            </div>
-          </button>
-          <div *ngIf="dropdownSelected === dropdownType.project">
-            <div class="dropdown projects">
-              <div class="dropdown-header">
-                <div class="dropdown-content-header">Filter by project</div>
-                <button
-                  class="x"
-                  (click)="selectDropdown(dropdownType.unselected)"
-                >
-                  X
-                </button>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">UKS</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <button
-            class="issues-header-item"
-            (click)="selectDropdown(dropdownType.milestone)"
-          >
-            <div
-              style="display: flex; align-items: center; flex-direction: row"
-            >
-              Milestones
-              <div class="arrow-down"></div>
-            </div>
-          </button>
-          <div *ngIf="dropdownSelected === dropdownType.milestone">
-            <div class="dropdown milestones">
-              <div class="dropdown-header">
-                <div class="dropdown-content-header">Filter by milestone</div>
-                <button
-                  class="x"
-                  (click)="selectDropdown(dropdownType.unselected)"
-                >
-                  X
-                </button>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">No milestones</div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">CRUD for models</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <button
-            class="issues-header-item"
-            (click)="selectDropdown(dropdownType.assignee)"
-          >
-            <div
-              style="display: flex; align-items: center; flex-direction: row"
-            >
-              Assignee
-              <div class="arrow-down"></div>
-            </div>
-          </button>
-          <div *ngIf="dropdownSelected === dropdownType.assignee">
-            <div class="dropdown assignees">
-              <div class="dropdown-header">
-                <div class="dropdown-content-header">Filter by assignee</div>
-                <button
-                  class="x"
-                  (click)="selectDropdown(dropdownType.unselected)"
-                >
-                  X
-                </button>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">sonjajos</div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">DusanBucan</div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">LeonaNedeljkovic</div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">Marina Vojnovic</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        
         <div>
           <button
             class="issues-header-item"
@@ -223,11 +71,12 @@
                   X
                 </button>
               </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">Newest</div>
-              </div>
-              <div class="dropdown-item">
-                <div class="dropdown-content">Oldest</div>
+              <div
+                *ngFor="let order of orders"
+                class="dropdown-item"
+                (click)="filterOrder(order.id)"
+              >
+                <div class="dropdown-content">{{ order.name }}</div>
               </div>
             </div>
           </div>
@@ -248,7 +97,12 @@
       </div>
       <div class="milestone-right">
         <div class="milestone-right-row">
-          {{commit.user.user.username}}
+          <div class="milestone-stats">
+            {{commit.user.user.username}}
+          </div>
+        </div>
+        <div class="milestone-right-row">
+          {{commit.date | date: "dd.MM.yyyy hh:mm" }}
         </div>
       </div>
     </div>

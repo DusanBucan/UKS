@@ -24,4 +24,11 @@ export class CommitService {
     return this.http.post(this.commitUrl, commit);
   }
 
+  getCommitsByUserAndProject(userId: number, projectId: string) {
+    return this.http.get(this.commitUrl + 'project/' + projectId + '/' + userId + '/');
+  }
+
+  getCommitsByOrderAndProject(order: number, projectId: string) {
+    return this.http.get(this.commitUrl + 'project/' + projectId + '/order/' + order + '/');
+  }
 }
