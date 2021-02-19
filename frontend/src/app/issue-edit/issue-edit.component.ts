@@ -1,18 +1,18 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { GithubUser } from "../model/github_user";
-import { Label } from "../model/label";
-import { Milestone } from "../model/milestone";
-import { Task } from "../model/task";
-import { TaskRequest } from "../request/task";
-import { MilestoneService } from "../services/milestone.service";
-import { ProjectService } from "../services/project.service";
-import { TaskService } from "../services/task.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GithubUser } from '../model/github_user';
+import { Label } from '../model/label';
+import { Milestone } from '../model/milestone';
+import { Task } from '../model/task';
+import { TaskRequest } from '../request/task';
+import { MilestoneService } from '../services/milestone.service';
+import { ProjectService } from '../services/project.service';
+import { TaskService } from '../services/task.service';
 
 @Component({
-  selector: "app-issue-edit",
-  templateUrl: "./issue-edit.component.html",
-  styleUrls: ["./issue-edit.component.css"],
+  selector: 'app-issue-edit',
+  templateUrl: './issue-edit.component.html',
+  styleUrls: ['./issue-edit.component.css'],
 })
 export class IssueEditComponent implements OnInit {
   public projectId: string;
@@ -20,13 +20,13 @@ export class IssueEditComponent implements OnInit {
   private users: GithubUser[] = [];
   private labels: Label[] = [];
   private milestones: Milestone[] = [];
-  private milestoneID: number = 0;
+  private milestoneID = 0;
   private editTask: TaskRequest = {
-    title: "",
-    description: "",
-    due_date: "",
+    title: '',
+    description: '',
+    due_date: '',
     opened: true,
-    task_state: "open",
+    task_state: 'open',
     project: 1,
     labels: [],
     milestones: [],
@@ -70,7 +70,7 @@ export class IssueEditComponent implements OnInit {
         }
       },
       (error) => {
-        alert("ERROR" + error);
+        alert('ERROR' + error);
       }
     );
   }
@@ -83,7 +83,7 @@ export class IssueEditComponent implements OnInit {
         }
       },
       (error) => {
-        alert("ERROR" + error);
+        alert('ERROR' + error);
       }
     );
   }
@@ -97,7 +97,7 @@ export class IssueEditComponent implements OnInit {
         }
       },
       (error) => {
-        alert("ERROR" + error);
+        alert('ERROR' + error);
       }
     );
   }
@@ -111,19 +111,19 @@ export class IssueEditComponent implements OnInit {
   }
 
   markCreated() {
-    this.editTask.task_state = "open";
+    this.editTask.task_state = 'open';
   }
 
   markInProgress() {
-    this.editTask.task_state = "in progress";
+    this.editTask.task_state = 'in progress';
   }
 
   markInReview() {
-    this.editTask.task_state = "in review";
+    this.editTask.task_state = 'in review';
   }
 
   markDone() {
-    this.editTask.task_state = "done";
+    this.editTask.task_state = 'done';
   }
 
   handleLabelClick(id: number) {
@@ -171,22 +171,22 @@ export class IssueEditComponent implements OnInit {
       this.taskService.editTask(this.editTask, this.id).subscribe(
         (response) => {
           if (response !== null) {
-            alert("Issue Successfuly edited!");
+            alert('Issue Successfuly edited!');
             this.router.navigate([
-              "dashboard/home/" +
+              'dashboard/home/' +
                 this.projectId +
-                "/" +
+                '/' +
                 this.projectId +
-                "/issues",
+                '/issues',
             ]);
           }
         },
         (error) => {
-          alert("ERROR" + error);
+          alert('ERROR' + error);
         }
       );
     } else {
-      alert("Please fill the form properly before editing issue");
+      alert('Please fill the form properly before editing issue');
     }
   }
 }
