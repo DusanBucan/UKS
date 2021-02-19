@@ -18,22 +18,26 @@
           [(ngModel)]="newTask.description"
         />
         <div class="label-st">Due by</div>
-        <input type="datetime-local" style="width: 100%" [(ngModel)]="newTask.due_date" />
+        <input
+          type="datetime-local"
+          style="width: 100%"
+          [(ngModel)]="newTask.due_date"
+        />
       </div>
     </div>
     <div class="right-form">
       <div class="left-form-content">
-        <div class="label-st" style="margin-bottom: 10px">Assignee</div>
+        <div class="label-st" style="margin-top: 20px">Milestone</div>
         <div
-          *ngFor="let user of users"
           class="dropdown-item"
-          (click)="handleAssigneeClick(user.id)"
+          *ngFor="let milestone of milestones"
+          (click)="handleMilestoneClick(milestone.id)"
         >
           <div class="dropdown-content">
-            {{ user.user.username }}
+            {{ milestone.title }}
           </div>
           <div
-            *ngIf="isAssigneeSelected(user.id)"
+            *ngIf="isMilestoneSelected(milestone.id)"
             style="
               width: 100%;
               display: flex;

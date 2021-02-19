@@ -6,22 +6,21 @@ import { GithubUserService } from '../services/github-user.service';
 import { ProjectService } from '../services/project.service';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-github-user',
   templateUrl: './github-user.component.html',
-  styleUrls: ['./github-user.component.css']
+  styleUrls: ['./github-user.component.css'],
 })
 export class GithubUserComponent implements OnInit {
-
   private loggedUser: GithubUser;
   private teams: Team[] = [];
   private projects: Project[] = [];
 
-
-  constructor(private router: Router,
-              private githubUserService: GithubUserService,
-              private projectService: ProjectService) { }
+  constructor(
+    private router: Router,
+    private githubUserService: GithubUserService,
+    private projectService: ProjectService
+  ) {}
 
   ngOnInit() {
     this.getLoggedIn();
@@ -68,5 +67,9 @@ export class GithubUserComponent implements OnInit {
 
   details(id: string) {
     this.router.navigate(['/dashboard/home/' + id + '/' + id + '/issues']);
+  }
+
+  addProject(){
+    this.router.navigate(["/add-project"]);
   }
 }

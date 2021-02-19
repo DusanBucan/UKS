@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from django.http import JsonResponse
 
 from milestone.serializers import *
+from task.models import Task
 
 
 @api_view(['POST'])
@@ -49,3 +50,14 @@ def api_milestone_detail(request, pk):
                         content_type="application/json")
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, content_type="application/json")
+
+
+@api_view(['GET'])
+def api_milestone_statistic(request, pk):
+    data = {'categories': [], 'series': [{'name': 'opened', 'data': []}, {'name': 'closed', 'data': []}]}
+    milestones = Milestone.objects.filter(project_id=pk, deleted=False)
+    for milestone in milestones:
+        data['categories'].append(milestone.title)
+        data['series'][0]['data'].append(Task.objects.filter(milestones__in=[milestone.id], opened=True).count())
+        data['series'][1]['data'].append(Task.objects.filter(milestones__in=[milestone.id], opened=False).count())
+    return Response(data)

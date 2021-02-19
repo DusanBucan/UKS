@@ -123,7 +123,7 @@ export class IssuesComponent implements OnInit {
 
   filterAssignee(username: string): void {
     this.issues = this.storedIssues.filter(
-      (i) => i.assignee.user.username === username
+      (i) => i.assignee && i.assignee.user.username === username
     );
     this.selectDropdown('');
   }
@@ -142,10 +142,14 @@ export class IssuesComponent implements OnInit {
   }
 
   newIssue() {
-    this.router.navigate(['dashboard/home/' + this.id + '/' + this.id + '/issue-create']);
+    this.router.navigate([
+      'dashboard/home/' + this.id + '/' + this.id + '/issue-create',
+    ]);
   }
 
   editIssue(task: Task) {
-    this.router.navigate(['dashboard/home/' + this.id + '/' + this.id + '/issue-edit/' + task.id]);
+    this.router.navigate([
+      'dashboard/home/' + this.id + '/' + this.id + '/issue-edit/' + task.id,
+    ]);
   }
 }

@@ -20,6 +20,7 @@ import { DetailsCommitComponent } from './commit/details-commit/details-commit.c
 import { WikiComponent } from './wiki/wiki.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { InsightsComponent } from './insights/insights.component';
+import { AddProjectComponent } from './add-project/add-project.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'registration',
     component: RegistrationComponent,
+  },
+  {
+    path: 'add-project',
+    component: AddProjectComponent,
   },
   {
     path: 'dashboard',

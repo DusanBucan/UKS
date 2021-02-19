@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Project } from '../model/project';
 
 @Injectable({
   providedIn: 'root'
@@ -27,16 +29,7 @@ export class ProjectService {
     return this.http.get(this.projectUrl + id + '/labels/');
   }
 
-
-  // create(milestone: Milestone) {
-  //   return this.http.post(this.milestoneUrl, milestone);
-  // }
-
-  // edit(id: string, milestone: Milestone) {
-  //   return this.http.put(this.milestoneUrl + id + '/', milestone);
-  // }
-
-  // delete(id: string) {
-  //   return this.http.delete(this.milestoneUrl + id + '/');
-  // }
+  createProject(project: Project): Observable<object> {
+    return this.http.post(`${this.projectUrl}`, project);
+  }
 }

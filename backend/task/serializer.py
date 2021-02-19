@@ -28,44 +28,57 @@ class CreateTaskSerializer(serializers.Serializer):
     author = serializers.IntegerField()
     task_state = serializers.CharField(max_length=500)
     labels = serializers.ListField()
+    milestones = serializers.ListField()
     project = serializers.IntegerField()
     opened = serializers.BooleanField()
 
-
     def create(self, validated_data):
         _labels = []
-        _assignee = GitHubUser.objects.get(id=validated_data['assignee'])
+        _milestones = []
         _author = GitHubUser.objects.get(id=validated_data['author'])
         _project = Project.objects.get(id=validated_data['project'])
 
         for lab_id in validated_data['labels']:
             _labels.append(Label.objects.get(id=lab_id))
 
+        for mil_id in validated_data['milestones']:
+            _milestones.append(Milestone.objects.get(id=mil_id))
+
         new_task = Task.objects.create(
             title=validated_data['title'],
             description=validated_data['description'],
             due_date=validated_data['due_date'],
             task_state='open',
-            assignee=_assignee,
             author=_author,
             project=_project,
             opened=True,
         )
 
+        if int(validated_data['assignee']) > 0:
+            new_task.assignee = GitHubUser.objects.get(id=validated_data['assignee'])
+
         new_task.labels.set(_labels)
+        new_task.milestones.set(_milestones)
 
         return new_task
 
     def update(self, instance, validated_data):
         _labels = []
-        _assignee = GitHubUser.objects.get(id=validated_data['assignee'])
+        _milestones = []
 
         for lab_id in validated_data['labels']:
-            label = Label.objects.get(id=lab_id)
-            _labels.append(label)
+            _labels.append(Label.objects.get(id=lab_id))
+
+        for mil_id in validated_data['milestones']:
+            _milestones.append(Milestone.objects.get(id=mil_id))
+
+        if int(validated_data['assignee']) > 0:
+            instance.assignee = GitHubUser.objects.get(id=validated_data['assignee'])
+        else:
+            instance.assignee = None
 
         instance.labels.set(_labels)
-        instance.assignee = _assignee
+        instance.milestones.set(_milestones)
         instance.title = validated_data['title']
         instance.due_date = validated_data['due_date']
         instance.description = validated_data['description']

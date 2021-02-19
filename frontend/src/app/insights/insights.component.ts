@@ -1,42 +1,66 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { ChartComponent } from "ng-apexcharts";
-import { GithubUser } from "../model/github_user";
-import { Task } from "../model/task";
-import { GithubUserService } from "../services/github-user.service";
-import { TaskService } from "../services/task.service";
+import { ChartComponent } from 'ng-apexcharts';
+import { GithubUser } from '../model/github_user';
+import { Task } from '../model/task';
+import { GithubUserService } from '../services/github-user.service';
+import { TaskService } from '../services/task.service';
+import { Commit } from '../model/commit';
+import { ActivatedRoute } from '@angular/router';
+import { ProjectService } from '../services/project.service';
+import { CommitService } from '../services/commit.service';
+import { MilestoneService } from '../services/milestone.service';
 
 @Component({
-  selector: "app-insights",
-  templateUrl: "./insights.component.html",
-  styleUrls: ["./insights.component.css"],
+  selector: 'app-insights',
+  templateUrl: './insights.component.html',
+  styleUrls: ['./insights.component.css'],
 })
 export class InsightsComponent implements OnInit {
-  @ViewChild("chart", { static: false, read: "" }) chart: ChartComponent;
+  @ViewChild('chart', { static: false, read: '' }) chart: ChartComponent;
   public tasksStateChart: Partial<any> = {};
   public taskOpenedChart: Partial<any> = {};
+  public commitsUsers: Partial<any> = {};
+  public milestonesTasks: Partial<any> = {};
   private issues: Task[] = [];
   private users: GithubUser[] = [];
   private usersStateInsights: any[] = [];
   private usersOpenedInsights: any[] = [];
+  private projectUsers: GithubUser[] = [];
+  private commits: Commit[] = [];
+  private projectId: string;
 
   private selectChoice = {
-    issuesGeneral: "ISSUES_GENERAL",
-    issuesByUser: "ISSUES_BY_USER",
+    issuesGeneral: 'ISSUES_GENERAL',
+    issuesByUser: 'ISSUES_BY_USER',
+    commits: 'COMMITS',
+    milestone: 'MILESTONE',
   };
-  private selectedChoice: string = "ISSUES_GENERAL";
+  private selectedChoice = 'ISSUES_GENERAL';
 
   ngOnInit() {
+    this.projectId = this.route.snapshot.params.projectId;
     this.loadTasks();
+    this.loadProject();
   }
 
   constructor(
     private taskService: TaskService,
-    private userService: GithubUserService
+    private userService: GithubUserService,
+    private route: ActivatedRoute,
+    private projectService: ProjectService,
+    private commitService: CommitService,
+    private milestoneService: MilestoneService
   ) {}
 
   chooseChoice(choice: string) {
     this.selectedChoice = choice;
+    if (this.selectedChoice === 'COMMITS') {
+      this.chartCommits();
+    }
+    if (this.selectedChoice === this.selectChoice.milestone) {
+      this.chartMilestones();
+    }
   }
 
   loadTasks() {
@@ -50,7 +74,7 @@ export class InsightsComponent implements OnInit {
         }
       },
       (error) => {
-        alert("ERROR" + error);
+        alert('ERROR' + error);
       }
     );
   }
@@ -69,7 +93,7 @@ export class InsightsComponent implements OnInit {
         }
       },
       (error) => {
-        alert("ERROR" + error);
+        alert('ERROR' + error);
       }
     );
   }
@@ -82,9 +106,9 @@ export class InsightsComponent implements OnInit {
         this.inReviewNum(),
         this.doneNum(),
       ],
-      labels: ["Created", "In Progress", "In Review", "Done"],
+      labels: ['Created', 'In Progress', 'In Review', 'Done'],
       chart: {
-        type: "donut",
+        type: 'donut',
       },
       responsive: [
         {
@@ -94,7 +118,7 @@ export class InsightsComponent implements OnInit {
               width: 200,
             },
             legend: {
-              position: "bottom",
+              position: 'bottom',
             },
           },
         },
@@ -110,9 +134,9 @@ export class InsightsComponent implements OnInit {
         this.inReviewByUse(username),
         this.doneByUse(username),
       ],
-      labels: ["Created", "In Progress", "In Review", "Done"],
+      labels: ['Created', 'In Progress', 'In Review', 'Done'],
       chart: {
-        type: "donut",
+        type: 'donut',
       },
       responsive: [
         {
@@ -122,7 +146,7 @@ export class InsightsComponent implements OnInit {
               width: 200,
             },
             legend: {
-              position: "bottom",
+              position: 'bottom',
             },
           },
         },
@@ -133,9 +157,9 @@ export class InsightsComponent implements OnInit {
   loadTasksOpenedByuser(username: string) {
     return {
       series: [this.openedByUse(username), this.closedByUse(username)],
-      labels: ["Opened", "Closed"],
+      labels: ['Opened', 'Closed'],
       chart: {
-        type: "donut",
+        type: 'donut',
       },
       responsive: [
         {
@@ -145,7 +169,7 @@ export class InsightsComponent implements OnInit {
               width: 200,
             },
             legend: {
-              position: "bottom",
+              position: 'bottom',
             },
           },
         },
@@ -156,9 +180,9 @@ export class InsightsComponent implements OnInit {
   loadTasksOpenedData() {
     this.taskOpenedChart = {
       series: [this.openedNum(), this.closedNum()],
-      labels: ["Opened", "Closed"],
+      labels: ['Opened', 'Closed'],
       chart: {
-        type: "donut",
+        type: 'donut',
       },
       responsive: [
         {
@@ -168,7 +192,7 @@ export class InsightsComponent implements OnInit {
               width: 200,
             },
             legend: {
-              position: "bottom",
+              position: 'bottom',
             },
           },
         },
@@ -176,20 +200,133 @@ export class InsightsComponent implements OnInit {
     };
   }
 
+  loadProject() {
+    this.projectService
+    .getUsersByProject(this.projectId)
+    .subscribe((data: GithubUser[]) => {
+      this.projectUsers = data;
+    });
+
+    this.commitService
+    .getCommitByProjectId(this.projectId)
+    .subscribe((data: Commit[]) => {
+      this.commits = data;
+    });
+
+  }
+
+  chartCommits() {
+    const values = this.getCommits();
+    const first = values[0];
+    const second = values[1];
+    console.log(first);
+    console.log(second);
+    this.commitsUsers = {
+      series: [
+        {
+          name: 'distibuted',
+          data: first
+        }
+      ],
+      chart: {
+        height: 550,
+        type: 'bar',
+        events: {
+          click(chart, w, e) {
+            // console.log(chart, w, e)
+          }
+        }
+      },
+      colors: [
+        '#008FFB',
+        '#00E396',
+        '#FEB019',
+        '#FF4560',
+        '#775DD0',
+        '#546E7A',
+        '#26a69a',
+        '#D10CE8'
+      ],
+      plotOptions: {
+        bar: {
+          columnWidth: '65%',
+          distributed: true
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      legend: {
+        show: false
+      },
+      grid: {
+        show: false
+      },
+      xaxis: {
+        categories: second,
+        labels: {
+          style: {
+            colors: [
+              '#008FFB',
+              '#00E396',
+              '#FEB019',
+              '#FF4560',
+              '#775DD0',
+              '#546E7A',
+              '#26a69a',
+              '#D10CE8'
+            ],
+            fontSize: '18px'
+          }
+        }
+      }
+    };
+  }
+
+  getUsernames() {
+    const usernames = [];
+    for (let i = 0; i < this.projectUsers.length; i++) {
+      usernames[i] = this.projectUsers[i].user.username;
+    }
+    return usernames;
+  }
+
+  getCommits() {
+    const commits = [];
+    const usernames = this.getUsernames();
+    for (let j = 0; j < usernames.length; j++) {
+        commits[j] = this.commits.filter((i) => i.user.user.username === usernames[j] ).length;
+    }
+    for (let i = 0; i < commits.length; i++) {
+      for (let j = 0; j < commits.length - 1; j++) {
+
+          if (commits[j] < commits[j + 1]) {
+              const swap = commits[j];
+              commits[j] = commits[j + 1];
+              commits[j + 1] = swap;
+              const swap2 = usernames[j];
+              usernames[j] = usernames[j + 1];
+              usernames[j + 1] = swap2;
+          }
+      }
+    }
+    return [commits, usernames];
+  }
+
   createdNum(): number {
-    return this.issues.filter((i) => i.task_state === "open").length;
+    return this.issues.filter((i) => i.task_state === 'open').length;
   }
 
   inProgressNum(): number {
-    return this.issues.filter((i) => i.task_state === "in progress").length;
+    return this.issues.filter((i) => i.task_state === 'in progress').length;
   }
 
   inReviewNum(): number {
-    return this.issues.filter((i) => i.task_state === "in review").length;
+    return this.issues.filter((i) => i.task_state === 'in review').length;
   }
 
   doneNum(): number {
-    return this.issues.filter((i) => i.task_state === "done").length;
+    return this.issues.filter((i) => i.task_state === 'done').length;
   }
 
   openedNum(): number {
@@ -201,30 +338,30 @@ export class InsightsComponent implements OnInit {
   }
 
   isUsersTask(task: Task, username: string): boolean {
-    return task.assignee.user.username === username;
+    return task.assignee ? task.assignee.user.username === username : false;
   }
 
   createdByUse(username: string): number {
     return this.issues.filter(
-      (i) => i.task_state === "open" && this.isUsersTask(i, username)
+      (i) => i.task_state === 'open' && this.isUsersTask(i, username)
     ).length;
   }
 
   inProgressByUse(username: string): number {
     return this.issues.filter(
-      (i) => i.task_state === "in progress" && this.isUsersTask(i, username)
+      (i) => i.task_state === 'in progress' && this.isUsersTask(i, username)
     ).length;
   }
 
   inReviewByUse(username: string): number {
     return this.issues.filter(
-      (i) => i.task_state === "in review" && this.isUsersTask(i, username)
+      (i) => i.task_state === 'in review' && this.isUsersTask(i, username)
     ).length;
   }
 
   doneByUse(username: string): number {
     return this.issues.filter(
-      (i) => i.task_state === "done" && this.isUsersTask(i, username)
+      (i) => i.task_state === 'done' && this.isUsersTask(i, username)
     ).length;
   }
 
@@ -236,5 +373,45 @@ export class InsightsComponent implements OnInit {
   closedByUse(username: string): number {
     return this.issues.filter((i) => !i.opened && this.isUsersTask(i, username))
       .length;
+  }
+
+  chartMilestones() {
+    this.milestoneService.getStatistic(this.projectId).subscribe(
+      (data) => {
+        this.milestonesTasks = {
+          // tslint:disable-next-line:no-string-literal
+          series: data['series'],
+          chart: {
+            type: 'bar',
+            height: 430
+          },
+          plotOptions: {
+            bar: {
+              horizontal: true,
+              dataLabels: {
+                position: 'top'
+              }
+            }
+          },
+          dataLabels: {
+            enabled: true,
+            offsetX: -6,
+            style: {
+              fontSize: '12px',
+              colors: ['#fff']
+            }
+          },
+          stroke: {
+            show: true,
+            width: 1,
+            colors: ['#fff']
+          },
+          xaxis: {
+            // tslint:disable-next-line:no-string-literal
+            categories: data['categories']
+          }
+        };
+      }
+    );
   }
 }
