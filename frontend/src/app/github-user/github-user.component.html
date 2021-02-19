@@ -7,6 +7,13 @@
       </div>
     </div>
 
+    <div class="invisible-container">
+      <div class="invisible-container-left"></div>
+      <div class="invisible-container-right">
+        <button class="button green" (click)="addTeam()">New Team</button>
+      </div>
+    </div>
+
     <div class="issues-container">
       <div class="issues-header">
         <div class="issues-left-header">
@@ -19,8 +26,8 @@
   
       <div class="milestone" *ngFor="let project of projects">
         <div class="milestone-left">
-          <div href="#" class="milestone-heading">
-            <div class="issue-heading" (click)="details(project.id)">
+          <div class="milestone-heading">
+            <div class="issue-heading">
               {{ project.name }}
               <button class="button gray" (click)="deleteProject(project)">Delete</button>
             </div>

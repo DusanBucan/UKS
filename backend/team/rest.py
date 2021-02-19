@@ -25,7 +25,8 @@ class TeamList(APIView):
         serializer = CreateTeamSerializer(data=request.data)
         if serializer.is_valid():
             team = serializer.save()
-            # project.users.add(request.user.profile)
+            team.git_users.add(request.user.profile)
+            team.save()
             return Response("Team successfully added.", status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -63,15 +64,9 @@ def api_team_detail(request, pk):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def api_add_project_team(request, projName, id):
-    print("id")
-    #print(id)
-    print(projName)
+
     project = Project.objects.get(name=projName)
-    print("project name")
-    print(project.name)
     team = Team.objects.get(id=id)
-    print("team name")
-    print(team.name)
     team.projects.add(project)
     team.save()
     return Response({'Project succesfully added to team.'}, status=status.HTTP_404_NOT_FOUND,
