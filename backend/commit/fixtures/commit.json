@@ -1,0 +1,26 @@
+[
+    {
+    "fields": {
+      "date": "2021-01-04T08:43:57.419Z",
+      "summary": "this is our first commit",
+      "description": "added init commit for project",
+      "hash": "pbkdf2_sha256$216000$1yZJoabL7pZy$X7MKF+aAUhDIyU1/DKD4Tmnig42IAz/C72ej5KkZ35I=",
+      "project": 1,
+      "user": 1
+    },
+    "model": "commit.commit",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "date": "2021-01-02T08:43:57.419Z",
+      "summary": "this is our second commit",
+      "description": "added init commit for project by user 2",
+      "hash": "pbkdf2_sha256$216000$1yZJoabL7pZy$X7MKF+aAUhDIyU1/DKD4Tmnig42IAz/C72ej5KkZ35I=",
+      "project": 1,
+      "user": 2
+    },
+    "model": "commit.commit",
+    "pk": 2
+  }
+]
