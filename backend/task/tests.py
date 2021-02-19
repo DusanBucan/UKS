@@ -28,8 +28,6 @@ class TestUgovoriApi(TestCase):
     def setUp(self) -> None:
         self.token = f'Bearer {get_jwt_token()}'
 
-
-
     def test_api_get_tasks(self):
         c = Client()
         response = c.get('/api/tasks/', HTTP_AUTHORIZATION=self.token,
@@ -153,7 +151,7 @@ class TestUgovoriApi(TestCase):
             content_type='application/json', HTTP_AUTHORIZATION=self.token
         )
         res_obj = json.loads(response.content.decode('UTF-8'))
-        self.assertEquals(len(res_obj), 0)
+        self.assertEquals(len(res_obj), 1)
 
     def test_api_tasks_by_project(self):
         c = Client()
