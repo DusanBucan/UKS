@@ -11,7 +11,7 @@ import { CommitService } from 'src/app/services/commit.service';
 export class NewCommitComponent implements OnInit {
 
   public id: string;
-  public commit: CommitRequest = {date: '', hash: '', summary: '', description: '', project: 0, user: 1 };
+  public commit: CommitRequest = {date: '', hash: '', summary: '', description: '', project: 0, user: 0 };
   constructor(private commitService: CommitService,
               private router: Router,
               private route: ActivatedRoute) { }

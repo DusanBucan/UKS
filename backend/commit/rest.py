@@ -8,6 +8,7 @@ from commit.serializers import *
 
 @api_view(['POST'])
 def api_commit_new(request):
+    request.data['user'] = request.user.id
     serializer = CreateCommitSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
