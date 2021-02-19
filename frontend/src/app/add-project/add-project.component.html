@@ -8,11 +8,11 @@
     <div class="new-milestone-container">
       <div class="form-style-milestone">
 
-        <div class="form-label">Name</div>
+        <div class="form-label"><h3>Name</h3></div>
         <input type="text" class="form-input" [(ngModel)]="project.name"/> 
 
     
-        <div class="label-st" style="margin-top: 20px">Labels</div>
+        <div class="form-label"><h3>Labels</h3></div>
         <div
           class="dropdown-item"
           *ngFor="let label of labels"
@@ -38,7 +38,7 @@
           </div>
         </div>
 
-        <div class="form-label">Users</div>
+        <div class="form-label"><h3>Users</h3></div>
         <p>Enter first name</p>
         <input type="string" class="form-input" [(ngModel)]="first_name"/> 
         <p>Enter last name</p>
@@ -66,10 +66,38 @@
             </div>
            
           </div>
-        </div>
+          <div class="form-label"><h3>Add team</h3></div>
+    
+          <div class="milestone" *ngFor="let team of teams">
+            <div class="milestone-left">
+              <div >
+                <div>
+                  {{ team.name }}
+                  <button class="button gray" (click)="addTeam(team)">Add</button>
+                </div>
+    
+              </div>
+            </div>
+          </div>
+        
 
-        <br>
        
+        <div class="label-st" style="margin-top: 20px">Added Teams</div>
+        <div
+          class="dropdown-item"
+          *ngFor="let team of this.added_teams"
+          (click)="removeTeam(team)"
+        >
+       
+          <div class="dropdown-content">
+          
+            {{ team.name }} 
+            
+            <button class="button gray" (click)="removeTeam(team)">Remove</button>
+          </div>
+         
+        </div>
+      </div>
 
         
     </div>

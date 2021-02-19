@@ -1,1 +1,60 @@
-<p>team works!</p>
+
+<div class="main-container">
+    <div class="invisible-container">
+      <div class="invisible-container-left" style="width: 50%">
+        <h3>New Team</h3>
+      </div>
+    </div>
+    <div class="new-milestone-container">
+      <div class="form-style-milestone">
+
+        <div class="form-label">Name</div>
+        <input type="text" class="form-input" [(ngModel)]="team.name"/> 
+
+    
+        <div class="form-label">Users</div>
+        <p>Enter first name</p>
+        <input type="string" class="form-input" [(ngModel)]="first_name"/> 
+        <p>Enter last name</p>
+        <input type="string" class="form-input" [(ngModel)]="last_name"/>
+
+       
+
+        <div class="invisible-container">
+            <div class="invisible-container-left"></div>
+            <div class="invisible-container-left">
+              <button class="button gray" (click)="add()">Add</button>
+            </div>
+          </div>
+
+          <div class="label-st" style="margin-top: 20px">Added Users</div>
+          <div
+            class="dropdown-item"
+            *ngFor="let github_user of this.added_users"
+            (click)="removeUser(user.id)"
+          >
+              <p>heeh</p>
+            <div class="dropdown-content">
+            
+              {{ github_user.user.first_name }} {{ github_user.user.last_name }}   <button class="button gray" (click)="remove(github_user)">Remove</button>
+            </div>
+           
+          </div>
+
+       
+
+        <br>
+
+        <div class="invisible-container">
+          <div class="invisible-container-left"></div>
+          <div class="invisible-container-right">
+            <button class="button green" (click)="create()">Add project</button>
+          </div>
+        </div>
+       
+
+        
+    </div>
+   
+  </div>
+  

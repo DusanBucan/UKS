@@ -21,6 +21,7 @@ import { WikiComponent } from './wiki/wiki.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { InsightsComponent } from './insights/insights.component';
 import { AddProjectComponent } from './add-project/add-project.component';
+import { TeamComponent } from './team/team.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
   {
     path: 'add-project',
     component: AddProjectComponent,
+  },
+  {
+    path: 'add-team',
+    component: TeamComponent,
   },
   {
     path: 'dashboard',

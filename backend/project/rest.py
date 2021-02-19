@@ -10,9 +10,9 @@ from project.serializers import *
 
 def get_queryset_projects(request):
     if request.user.is_staff:
-        return Project.objects.all()
+        return Project.objects.filter(deleted=False)
     github_user = request.user.profile
-    return Project.objects.filter(users_id=github_user.id)
+    return Project.objects.filter(users_id=github_user.id, deleted=False)
 
 
 class ProjectList(APIView):
@@ -29,6 +29,7 @@ class ProjectList(APIView):
             project = serializer.save()
             user = GitHubUser.objects.get(id=request.user.id)
             project.users.add(user)
+            project.save()
             return Response("Project successfully added.", status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -65,7 +66,7 @@ def api_project_detail(request, pk):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def api_projects_by_user(request):
-    projects = Project.objects.filter(users__in=[request.user.id])
+    projects = Project.objects.filter(users__in=[request.user.id], deleted=False)
     return Response(ProjectSerializer(projects, many=True).data)
 
 

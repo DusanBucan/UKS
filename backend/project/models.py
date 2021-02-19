@@ -6,7 +6,7 @@ from label.models import Label
 
 
 class Project(models.Model):
-    name = models.CharField('name', max_length=500)
+    name = models.CharField(max_length=500)
     labels = models.ManyToManyField(Label)
     users = models.ManyToManyField(GitHubUser, verbose_name='users')
     deleted = models.BooleanField(default=False)
