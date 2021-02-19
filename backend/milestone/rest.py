@@ -1,6 +1,5 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import JsonResponse
 
@@ -10,11 +9,14 @@ from task.models import Task
 
 @api_view(['POST'])
 def api_milestone_new(request):
-    serializer = CreateMilestoneSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response('Milestone successfully added.', status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, content_type="application/json")
+    try:
+        serializer = CreateMilestoneSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response('Milestone successfully added.', status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, content_type="application/json")
+    except Project.DoesNotExist as ex:
+        return Response("Project does not exist", status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['GET'])
@@ -38,8 +40,7 @@ def api_milestone_detail(request, pk):
         return Response({'error': 'Invalid or missing object id'}, status=status.HTTP_404_NOT_FOUND,
                         content_type="application/json")
     elif request.method == 'DELETE':
-        milestone.deleted = True
-        milestone.save()
+        milestone.delete()
         return Response({'success': 'Milestone successfully deleted'}, status=status.HTTP_200_OK)
 
     serializer = CreateMilestoneSerializer(milestone, data=request.data)

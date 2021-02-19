@@ -17,7 +17,6 @@ def get_queryset_projects(request):
 
 class ProjectList(APIView):
 
-
     def get(self, request, format=None):
         projects = get_queryset_projects(request)
         serializer = ProjectSerializer(projects, many=True)
@@ -28,8 +27,7 @@ class ProjectList(APIView):
         serializer = CreateProjectSerializer(data=request.data)
         if serializer.is_valid():
             project = serializer.save()
-            print(request.user.id)
-            user=GitHubUser.objects.get(id=request.user.id)
+            user = GitHubUser.objects.get(id=request.user.id)
             project.users.add(user)
             return Response("Project successfully added.", status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -67,7 +65,6 @@ def api_project_detail(request, pk):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def api_projects_by_user(request):
-    print("USER ",request.user.id)
     projects = Project.objects.filter(users__in=[request.user.id])
     return Response(ProjectSerializer(projects, many=True).data)
 
