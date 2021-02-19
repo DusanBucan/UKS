@@ -1,15 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { GithubUser } from "../model/github_user";
-import { Team } from "../model/team";
-import { Project } from "../model/project";
-import { GithubUserService } from "../services/github-user.service";
-import { ProjectService } from "../services/project.service";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { GithubUser } from '../model/github_user';
+import { Team } from '../model/team';
+import { Project } from '../model/project';
+import { GithubUserService } from '../services/github-user.service';
+import { ProjectService } from '../services/project.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: "app-github-user",
-  templateUrl: "./github-user.component.html",
-  styleUrls: ["./github-user.component.css"],
+  selector: 'app-github-user',
+  templateUrl: './github-user.component.html',
+  styleUrls: ['./github-user.component.css'],
 })
 export class GithubUserComponent implements OnInit {
   private loggedUser: GithubUser;
@@ -36,7 +36,7 @@ export class GithubUserComponent implements OnInit {
         }
       },
       (error) => {
-        alert("ERROR");
+        alert('ERROR');
       }
     );
   }
@@ -47,7 +47,7 @@ export class GithubUserComponent implements OnInit {
         this.projects = data;
       },
       () => {
-        alert("ERROR");
+        alert('ERROR');
       }
     );
   }
@@ -60,12 +60,12 @@ export class GithubUserComponent implements OnInit {
         }
       },
       (error) => {
-        alert("ERROR");
+        alert('ERROR');
       }
     );
   }
 
   details(id: string) {
-    this.router.navigate(["/dashboard/home/" + id + "/" + id + "/issues"]);
+    this.router.navigate(['/dashboard/home/' + id + '/' + id + '/issues']);
   }
 }

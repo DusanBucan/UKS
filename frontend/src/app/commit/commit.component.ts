@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Commit } from '../model/commit';
+import { GithubUser } from '../model/github_user';
 import { CommitService } from '../services/commit.service';
+import { ProjectService } from '../services/project.service';
 
 @Component({
   selector: 'app-commit',
@@ -12,19 +14,17 @@ export class CommitComponent implements OnInit {
   public id: string;
   public commits: Commit[] = [];
 
+  orders =  [{id: 1, name: 'Newest'}, {id: 2, name: 'Oldest'}];
+  users: GithubUser[] = [];
   private dropdownType = {
     unselected: 'UNSELECTED',
-    filter: 'FILTER',
     author: 'AUTHOR',
-    label: 'LABEL',
-    project: 'PROJECT',
-    milestone: 'MILESTONE',
-    assignee: 'ASSIGNEE',
     sort: 'SORT',
   };
 
   private dropdownSelected = '';
   constructor(private router: Router,
+              private projectService: ProjectService,
               private commitService: CommitService,
               private route: ActivatedRoute) {}
 
@@ -35,11 +35,15 @@ export class CommitComponent implements OnInit {
         this.commits = data;
       }
     );
+    this.projectService.getUsersByProject(this.id).subscribe(
+      (data: GithubUser[]) => {
+        this.users = data;
+      }
+    );
   }
 
   selectDropdown(select: string) {
     this.dropdownSelected = select;
-    console.log(this.dropdownSelected);
   }
 
   new() {
@@ -49,4 +53,22 @@ export class CommitComponent implements OnInit {
   details(id: string) {
     this.router.navigate(['dashboard/home/' + this.id + '/' + this.id + '/commit-details/' + id]);
   }
+
+  filterAuthor(id: number): void {
+   this.commitService.getCommitsByUserAndProject(id, this.id).subscribe(
+     (data: Commit[]) => {
+       this.commits = data;
+       this.dropdownSelected = 'UNSELECTED';
+     }
+   );
+  }
+  filterOrder(order: number): void {
+    this.commitService.getCommitsByOrderAndProject(order, this.id).subscribe(
+      (data: Commit[]) => {
+        this.commits = data;
+        this.dropdownSelected = 'UNSELECTED';
+      }
+    );
+  }
+
 }
