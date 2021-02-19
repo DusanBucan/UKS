@@ -62,7 +62,7 @@ export class GithubUserComponent implements OnInit {
         }
       },
       (error) => {
-        alert('ERROR');
+ 
       }
     );
   }
@@ -76,12 +76,18 @@ export class GithubUserComponent implements OnInit {
     this.router.navigate(["/add-project"]);
   }
 
+  addTeam(){
+    this.router.navigate(["/add-team"]);
+  }
+
   deleteTeam(team){
     console.log(team);
     this.teamService.deleteTeam(team.id).subscribe(
       (response) => {
         if (response !== null) {
-         alert('Successfully deleted');
+      
+         this.router.navigate(["/dashboard/profile"])
+         location.reload();
         }
       },
       (error) => {
@@ -94,7 +100,8 @@ export class GithubUserComponent implements OnInit {
     this.projectService.deleteProject(project.id).subscribe(
       (response) => {
         if (response !== null) {
-         alert('Successfully deleted');
+          this.router.navigate(["/dashboard/profile"])
+          location.reload();
         }
       },
       (error) => {

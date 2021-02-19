@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { GithubUser } from '../model/github_user';
 import { Team } from '../model/team';
 import { GithubUserService } from '../services/github-user.service';
@@ -18,7 +19,7 @@ export class TeamComponent implements OnInit {
   public last_name="";
   public github_user : GithubUser;
 
-  constructor(private teamService : TeamService, private githubUserService : GithubUserService) { }
+  constructor(private teamService : TeamService, private githubUserService : GithubUserService, private router:Router) { }
 
   ngOnInit() {
   }
@@ -52,6 +53,7 @@ export class TeamComponent implements OnInit {
           this.team.git_users.push(github_user.id);
         }
         alert('team successfuly added')
+        this.router.navigate(["/dashboard/profile"])
   
       },
       (error) => {

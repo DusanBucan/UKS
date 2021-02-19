@@ -46,7 +46,7 @@ export class AddProjectComponent implements OnInit {
         }
       },
       (error) => {
-        alert('ERROR');
+
       }
     );
   }
@@ -97,7 +97,7 @@ export class AddProjectComponent implements OnInit {
         
               },
               (error) => {
-              
+                this.router.navigate(["/dashboard/profile"])
               }
             );
           }
@@ -124,7 +124,6 @@ export class AddProjectComponent implements OnInit {
         this.first_name="";
         this.last_name="";
 
-        alert(this.project.users.length);
       },
       (error) => {
         alert('User does not exist');
