@@ -27,28 +27,6 @@
     </div>
     <div class="right-form">
       <div class="left-form-content">
-        <div class="label-st" style="margin-bottom: 10px">Assignee</div>
-        <div
-          *ngFor="let user of users"
-          class="dropdown-item"
-          (click)="handleAssigneeClick(user.id)"
-        >
-          <div class="dropdown-content">
-            {{ user.user.username }}
-          </div>
-          <div
-            *ngIf="isAssigneeSelected(user.id)"
-            style="
-              width: 100%;
-              display: flex;
-              margin-right: 10px;
-              justify-content: flex-end;
-            "
-          >
-            <img src="../../assets/checked.svg" height="20" />
-          </div>
-        </div>
-
         <div class="label-st" style="margin-top: 20px">Milestone</div>
         <div
           class="dropdown-item"
