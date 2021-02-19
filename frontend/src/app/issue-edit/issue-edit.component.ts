@@ -59,6 +59,7 @@ export class IssueEditComponent implements OnInit {
         labels: task.labels.map((l) => l.id),
         assignee: task.assignee ? task.assignee.id : 0,
       };
+      this.milestoneID = task.milestones[0].id;
     });
   }
 

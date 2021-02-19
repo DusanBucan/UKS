@@ -33,7 +33,7 @@ class TestUgovoriApi(TestCase):
                          content_type=JSON)
         self.assertEquals(response.status_code, 200)
         res_obj = json.loads(response.content.decode('UTF-8'))
-        self.assertEquals(len(res_obj), 2)
+        self.assertEquals(len(res_obj), 6)
 
 
     def test_api_get_github_user_by_id(self):

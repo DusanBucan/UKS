@@ -34,5 +34,77 @@
     },
     "model": "auth.user",
     "pk": 2
+  },
+   {
+    "fields": {
+      "date_joined": "2021-01-02T08:43:57.419Z",
+      "email": "dusanbzr@gmail.com",
+      "first_name": "Dusan",
+      "groups": [],
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "last_login": "2021-01-02T08:44:31.008Z",
+      "last_name": "Bucan",
+      "password": "pbkdf2_sha256$216000$1yZJoabL7pZy$X7MKF+aAUhDIyU1/DKD4Tmnig42IAz/C72ej5KkZ35I=",
+      "user_permissions": [],
+      "username": "dusanB"
+    },
+    "model": "auth.user",
+    "pk": 3
+  },
+     {
+    "fields": {
+      "date_joined": "2021-01-02T08:43:57.419Z",
+      "email": "travica@gmail.com",
+      "first_name": "Milica",
+      "groups": [],
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "last_login": "2021-01-02T08:44:31.008Z",
+      "last_name": "Travica",
+      "password": "pbkdf2_sha256$216000$1yZJoabL7pZy$X7MKF+aAUhDIyU1/DKD4Tmnig42IAz/C72ej5KkZ35I=",
+      "user_permissions": [],
+      "username": "travaa"
+    },
+    "model": "auth.user",
+    "pk": 4
+  },
+     {
+    "fields": {
+      "date_joined": "2021-01-02T08:43:57.419Z",
+      "email": "sonja@gmail.com",
+      "first_name": "Sonja",
+      "groups": [],
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "last_login": "2021-01-02T08:44:31.008Z",
+      "last_name": "Josanov",
+      "password": "pbkdf2_sha256$216000$1yZJoabL7pZy$X7MKF+aAUhDIyU1/DKD4Tmnig42IAz/C72ej5KkZ35I=",
+      "user_permissions": [],
+      "username": "sonjica"
+    },
+    "model": "auth.user",
+    "pk": 5
+  },
+       {
+    "fields": {
+      "date_joined": "2021-01-02T08:43:57.419Z",
+      "email": "leona@gmail.com",
+      "first_name": "Leona",
+      "groups": [],
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "last_login": "2021-01-02T08:44:31.008Z",
+      "last_name": "Nedeljkovic",
+      "password": "pbkdf2_sha256$216000$1yZJoabL7pZy$X7MKF+aAUhDIyU1/DKD4Tmnig42IAz/C72ej5KkZ35I=",
+      "user_permissions": [],
+      "username": "leon"
+    },
+    "model": "auth.user",
+    "pk": 6
   }
 ]
