@@ -5,6 +5,7 @@ import { Project } from '../model/project';
 import { GithubUserService } from '../services/github-user.service';
 import { LabelService } from '../services/label.service';
 import { ProjectService } from '../services/project.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-project',
@@ -23,7 +24,7 @@ export class AddProjectComponent implements OnInit {
 
   public github_user : GithubUser;
   
-  constructor(private labelsService: LabelService, private projectService: ProjectService, private githubUserService : GithubUserService) { }
+  constructor(private labelsService: LabelService, private projectService: ProjectService, private githubUserService : GithubUserService, private router:Router) { }
 
   ngOnInit() {
     this.loadLabels();
@@ -61,6 +62,7 @@ export class AddProjectComponent implements OnInit {
           this.project.users.push(github_user.id);
         }
         alert('project successfuly added')
+        this.router.navigate(["/dashboard/profile"])
   
       },
       (error) => {

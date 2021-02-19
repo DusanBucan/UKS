@@ -30,7 +30,7 @@ class GithubUserList(APIView):
 def api_github_user_detail(request, pk):
     try:
         github_user = GitHubUser.objects.get(id=pk)
-    except (KeyError, GithubUserList.DoesNotExist) as ex:
+    except (KeyError, GitHubUser.DoesNotExist) as ex:
         return Response({'error': 'invalid or missing object id'}, status=status.HTTP_404_NOT_FOUND,
                         content_type="application/json")
     if request.method == 'GET':

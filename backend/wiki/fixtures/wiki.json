@@ -1,0 +1,11 @@
+[
+  {
+    "fields": {
+      "id": 1,
+      "project": 1,
+      "text": "wiki"
+    },
+    "model": "wiki.wiki",
+    "pk": 1
+  }
+]

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  // url: 'http://192.168.49.2:30010/'   // zakomentarisati ga ako se ne pokrece kubernetes
+ // url: "http://192.168.49.2:30010/"   // zakomentarisati ga ako se ne pokrece kubernetes   
   url: 'http://localhost:8000/',
 };
 

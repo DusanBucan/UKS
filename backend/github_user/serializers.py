@@ -31,7 +31,7 @@ class GitHubUserSerializer(serializers.ModelSerializer):
             photo = validated_data['photo'],
             github_profile_url = validated_data['github_profile_url'],
             organization = validated_data['organization'],
-            member_since = datetime.datetime.now(),
+            member_since = timezone.now(),
             skype = validated_data['skype'],
             twitter=validated_data['twitter'],
             linkedin=validated_data['linkedin']
