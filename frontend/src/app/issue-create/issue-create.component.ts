@@ -1,18 +1,18 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { GithubUser } from "../model/github_user";
-import { Label } from "../model/label";
-import { Milestone } from "../model/milestone";
-import { TaskRequest } from "../request/task";
-import { GithubUserService } from "../services/github-user.service";
-import { MilestoneService } from "../services/milestone.service";
-import { ProjectService } from "../services/project.service";
-import { TaskService } from "../services/task.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GithubUser } from '../model/github_user';
+import { Label } from '../model/label';
+import { Milestone } from '../model/milestone';
+import { TaskRequest } from '../request/task';
+import { GithubUserService } from '../services/github-user.service';
+import { MilestoneService } from '../services/milestone.service';
+import { ProjectService } from '../services/project.service';
+import { TaskService } from '../services/task.service';
 
 @Component({
-  selector: "app-issue-create",
-  templateUrl: "./issue-create.component.html",
-  styleUrls: ["./issue-create.component.css"],
+  selector: 'app-issue-create',
+  templateUrl: './issue-create.component.html',
+  styleUrls: ['./issue-create.component.css'],
 })
 export class IssueCreateComponent implements OnInit {
   public id: string;
@@ -20,13 +20,13 @@ export class IssueCreateComponent implements OnInit {
   private loggedUser: GithubUser;
   private labels: Label[] = [];
   private milestones: Milestone[] = [];
-  private milestoneID: number = 0;
+  private milestoneID = 0;
   private newTask: TaskRequest = {
-    title: "",
-    description: "",
-    due_date: "",
+    title: '',
+    description: '',
+    due_date: '',
     opened: true,
-    task_state: "open",
+    task_state: 'open',
     project: 0,
     labels: [],
     milestones: [],
@@ -59,7 +59,7 @@ export class IssueCreateComponent implements OnInit {
         }
       },
       (error) => {
-        alert("ERROR");
+        alert('ERROR');
       }
     );
   }
@@ -72,7 +72,7 @@ export class IssueCreateComponent implements OnInit {
         }
       },
       (error) => {
-        alert("ERROR" + error);
+        alert('ERROR' + error);
       }
     );
   }
@@ -85,7 +85,7 @@ export class IssueCreateComponent implements OnInit {
         }
       },
       (error) => {
-        alert("ERROR" + error);
+        alert('ERROR' + error);
       }
     );
   }
@@ -99,7 +99,7 @@ export class IssueCreateComponent implements OnInit {
         }
       },
       (error) => {
-        alert("ERROR" + error);
+        alert('ERROR' + error);
       }
     );
   }
@@ -151,18 +151,18 @@ export class IssueCreateComponent implements OnInit {
       this.taskService.createTask(this.newTask).subscribe(
         (response) => {
           if (response !== null) {
-            alert("Issue Successfuly added!");
+            alert('Issue Successfuly added!');
             this.router.navigate([
-              "dashboard/home/" + this.id + "/" + this.id + "/issues",
+              'dashboard/home/' + this.id + '/' + this.id + '/issues',
             ]);
           }
         },
         (error) => {
-          alert("ERROR" + error);
+          alert('ERROR' + error);
         }
       );
     } else {
-      alert("Please fill the form properly before adding issue");
+      alert('Please fill the form properly before adding issue');
     }
   }
 }

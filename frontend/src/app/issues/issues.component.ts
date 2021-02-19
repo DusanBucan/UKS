@@ -1,31 +1,31 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { GithubUser } from "../model/github_user";
-import { Label } from "../model/label";
-import { Task } from "../model/task";
-import { GithubUserService } from "../services/github-user.service";
-import { LabelService } from "../services/label.service";
-import { ProjectService } from "../services/project.service";
-import { TaskService } from "../services/task.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GithubUser } from '../model/github_user';
+import { Label } from '../model/label';
+import { Task } from '../model/task';
+import { GithubUserService } from '../services/github-user.service';
+import { LabelService } from '../services/label.service';
+import { ProjectService } from '../services/project.service';
+import { TaskService } from '../services/task.service';
 
 @Component({
-  selector: "app-issues",
-  templateUrl: "./issues.component.html",
-  styleUrls: ["./issues.component.css"],
+  selector: 'app-issues',
+  templateUrl: './issues.component.html',
+  styleUrls: ['./issues.component.css'],
 })
 export class IssuesComponent implements OnInit {
   public id: string;
   private dropdownType = {
-    unselected: "UNSELECTED",
-    filter: "FILTER",
-    author: "AUTHOR",
-    label: "LABEL",
-    project: "PROJECT",
-    milestone: "MILESTONE",
-    assignee: "ASSIGNEE",
-    sort: "SORT",
+    unselected: 'UNSELECTED',
+    filter: 'FILTER',
+    author: 'AUTHOR',
+    label: 'LABEL',
+    project: 'PROJECT',
+    milestone: 'MILESTONE',
+    assignee: 'ASSIGNEE',
+    sort: 'SORT',
   };
-  private dropdownSelected = "";
+  private dropdownSelected = '';
   private issues: Task[] = [];
   private users: GithubUser[] = [];
   private labels: Label[] = [];
@@ -56,7 +56,7 @@ export class IssuesComponent implements OnInit {
         }
       },
       (error) => {
-        alert("ERROR" + error);
+        alert('ERROR' + error);
       }
     );
   }
@@ -69,7 +69,7 @@ export class IssuesComponent implements OnInit {
         }
       },
       (error) => {
-        alert("ERROR" + error);
+        alert('ERROR' + error);
       }
     );
   }
@@ -82,7 +82,7 @@ export class IssuesComponent implements OnInit {
         }
       },
       (error) => {
-        alert("ERROR" + error);
+        alert('ERROR' + error);
       }
     );
   }
@@ -111,28 +111,28 @@ export class IssuesComponent implements OnInit {
   }
 
   filterIssues(
-    criteria: "open" | "in progress" | "in review" | "closed" | "all"
+    criteria: 'open' | 'in progress' | 'in review' | 'closed' | 'all'
   ): void {
-    if (criteria === "all") {
+    if (criteria === 'all') {
       this.issues = this.storedIssues;
     } else {
       this.issues = this.storedIssues.filter((i) => i.task_state === criteria);
     }
-    this.selectDropdown("");
+    this.selectDropdown('');
   }
 
   filterAssignee(username: string): void {
     this.issues = this.storedIssues.filter(
       (i) => i.assignee && i.assignee.user.username === username
     );
-    this.selectDropdown("");
+    this.selectDropdown('');
   }
 
   filterAuthor(username: string): void {
     this.issues = this.storedIssues.filter(
       (i) => i.author.user.username === username
     );
-    this.selectDropdown("");
+    this.selectDropdown('');
   }
 
   filterLabel(title: string): void {
@@ -143,13 +143,13 @@ export class IssuesComponent implements OnInit {
 
   newIssue() {
     this.router.navigate([
-      "dashboard/home/" + this.id + "/" + this.id + "/issue-create",
+      'dashboard/home/' + this.id + '/' + this.id + '/issue-create',
     ]);
   }
 
   editIssue(task: Task) {
     this.router.navigate([
-      "dashboard/home/" + this.id + "/" + this.id + "/issue-edit/" + task.id,
+      'dashboard/home/' + this.id + '/' + this.id + '/issue-edit/' + task.id,
     ]);
   }
 }
