@@ -9,8 +9,7 @@
     </div>
 
     <div class="menu-header">User Insights</div>
-    <div class="menu-item">Option 1</div>
-    <div class="menu-item">Option 2</div>
+    <div class="menu-item" (click)="chooseChoice(selectChoice.commits)">Pulse</div>
 
     <div class="menu-header">Milestone Insights</div>
     <div class="menu-item">Option 1</div>
@@ -75,5 +74,21 @@
         </div>
       </div>
     </div>
+    <div *ngIf="selectedChoice === selectChoice.commits">
+      <div id="chart">
+          <apx-chart
+          [series]="commitsUsers.series"
+          [chart]="commitsUsers.chart"
+          [dataLabels]="commitsUsers.dataLabels"
+          [plotOptions]="commitsUsers.plotOptions"
+          [yaxis]="commitsUsers.yaxis"
+          [xaxis]="commitsUsers.xaxis"
+          [legend]="commitsUsers.legend"
+          [colors]="commitsUsers.colors"
+          [grid]="commitsUsers.grid"
+        ></apx-chart>
+      </div>
+    </div>
+
   </div>
 </div>
