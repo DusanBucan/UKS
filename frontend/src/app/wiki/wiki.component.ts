@@ -60,8 +60,11 @@ export class WikiComponent implements OnInit {
     uploadWithCredentials: false,
     sanitize: true,
     toolbarPosition: 'top',
-    toolbarHiddenButtons: [
-      ['customClasses', 'insertImage']
+    toolbarHiddenButtons: [ ['justifyLeft',
+    'justifyCenter',
+    'justifyRight',
+    'justifyFull'],
+      ['backgroundColor','customClasses', 'insertImage']
     ]
 };
   constructor(
@@ -77,6 +80,7 @@ export class WikiComponent implements OnInit {
       description: [this.text, [Validators.required,
         Validators.maxLength(1000), Validators.minLength(1)]]
   });
+    
   }
 
   getProjectWiki() {

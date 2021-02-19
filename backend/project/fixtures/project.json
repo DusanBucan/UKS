@@ -3,7 +3,7 @@
     "fields": {
       "name": "Project One",
       "labels": [1,2,3],
-      "users": [1]
+      "users": [1, 2]
 
     },
     "model": "project.project",
