@@ -41,10 +41,6 @@ services:
   frontEnd:
     container_name: myapp_web_frontebd
     image: myapp_web_frontend:latest
-    volumes:
-      - ./static:/code/app/static #must be same as nginx!
-    logging:
-      driver: "json-file"
     depends_on:
       - backEnd
     ports:
