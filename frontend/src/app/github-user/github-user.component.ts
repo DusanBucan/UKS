@@ -5,6 +5,7 @@ import { Project } from '../model/project';
 import { GithubUserService } from '../services/github-user.service';
 import { ProjectService } from '../services/project.service';
 import { Router } from '@angular/router';
+import { TeamService } from '../services/team.service';
 
 @Component({
   selector: 'app-github-user',
@@ -16,16 +17,17 @@ export class GithubUserComponent implements OnInit {
   private teams: Team[] = [];
   private projects: Project[] = [];
 
-  constructor(
-    private router: Router,
-    private githubUserService: GithubUserService,
-    private projectService: ProjectService
-  ) {}
+
+
+  constructor(private router: Router,
+              private githubUserService: GithubUserService,
+              private projectService: ProjectService, private teamService : TeamService) { }
+
 
   ngOnInit() {
     this.getLoggedIn();
     this.getProjects();
-    // this.getTeams();
+    this.getTeams();
   }
 
   getLoggedIn() {
@@ -53,14 +55,14 @@ export class GithubUserComponent implements OnInit {
   }
 
   getTeams() {
-    this.githubUserService.getUsersTeams().subscribe(
+    this.teamService.getTeams().subscribe(
       (response) => {
         if (response !== null) {
           this.teams = response;
         }
       },
       (error) => {
-        alert('ERROR');
+ 
       }
     );
   }
@@ -69,7 +71,44 @@ export class GithubUserComponent implements OnInit {
     this.router.navigate(['/dashboard/home/' + id + '/' + id + '/issues']);
   }
 
+
   addProject(){
     this.router.navigate(["/add-project"]);
   }
+
+  addTeam(){
+    this.router.navigate(["/add-team"]);
+  }
+
+  deleteTeam(team){
+    console.log(team);
+    this.teamService.deleteTeam(team.id).subscribe(
+      (response) => {
+        if (response !== null) {
+      
+         this.router.navigate(["/dashboard/profile"])
+         location.reload();
+        }
+      },
+      (error) => {
+        alert('ERROR');
+      }
+    );
+  }
+
+  deleteProject(project){
+    this.projectService.deleteProject(project.id).subscribe(
+      (response) => {
+        if (response !== null) {
+          this.router.navigate(["/dashboard/profile"])
+          location.reload();
+        }
+      },
+      (error) => {
+        alert('ERROR');
+      }
+    );
+  }
+
+
 }
