@@ -138,6 +138,27 @@
           </div>
         </div>
 
+        <div class="label-st" style="margin-top: 20px">Milestone</div>
+        <div
+          class="dropdown-item"
+          *ngFor="let milestone of milestones"
+          (click)="handleMilestoneClick(milestone.id)"
+        >
+          <div class="dropdown-content">
+            {{ milestone.title }}
+          </div>
+          <div
+            *ngIf="isMilestoneSelected(milestone.id)"
+            style="
+              width: 100%;
+              display: flex;
+              margin-right: 10px;
+              justify-content: flex-end;
+            "
+          >
+            <img src="../../assets/checked.svg" height="20" />
+          </div>
+        </div>
 
         <div class="label-st" style="margin-top: 20px">Labels</div>
         <div

@@ -10,7 +10,9 @@
       <div class="issues-left-header">
         <div class="issues-left-header-info">
           <img src="../../assets/milestone.svg" height="20" />
-          <a href="#" class="issues-header-item active">{{milestones.length}} Milestones</a>
+          <a href="#" class="issues-header-item active"
+            >{{ milestones.length }} Milestones</a
+          >
         </div>
       </div>
     </div>
@@ -18,7 +20,7 @@
     <div class="milestone" *ngFor="let milestone of milestones">
       <div class="milestone-left">
         <div class="milestone-heading">
-          <div class="issue-heading" (click)="details(milestone.id)">
+          <div class="milestone-title" (click)="details(milestone.id)">
             {{ milestone.title }}
           </div>
         </div>
@@ -35,12 +37,13 @@
       </div>
       <div class="milestone-right">
         <div class="milestone-right-row">
-          <div class="milestone-stats">
-          </div>
+          <div class="milestone-stats"></div>
         </div>
         <div class="milestone-right-row">
           <button class="edit-link" (click)="edit(milestone.id)">Edit</button>
-          <button class="delete-link" (click)="delete(milestone.id)">Delete</button>
+          <button class="delete-link" (click)="delete(milestone.id)">
+            Delete
+          </button>
         </div>
       </div>
     </div>
