@@ -7,7 +7,6 @@ metadata:
 spec:
   type: NodePort
   ports:
-    # the port that this service should serve on
   - port: 4200
     targetPort: 4200
     nodePort: 30007 #da bi uvek bio na ovom..

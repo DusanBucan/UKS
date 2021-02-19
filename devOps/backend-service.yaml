@@ -7,7 +7,6 @@ metadata:
 spec:
   type: NodePort
   ports:
-    # the port that this service should serve on
   - port: 8000
     targetPort: 8000
     nodePort: 30010
