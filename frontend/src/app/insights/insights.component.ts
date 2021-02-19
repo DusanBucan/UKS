@@ -5,6 +5,10 @@ import { GithubUser } from "../model/github_user";
 import { Task } from "../model/task";
 import { GithubUserService } from "../services/github-user.service";
 import { TaskService } from "../services/task.service";
+import { Commit } from '../model/commit';
+import { ActivatedRoute } from '@angular/router';
+import { ProjectService } from '../services/project.service';
+import { CommitService } from '../services/commit.service';
 
 @Component({
   selector: "app-insights",
@@ -15,28 +19,41 @@ export class InsightsComponent implements OnInit {
   @ViewChild("chart", { static: false, read: "" }) chart: ChartComponent;
   public tasksStateChart: Partial<any> = {};
   public taskOpenedChart: Partial<any> = {};
+  public commitsUsers: Partial<any>={};
   private issues: Task[] = [];
   private users: GithubUser[] = [];
   private usersStateInsights: any[] = [];
   private usersOpenedInsights: any[] = [];
+  private projectUsers: GithubUser[]=[];
+  private commits: Commit[]=[];
+  private projectId: string;
 
   private selectChoice = {
     issuesGeneral: "ISSUES_GENERAL",
     issuesByUser: "ISSUES_BY_USER",
+    commits: "COMMITS",
   };
   private selectedChoice: string = "ISSUES_GENERAL";
 
   ngOnInit() {
+    this.projectId = this.route.snapshot.params.projectId;
     this.loadTasks();
+    this.loadProject();
   }
 
   constructor(
     private taskService: TaskService,
-    private userService: GithubUserService
+    private userService: GithubUserService,
+    private route: ActivatedRoute,
+    private projectService: ProjectService,
+    private commitService: CommitService
   ) {}
 
   chooseChoice(choice: string) {
     this.selectedChoice = choice;
+    if(this.selectedChoice=="COMMITS"){
+      this.chartCommits();
+    }
   }
 
   loadTasks() {
@@ -176,6 +193,117 @@ export class InsightsComponent implements OnInit {
     };
   }
 
+  loadProject(){
+    this.projectService
+    .getUsersByProject(this.projectId)
+    .subscribe((data: GithubUser[]) => {
+      this.projectUsers = data;
+    });
+
+    this.commitService
+    .getCommitByProjectId(this.projectId)
+    .subscribe((data: Commit[]) => {
+      this.commits = data;
+    });
+
+  }
+
+  chartCommits(){
+    var values = this.getCommits();
+    var first = values[0];
+    var second = values[1];
+    this.commitsUsers = {
+      series: [
+        {
+          name: "distibuted",
+          data: first
+        }
+      ],
+      chart: {
+        height: 550,
+        type: "bar",
+        events: {
+          click: function(chart, w, e) {
+            // console.log(chart, w, e)
+          }
+        }
+      },
+      colors: [
+        "#008FFB",
+        "#00E396",
+        "#FEB019",
+        "#FF4560",
+        "#775DD0",
+        "#546E7A",
+        "#26a69a",
+        "#D10CE8"
+      ],
+      plotOptions: {
+        bar: {
+          columnWidth: "65%",
+          distributed: true
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      legend: {
+        show: false
+      },
+      grid: {
+        show: false
+      },
+      xaxis: {
+        categories: second,
+        labels: {
+          style: {
+            colors: [
+              "#008FFB",
+              "#00E396",
+              "#FEB019",
+              "#FF4560",
+              "#775DD0",
+              "#546E7A",
+              "#26a69a",
+              "#D10CE8"
+            ],
+            fontSize: "18px"
+          }
+        }
+      }
+    };
+  }
+
+  getUsernames(){
+    var usernames = [];
+    for(var i = 0; i< this.projectUsers.length;i++){
+      usernames[i]=this.projectUsers[i].user.username;
+    }
+    return usernames;
+  }
+
+  getCommits(){
+    var commits = [];
+    var usernames = this.getUsernames();
+    for(var j = 0; j<usernames.length;j++){
+        commits[j] = this.commits.filter((i) =>i.user.user.username === usernames[j] ).length
+    }
+    for(let i = 0; i < commits.length; i++) {
+      for(let j = 0; j < commits.length - 1; j++) {
+
+          if(commits[j] < commits[j + 1]) {
+              let swap = commits[j];
+              commits[j] = commits[j + 1];
+              commits[j + 1] = swap;
+              let swap2 = usernames[j];
+              usernames[j] = usernames[j + 1];
+              usernames[j + 1] = swap2;
+          }
+      }
+    }
+    return [commits,usernames];
+  }
+
   createdNum(): number {
     return this.issues.filter((i) => i.task_state === "open").length;
   }
@@ -201,7 +329,7 @@ export class InsightsComponent implements OnInit {
   }
 
   isUsersTask(task: Task, username: string): boolean {
-    return task.assignee.user.username === username;
+    return task.assignee ? task.assignee.user.username === username : false;
   }
 
   createdByUse(username: string): number {
