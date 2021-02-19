@@ -18,7 +18,8 @@ Nakon instalacije i pokretanja klastera potrebno je resurse iz foldera devOps (s
 Za upotrebu jenkinsa potrebno je instalirati i podesiti verzije za plugine:
 - Docker build and push
 - Deploy to kubernetes
-kao i kreirati freeStyle project sa fazama:
+
+Nakon instalacije plugina kreirati freeStyle project sa fazama:
 - SCM poll na ovaj github: https://github.com/DusanBucan/UKS.git
 - Docker build and push fazu za backend servis
 - Docker build and push fazu za frontend servis
