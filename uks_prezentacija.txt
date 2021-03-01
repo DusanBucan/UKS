@@ -1,0 +1,68 @@
+UKS
+
+Uvod
+
+Po specifikaciji projekta pravili smo aplikaciju koja je klon gitHub-a.
+Aplikacija se sastoji iz 2 odvojene aplikacije, odnosno imamo frontEnd aplikacij realizovanu u Angular-u i backEnd aplikaciju u Django rest framework-u.
+Ukratko cemo objasniti model uz pomoc klas dijagrama. Imamo osnovu klasu User koju nasledjuje GithubUser.
+Na frontu je podrzana registracija i logovanje korisnika koji je predstavljen klasom GithubUser.
+User klasa sadrzi osnovne podatke o korisniku kao i podatke neophodne za autentifikaciju korisnika.
+GithubUser moze da kreira Projekte i timove.
+
+Unutar samog projekta korisnik moze da kreira:
+komite, taskove(koji su zapravo Issue), da kreirai ili edituje wiki stranicu projekta, milestonove, labele.
+
+Task(u nastavku Issue) moze biti zatvoren i otvoren, a pored toga ima 4 stanja (Created, In Progress, In Review i Done) na osnovu kojih se odredjuje u 
+kojoj kartici na tabli ce biti. Omoguceno je izlistavnje svih Issua jednog projekta, takodje prikazani su u tabli u odgovarajucoj kartici u zavisnosti od stanja.
+Moguca je pretraga issua-a po Assignee-u, Author-u ili Labeli. Pri kreiranju novog Issue-a zadaju se naziv, opis, krajnji datum, a mogu se odabrati i Labele i Milestone sto je opciono.
+Kada se Issue update-uje, moguce je dodeliti mu Assignee-a i izmeniti mi stanje, informaciju o tome da li je Opened ili Closed.
+
+Labele se koriste za oznacavanje Issue kako bi se lakse razlikovali i kako bi se korisnici lakse snalazili na tabli sa velikim brojem issue-a.
+
+Wiki stranica je sastavni deo svakog projekta i ona ukratko objasnjava cilj projekta, osnove komponente, koriscene tehnologije ali predstavlja
+i polaznu tacku razumevanja projekta za nove clanove tima koji dolaze da rade na projektu. kao neka vrsta deljenja znanja.
+
+Milestone - postoji mogucnost dodavanja novih, izmena i brisanje postojicih milestonova, kao i pregled svih milestonova u okviru projekta. Podaci koje je neophodno definisati su naziv, 
+krajnji rok i opis. U okviru jednom milestona moze se naci vise issua. Da bi se issuu dodelio milestone potrebno je editovati issue. Prilikom prikaza detalja o jednom 
+milestonu mogu se videt i svi njegovi issui.
+
+Commit - postoji mogucnost rucnog dodavanja komita, kao i pregled svih komita. Podaci koje je neophodno uneti su sazetak (summary), opisa, vreme kada je komit nastao, hash.
+
+Statisticki podaci
+Uradjeni su dijagrami za Issue gde vidimo statistike o tome koliko imamo Issue-a u svakom stanju na nivou celog projekta,
+a takodje mozemo videti i statistike o Issue-ima svakog korisnika (gledaju se issue-i koji su mu assign-ovani).
+
+Dijagram komita omogucava pregled broja komitova unutar projekta za korisnike koji rade na projektu.
+
+Dijagram taskova u okviru majlstonova, omogucava pregeled broja otvorenih i zatvorenih taskova u okviru milsestonva unutara projekta.
+
+Testiranje
+
+Uradjeni su integracioni testovi za svaki api poziv, testovi se pokrecu pre uvodjenja promena na develop granu.
+Svaka testna klasa nasledjuje testCase i koristimo client klasu za slanje rest poziva.
+uz pomoc fixtures smo dodavali podatke u testnu bazu.
+
+
+Arhihtektura sistema
+Za kraj prosao bih kroz arhikturu sistema na kojoj je aplikacija podignuta.
+Aplikacija je lokalno podignuta na jednom racunaru. Koriscen je docker za kreiranje kontejnera,
+a kubernetes za orekstraciju tih kontenera. Uz pomoc Jenkinsa je realizivana kontinualna integracija
+i kontinualno uvodjenje u dev okruzenje. Na slici se mogu videti koraci pipeline-a od promene na gitu do
+uvodjenja samih promena. 
+
+Rad sa gitom
+Za svaku funkcionalnost najpre je kreran issue u fazi planiranja koji je dodeljen u odrednjeni milestone, kao i korisnik koji ce radi na tom issue.
+Labela su oznaceni issue-i. Labele koje smo koristi su front, back, devOps, test..
+Tabla u kartici Project je koriscena kao tabla za prikaz stanja razvoja aplikacije, odnosno koje funkcionalnosti su uradjene, na kojima se trenutno radi i na kojima ce se raditi.
+Funkcionalnosti su implementirane na feature granama koje su nakon zavrsetka implementacije funkcionalnisti spojene na develop granu preko pull request-a. 
+
+Nakon implementacije svih issue-a kreirana je grana release-1.0 koja predstavlja stabilno stanje aplikacije, takodje develop grana je spojena na main.
+
+
+biblioteke:
+- front:
+  - angular-chart-demos za dijagrame (statistiku)
+  - ng-apexcharts (statistika)
+  - @kolkov/angular-editor za wiki stranicu
+- back:
+  - 

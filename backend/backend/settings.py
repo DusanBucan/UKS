@@ -170,5 +170,5 @@ CORS_ORIGIN_REGEX_WHITELIST = [
     'http://192.168.49.2:30007'
 ]
 
-ALLOWED_HOSTS = ['192.168.49.2', 'localhost']
+ALLOWED_HOSTS = ['192.168.49.2', 'localhost',"*", "back-service-sv"]
 

@@ -7,7 +7,24 @@
 Na slici ispod je prikazana arhitektura klastera na kojem podigunta aplikacija kao i automatski proces uvodjenja <br> 
 nove verzije aplikacije nakon izmena na develop grani.<br>
 Krajnji korisnik moze da pristupi aplikaciji preko linka http://192.168.49.2:30007/
-![alt text](https://github.com/DusanBucan/UKS/blob/doc_cluster/devOps/UKS_arh.jpeg)
+![alt text](https://github.com/DusanBucan/UKS/blob/doc_cluster/devOps/UKS_arh2.jpeg)
+
+### Unapredjenje u release2.0
+- **Zamenjen Dockerfile za frontend tako da se angular aplikacija izbilda
+i dodao kao skup statickih fajlova na nginx-alpine.**
+
+- **Nginx-alpine je konfigurisan da:**
+  -  za defaultnu rutu vraca index.html koji je angularov index.html 
+  - da za putanje /apii/ radi reverse_proxy na backend-service-svc koji pogadja 
+  Django aplikaciju
+
+- **moguca su dalja unapredjenja konfiguracijom nginx servera:**
+  - ssl
+  - kesiranje sadrzaja
+    - iako se sada front servira kao staticki sadrzaj sa nginx
+    - mogu odgovori backend-a da se hesiraju npr (dobavljanje svih labela ili tako nesto
+    sto se ne menja cesto)
+  - ....
 
 ### Pokretanje klastera lokalno
 Potrebno je instalirati:

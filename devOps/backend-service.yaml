@@ -5,11 +5,8 @@ metadata:
   labels:
     app: back-service-sv
 spec:
-  type: NodePort
   ports:
   - port: 8000
     targetPort: 8000
-    nodePort: 30010
-  
   selector:
     app: back-service
